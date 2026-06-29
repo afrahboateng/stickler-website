@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stickler — Off-Market Real Estate Investment Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Libre+Baskerville:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0A1628;
+    --navy-2: #0F1E35;
+    --navy-3: #162540;
+    --navy-4: #1C2E4E;
+    --navy-5: #243558;
+    --gold: #B8922A;
+    --gold-light: #D4AC4A;
+    --gold-pale: #F5EDD8;
+    --white: #FFFFFF;
+    --off-white: #F7F6F3;
+    --text: #1A1A1A;
+    --text-muted: #5A6070;
+    --text-dim: #8A8F9A;
+    --border: #E2E4E8;
+    --border-dark: rgba(255,255,255,0.1);
+    --radius: 2px;
+    --radius-lg: 4px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--white);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6%;
+    height: 72px;
+    background: var(--navy);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--white);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+  }
+
+  .nav-logo span {
+    color: var(--gold-light);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+
+  .nav-cta {
+    background: transparent !important;
+    color: var(--gold-light) !important;
+    border: 1px solid var(--gold) !important;
+    padding: 8px 24px !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    transition: all 0.2s !important;
+  }
+  .nav-cta:hover {
+    background: var(--gold) !important;
+    color: var(--navy) !important;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 140px 6% 100px;
+  }
+
+  .hero-rule {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 6%;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, rgba(184,146,42,0.4) 30%, rgba(184,146,42,0.4) 70%, transparent);
+  }
+
+  .hero-content {
+    position: relative;
+    max-width: 820px;
+    padding-left: 48px;
+  }
+
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 32px;
+  }
+
+  .hero-eyebrow-line {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(44px, 5.5vw, 80px);
+    font-weight: 400;
+    line-height: 1.06;
+    color: var(--white);
+    margin-bottom: 32px;
+    letter-spacing: -0.01em;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero-body {
+    font-size: 17px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.55);
+    max-width: 500px;
+    line-height: 1.75;
+    margin-bottom: 52px;
+    letter-spacing: 0.01em;
+  }
+
+  .hero-ctas {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    text-decoration: none;
+    transition: background 0.2s;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary:hover { background: var(--gold-light); }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .btn-outline:hover {
+    border-color: rgba(255,255,255,0.5);
+    color: var(--white);
+  }
+
+  .hero-stats {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    border-left: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .hero-stat {
+    padding: 28px 48px;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .hero-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--gold-light);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .hero-stat-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 100px 6%;
+  }
+
+  .section-eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .section-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(30px, 3.5vw, 50px);
+    font-weight: 400;
+    line-height: 1.12;
+    color: var(--navy);
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  h2 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .section-lead {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--text-muted);
+    max-width: 520px;
+    line-height: 1.75;
+    margin-bottom: 64px;
+  }
+
+  /* HOW IT WORKS */
+  .how-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: start;
+  }
+
+  .steps-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .step {
+    display: flex;
+    gap: 28px;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .step:first-child { padding-top: 0; border-top: 1px solid var(--border); }
+
+  .step-num {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 11px;
+    font-style: italic;
+    color: var(--gold);
+    min-width: 24px;
+    padding-top: 3px;
+  }
+
+  .step-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 8px;
+    letter-spacing: 0.01em;
+  }
+
+  .step-body {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* INTELLIGENCE CARD */
+  .intel-card {
+    border: 1px solid var(--border);
+    background: var(--off-white);
+  }
+
+  .intel-card-header {
+    background: var(--navy);
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .intel-card-title {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .intel-card-badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    border: 1px solid var(--gold);
+    padding: 4px 12px;
+  }
+
+  .intel-card-body {
+    padding: 24px;
+  }
+
+  .intel-score-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 16px;
+    padding-bottom: 24px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .intel-score-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 64px;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1;
+  }
+
+  .intel-score-label {
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding-bottom: 8px;
+  }
+
+  .intel-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .intel-row:last-child { border-bottom: none; }
+
+  .intel-row-label {
+    color: var(--text-muted);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+
+  .intel-row-value {
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .intel-row-value.positive { color: #1A6B3A; }
+  .intel-row-value.gold { color: var(--gold); }
+
+  .intel-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .intel-tag {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--navy);
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 5px 12px;
+  }
+
+  /* PHASES - NAVY BACKGROUND */
+  .phases-section {
+    background: var(--navy);
+    padding: 100px 6%;
+  }
+
+  .phases-section .section-eyebrow { color: var(--gold-light); }
+  .phases-section .section-eyebrow::before { background: var(--gold-light); }
+  .phases-section h2 { color: var(--white); }
+  .phases-section h2 em { color: var(--gold-light); }
+  .phases-section .section-lead { color: rgba(255,255,255,0.45); }
+
+  .phases-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .phase-card {
+    padding: 36px 28px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+  }
+  .phase-card:last-child { border-right: none; }
+
+  .phase-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gold);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .phase-card:hover::before { opacity: 1; }
+
+  .phase-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    font-style: italic;
+    color: var(--gold);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .phase-tag {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .phase-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 14px;
+    line-height: 1.25;
+  }
+
+  .phase-body {
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .phase-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .phase-features li {
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    letter-spacing: 0.02em;
+  }
+
+  .phase-features li::before {
+    content: '—';
+    color: var(--gold);
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+
+  /* AUDIENCE */
+  .audience-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 64px;
+  }
+
+  .audience-card {
+    background: var(--white);
+    padding: 44px 40px;
+    transition: background 0.2s;
+  }
+  .audience-card:hover { background: var(--off-white); }
+
+  .audience-num {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 11px;
+    font-style: italic;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .audience-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--navy);
+    margin-bottom: 14px;
+    line-height: 1.2;
+  }
+
+  .audience-body {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+
+  /* THESIS */
+  .thesis-section {
+    background: var(--off-white);
+    padding: 100px 6%;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .thesis-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: start;
+  }
+
+  .thesis-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 48px;
+  }
+
+  .thesis-stat {
+    background: var(--white);
+    padding: 32px 28px;
+  }
+
+  .thesis-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .thesis-stat-label {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .thesis-points {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--border);
+  }
+
+  .thesis-point {
+    padding: 28px 32px;
+    border-bottom: 1px solid var(--border);
+    border-left: 3px solid transparent;
+    transition: border-left-color 0.2s, background 0.2s;
+  }
+  .thesis-point:last-child { border-bottom: none; }
+  .thesis-point:hover {
+    border-left-color: var(--gold);
+    background: var(--white);
+  }
+
+  .thesis-point-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 8px;
+    letter-spacing: 0.01em;
+  }
+
+  .thesis-point-body {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* DEMO CTA */
+  .demo-section {
+    background: var(--navy);
+    padding: 120px 6%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .demo-section::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 300px;
+    background: radial-gradient(ellipse, rgba(184,146,42,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .demo-section h2 {
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+
+  .demo-section h2 em { color: var(--gold-light); }
+
+  .demo-section .section-lead {
+    color: rgba(255,255,255,0.45);
+    margin: 0 auto 48px;
+  }
+
+  .demo-section .section-eyebrow {
+    justify-content: center;
+    color: var(--gold-light);
+  }
+  .demo-section .section-eyebrow::before { background: var(--gold-light); }
+
+  .demo-ctas {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10,22,40,0.92);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.active { display: flex; }
+
+  .modal-box {
+    background: var(--white);
+    max-width: 560px;
+    width: 100%;
+    position: relative;
+  }
+
+  .modal-header {
+    background: var(--navy);
+    padding: 28px 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .modal-header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--white);
+    font-weight: 400;
+  }
+
+  .modal-close {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.4);
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0;
+    line-height: 1;
+  }
+  .modal-close:hover { color: var(--white); }
+
+  .modal-body {
+    padding: 36px;
+  }
+
+  .modal-desc {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+
+  .mockup-screens {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .mockup-screen {
+    background: var(--off-white);
+    border: 1px solid var(--border);
+    padding: 16px;
+  }
+
+  .mockup-screen-title {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .mockup-bar {
+    height: 7px;
+    background: var(--border);
+    margin-bottom: 6px;
+  }
+  .mockup-bar.navy { background: rgba(10,22,40,0.15); width: 70%; }
+  .mockup-bar.gold { background: rgba(184,146,42,0.25); width: 55%; }
+  .mockup-bar.short { width: 45%; }
+  .mockup-bar.long { width: 85%; }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    padding: 64px 6% 40px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 60px;
+    padding-bottom: 60px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .footer-brand .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--white);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 14px;
+  }
+
+  .footer-brand .footer-logo span { color: var(--gold-light); }
+
+  .footer-tagline {
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.7;
+  }
+
+  .footer-nav-col h4 {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 20px;
+  }
+
+  .footer-nav-col a {
+    display: block;
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .footer-nav-col a:hover { color: var(--white); }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.04em;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 960px) {
+    .how-inner, .thesis-inner { grid-template-columns: 1fr; gap: 48px; }
+    .phases-grid { grid-template-columns: 1fr 1fr; }
+    .audience-grid { grid-template-columns: 1fr; }
+    .hero-stats { display: none; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    nav .nav-links { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    .phases-grid { grid-template-columns: 1fr; }
+    .thesis-stats { grid-template-columns: 1fr; }
+    .mockup-screens { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+    .hero-content { padding-left: 24px; }
+    .demo-ctas { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Stickler<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#how-it-works">Platform</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#who-we-serve">Investors</a></li>
+    <li><a href="#thesis">Thesis</a></li>
+    <li><a href="#demo" class="nav-cta">Request access</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-rule"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-line"></span>
+      Off-market residential investment platform
+    </div>
+    <h1>The infrastructure layer for <em>serious</em> real estate capital</h1>
+    <p class="hero-body">Stickler connects motivated sellers with qualified cash investors through AI-powered deal intelligence — from sourcing to close, faster and with greater certainty than any channel in the market today.</p>
+    <div class="hero-ctas">
+      <a href="#how-it-works" class="btn-primary">Explore the platform</a>
+      <button class="btn-outline" onclick="openDemo()">View demo</button>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">$1T+</div>
+      <div class="hero-stat-label">Off-market TAM</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">7 yr</div>
+      <div class="hero-stat-label">Build horizon</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">4</div>
+      <div class="hero-stat-label">Phases</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how-it-works">
+  <div class="section-eyebrow">The platform</div>
+  <h2>From intake to close — <em>one workflow</em></h2>
+  <p class="section-lead">Every touchpoint of an off-market transaction unified into a single intelligent system, optimized for speed, trust, and capital deployment.</p>
+
+  <div class="how-inner">
+    <div class="steps-list">
+      <div class="step">
+        <div class="step-num">i.</div>
+        <div>
+          <div class="step-title">Seller submits a property</div>
+          <div class="step-body">Motivated sellers enter through Stickler's intake platform. Automated communication workflows and document verification prepare the deal at intake speed — no manual back-and-forth.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">ii.</div>
+        <div>
+          <div class="step-title">AI scores the deal instantly</div>
+          <div class="step-body">The AI Property Intelligence Engine computes ARV, repair cost estimates, equity position, and a deal quality score — replacing weeks of due diligence with seconds of automated analysis.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">iii.</div>
+        <div>
+          <div class="step-title">Matched to verified buyers</div>
+          <div class="step-body">The matching algorithm surfaces the opportunity to qualified, verified cash investors whose acquisition criteria align precisely. No cold outreach. No wasted capital or time.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">iv.</div>
+        <div>
+          <div class="step-title">Close in a digital deal room</div>
+          <div class="step-body">Offers, negotiations, contracts, and closing coordination happen inside one unified experience. Every counterparty knows exactly where the deal stands, in real time.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="intel-card">
+      <div class="intel-card-header">
+        <span class="intel-card-title">Deal intelligence report</span>
+        <span class="intel-card-badge">Strong buy</span>
+      </div>
+      <div class="intel-card-body">
+        <div class="intel-score-row">
+          <div class="intel-score-num">84</div>
+          <div class="intel-score-label">Deal score / 100</div>
+        </div>
+        <div class="intel-row">
+          <span class="intel-row-label">Estimated ARV</span>
+          <span class="intel-row-value gold">$342,000</span>
+        </div>
+        <div class="intel-row">
+          <span class="intel-row-label">Equity position</span>
+          <span class="intel-row-value positive">$87,400</span>
+        </div>
+        <div class="intel-row">
+          <span class="intel-row-label">Repair estimate</span>
+          <span class="intel-row-value">$24,200</span>
+        </div>
+        <div class="intel-row">
+          <span class="intel-row-label">Projected return</span>
+          <span class="intel-row-value positive">31.4%</span>
+        </div>
+        <div class="intel-row">
+          <span class="intel-row-label">Neighborhood risk</span>
+          <span class="intel-row-value positive">Low</span>
+        </div>
+        <div class="intel-row">
+          <span class="intel-row-label">Verified buyers matched</span>
+          <span class="intel-row-value">3 investors</span>
+        </div>
+        <div class="intel-tags">
+          <span class="intel-tag">Docs verified</span>
+          <span class="intel-tag">Deal room open</span>
+          <span class="intel-tag">Capital ready</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section id="roadmap" class="phases-section">
+  <div class="section-eyebrow">Product roadmap</div>
+  <h2>Marketplace to <em>operating system</em></h2>
+  <p class="section-lead">A four-phase, seven-year build sequence. Each phase creates the preconditions for the next — compounding data, network effects, and revenue at every layer.</p>
+
+  <div class="phases-grid">
+    <div class="phase-card">
+      <span class="phase-num">Phase i.</span>
+      <span class="phase-tag">0 – 12 months</span>
+      <div class="phase-title">Marketplace Foundation</div>
+      <p class="phase-body">Build the irreducible core: connected marketplace where motivated sellers and qualified cash buyers transact with confidence, faster than any traditional channel.</p>
+      <ul class="phase-features">
+        <li>Seller acquisition platform</li>
+        <li>AI property intelligence engine</li>
+        <li>Verified buyer marketplace</li>
+        <li>Transaction management</li>
+      </ul>
+    </div>
+
+    <div class="phase-card">
+      <span class="phase-num">Phase ii.</span>
+      <span class="phase-tag">12 – 24 months</span>
+      <div class="phase-title">Network Effects</div>
+      <p class="phase-body">Scale liquidity until the flywheel is self-sustaining. More participants create better matches — and better matches attract more participants.</p>
+      <ul class="phase-features">
+        <li>Intelligent matching engine</li>
+        <li>Buyer operating system</li>
+        <li>Seller experience dashboard</li>
+        <li>Proprietary data platform</li>
+      </ul>
+    </div>
+
+    <div class="phase-card">
+      <span class="phase-num">Phase iii.</span>
+      <span class="phase-tag">24 – 48 months</span>
+      <div class="phase-title">Financial Infrastructure</div>
+      <p class="phase-body">Integrate lending, title, settlement, and insurance into the transaction workflow. The move that transforms marketplace into platform — and platform into infrastructure.</p>
+      <ul class="phase-features">
+        <li>Integrated financing marketplace</li>
+        <li>Institutional capital network</li>
+        <li>Title & settlement workflow</li>
+        <li>Closing automation</li>
+      </ul>
+    </div>
+
+    <div class="phase-card">
+      <span class="phase-num">Phase iv.</span>
+      <span class="phase-tag">4 – 7 years</span>
+      <div class="phase-title">Real Estate OS</div>
+      <p class="phase-body">Become the operating system for the entire off-market residential ecosystem — the layer every agent, investor, lender, and institution depends on to operate.</p>
+      <ul class="phase-features">
+        <li>AI real estate agent layer</li>
+        <li>Marketplace intelligence network</li>
+        <li>Developer & enterprise platform</li>
+        <li>Open API ecosystem</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- WHO WE SERVE -->
+<section id="who-we-serve">
+  <div class="section-eyebrow">Who we serve</div>
+  <h2>Built for both sides of the <em>transaction</em></h2>
+  <p class="section-lead">Stickler gives sellers the certainty they need and investors the deal flow they can't find anywhere else.</p>
+
+  <div class="audience-grid">
+    <div class="audience-card">
+      <span class="audience-num">01.</span>
+      <div class="audience-title">Cash buyers & investors</div>
+      <p class="audience-body">Fix-and-flip investors and landlords gain access to pre-scored, verified off-market deals matched to their acquisition criteria — with AI deal analysis, portfolio management, and a direct path to closing.</p>
+    </div>
+    <div class="audience-card">
+      <span class="audience-num">02.</span>
+      <div class="audience-title">Motivated sellers</div>
+      <p class="audience-body">Homeowners, listing agents, and wholesalers who need a fast, certain close. Stickler provides credible offer context, real-time transaction updates, and a closing timeline they can rely on.</p>
+    </div>
+    <div class="audience-card">
+      <span class="audience-num">03.</span>
+      <div class="audience-title">Capital partners & lenders</div>
+      <p class="audience-body">Institutional lenders gain a new distribution channel: pre-qualified, data-rich deal flow from investors ready to execute. Faster decisions, better underwriting data, superior performance outcomes.</p>
+    </div>
+    <div class="audience-card">
+      <span class="audience-num">04.</span>
+      <div class="audience-title">Developers & enterprise</div>
+      <p class="audience-body">In Phase IV, Stickler opens its infrastructure via open APIs and enterprise accounts — enabling external builders on the most comprehensive off-market transaction dataset in existence.</p>
+    </div>
+  </div>
+</section>
+
+<!-- THESIS -->
+<section id="thesis" class="thesis-section">
+  <div class="thesis-inner">
+    <div>
+      <div class="section-eyebrow">Investment thesis</div>
+      <h2>The largest untapped market in <em>real estate</em></h2>
+      <p class="section-lead">Off-market residential transactions represent the largest, most fragmented, and least digitized segment of the real estate market. No dominant platform player exists today.</p>
+
+      <div class="thesis-stats">
+        <div class="thesis-stat">
+          <div class="thesis-stat-num">$1T+</div>
+          <div class="thesis-stat-label">Annual off-market transaction volume in the US</div>
+        </div>
+        <div class="thesis-stat">
+          <div class="thesis-stat-num">7 yr</div>
+          <div class="thesis-stat-label">From launch to full operating system</div>
+        </div>
+        <div class="thesis-stat">
+          <div class="thesis-stat-num">4</div>
+          <div class="thesis-stat-label">Compounding build phases</div>
+        </div>
+        <div class="thesis-stat">
+          <div class="thesis-stat-num">0</div>
+          <div class="thesis-stat-label">Dominant platform players today</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="thesis-points">
+      <div class="thesis-point">
+        <div class="thesis-point-title">Data compounds over time</div>
+        <div class="thesis-point-body">Every transaction through Stickler makes the platform smarter and more valuable. By Phase IV, the core asset is the proprietary dataset and network — neither of which can be replicated by a new entrant regardless of capital invested.</div>
+      </div>
+      <div class="thesis-point">
+        <div class="thesis-point-title">Revenue stacks at every phase</div>
+        <div class="thesis-point-body">Transaction fees plus origination economics plus title plus insurance plus data licensing. Each service layer added increases revenue per transaction while simultaneously reducing friction — the rarest combination in marketplace design.</div>
+      </div>
+      <div class="thesis-point">
+        <div class="thesis-point-title">Network effects create the moat</div>
+        <div class="thesis-point-body">More buyers improve matching accuracy. More transactions build pricing intelligence. More satisfied sellers become referral sources. The platform doesn't just grow — it improves as it grows, compounding into a structural advantage no late entrant can bridge.</div>
+      </div>
+      <div class="thesis-point">
+        <div class="thesis-point-title">Category definition, not competition</div>
+        <div class="thesis-point-body">At full scale, Stickler is not competing with other marketplaces. It is the layer that all participants — agents, investors, lenders, servicers, and institutions — need to operate effectively.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO CTA -->
+<section id="demo" class="demo-section">
+  <div class="section-eyebrow">Get early access</div>
+  <h2>Request access to the <em>platform</em></h2>
+  <p class="section-lead">See the full deal flow — from seller intake and AI scoring to buyer matching and close.</p>
+  <div class="demo-ctas">
+    <button class="btn-primary" onclick="openDemo()">View platform demo</button>
+    <a href="mailto:hello@sticklerproperties.com" class="btn-outline">Contact the team</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="footer-logo">Stickler<span>.</span></a>
+      <p class="footer-tagline">From marketplace foundation to full real estate operating system.</p>
+    </div>
+    <div class="footer-nav-col">
+      <h4>Platform</h4>
+      <a href="#how-it-works">How it works</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#who-we-serve">Investors</a>
+    </div>
+    <div class="footer-nav-col">
+      <h4>Company</h4>
+      <a href="#thesis">About</a>
+      <a href="#demo">Request access</a>
+      <a href="mailto:hello@sticklerproperties.com">Contact</a>
+    </div>
+    <div class="footer-nav-col">
+      <h4>Legal</h4>
+      <a href="#">Privacy policy</a>
+      <a href="#">Terms of use</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Stickler. All rights reserved.</span>
+    <span>sticklerproperties.com</span>
+  </div>
+</footer>
+
+<!-- DEMO MODAL -->
+<div class="modal-overlay" id="demoModal" onclick="handleOverlayClick(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-header-title">Platform overview</span>
+      <button class="modal-close" onclick="closeDemo()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-desc">A walkthrough of the Stickler deal flow — from seller intake and AI scoring to buyer matching and close. Full interactive demo available on request.</p>
+
+      <div class="mockup-screens">
+        <div class="mockup-screen">
+          <div class="mockup-screen-title">Deal score</div>
+          <div class="mockup-bar navy"></div>
+          <div class="mockup-bar gold"></div>
+          <div class="mockup-bar short"></div>
+          <div class="mockup-bar long"></div>
+        </div>
+        <div class="mockup-screen">
+          <div class="mockup-screen-title">Buyer match</div>
+          <div class="mockup-bar long"></div>
+          <div class="mockup-bar navy"></div>
+          <div class="mockup-bar gold"></div>
+          <div class="mockup-bar short"></div>
+        </div>
+        <div class="mockup-screen">
+          <div class="mockup-screen-title">Deal room</div>
+          <div class="mockup-bar gold"></div>
+          <div class="mockup-bar navy"></div>
+          <div class="mockup-bar long"></div>
+        </div>
+        <div class="mockup-screen">
+          <div class="mockup-screen-title">Portfolio</div>
+          <div class="mockup-bar long"></div>
+          <div class="mockup-bar gold"></div>
+          <div class="mockup-bar navy"></div>
+        </div>
+      </div>
+
+      <a href="mailto:hello@sticklerproperties.com" class="btn-primary" style="width:100%; justify-content: center; text-decoration: none;">Request a full walkthrough</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openDemo() {
+    document.getElementById('demoModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDemo() {
+    document.getElementById('demoModal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('demoModal')) closeDemo();
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeDemo();
+  });
+</script>
+</body>
+</html>
