@@ -972,16 +972,9 @@
 
   .contact-inner {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 0;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 80px;
     align-items: start;
-  }
-
-  .contact-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    max-width: 720px;
   }
 
   .contact-info-block {
@@ -1572,6 +1565,21 @@
   <p class="section-lead">Request access to the platform or connect with the Stickler team directly.</p>
 
   <div class="contact-inner">
+    <div class="contact-info-block">
+      <div class="contact-info-item">
+        <div class="contact-info-label">Email</div>
+        <div class="contact-info-value">isaac@sticklerproperties.com</div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-info-label">Platform</div>
+        <div class="contact-info-value">sticklerproperties.com</div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-info-label">Based in</div>
+        <div class="contact-info-value">United States</div>
+      </div>
+    </div>
+
     <form class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleFormSubmit(event)">
       <input type="hidden" name="form-name" value="contact">
       <input type="hidden" name="bot-field" style="display:none">
