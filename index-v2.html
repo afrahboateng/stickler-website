@@ -4,33 +4,36 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Stickler — Off-Market Real Estate Investment Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Libre+Baskerville:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --navy: #000000;
-    --navy-2: #111111;
-    --navy-3: #1A1A1A;
-    --navy-4: #222222;
-    --navy-5: #2E2E2E;
-    --gold: #000000;
-    --gold-light: #000000;
-    --gold-pale: #F5F5F5;
+    --navy: #0A1628;
+    --navy-2: #0F1E35;
+    --navy-3: #162540;
+    --navy-4: #1C2E4E;
+    --navy-5: #243558;
+    --gold: #B8922A;
+    --gold-light: #D4AC4A;
+    --gold-pale: #F5EDD8;
     --white: #FFFFFF;
-    --off-white: #FFFFFF;
-    --text: #000000;
-    --text-muted: #000000;
-    --text-dim: #000000;
-    --border: #000000;
-    --border-dark: rgba(255,255,255,0.12);
-    --radius: 0px;
-    --radius-lg: 0px;
+    --off-white: #F7F6F3;
+    --text: #1A1A1A;
+    --text-muted: #5A6070;
+    --text-dim: #8A8F9A;
+    --border: #E2E4E8;
+    --border-dark: rgba(255,255,255,0.1);
+    --radius: 2px;
+    --radius-lg: 4px;
   }
 
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Inter', sans-serif;
     background: var(--white);
     color: var(--text);
     line-height: 1.6;
@@ -54,119 +57,40 @@
   }
 
   .nav-logo {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 16px;
-    font-weight: 400;
-    color: #FFFFFF;
-    background: #000000;
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--white);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+  }
+
+  .nav-logo span {
+    color: var(--gold-light);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.6);
     text-decoration: none;
     letter-spacing: 0.08em;
-    padding: 7px 16px;
-    border: 1px solid #FFFFFF;
     text-transform: uppercase;
-  }
-
-  .nav-logo span { color: #FFFFFF; }
-
-  /* Hamburger button */
-  .hamburger {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    width: 40px;
-    height: 40px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 6px;
-    z-index: 300;
-  }
-
-  .hamburger span {
-    display: block;
-    width: 24px;
-    height: 1.5px;
-    background: var(--white);
-    transition: all 0.25s ease;
-    transform-origin: center;
-  }
-
-  .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-  .hamburger.open span:nth-child(2) { opacity: 0; }
-  .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-  /* Full-screen menu overlay */
-  .nav-overlay {
-    position: fixed;
-    inset: 0;
-    background: var(--navy);
-    z-index: 200;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0 10%;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-  }
-
-  .nav-overlay.open {
-    opacity: 1;
-    pointer-events: all;
-  }
-
-  .nav-overlay-links {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .nav-overlay-links li {
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-  }
-  .nav-overlay-links li:first-child {
-    border-top: 1px solid rgba(255,255,255,0.1);
-  }
-
-  .nav-overlay-links a {
-    display: block;
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: clamp(28px, 4vw, 48px);
-    font-weight: 400;
-    color: rgba(255,255,255,0.7);
-    text-decoration: none;
-    padding: 24px 0;
-    letter-spacing: 0.01em;
     transition: color 0.2s;
   }
-  .nav-overlay-links a:hover { color: var(--white); }
-
-  .nav-overlay-sub {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.25);
-    margin-top: 48px;
-    margin-bottom: 16px;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-
-  .nav-overlay-contact a {
-    font-size: 13px;
-    color: rgba(255,255,255,0.4);
-    text-decoration: none;
-    transition: color 0.2s;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  .nav-overlay-contact a:hover { color: var(--white); }
+  .nav-links a:hover { color: var(--white); }
 
   .nav-cta {
     background: transparent !important;
-    color: var(--white) !important;
-    border: 1px solid rgba(255,255,255,0.4) !important;
+    color: var(--gold-light) !important;
+    border: 1px solid var(--gold) !important;
     padding: 8px 24px !important;
     font-size: 11px !important;
     font-weight: 600 !important;
@@ -175,7 +99,7 @@
     transition: all 0.2s !important;
   }
   .nav-cta:hover {
-    background: var(--white) !important;
+    background: var(--gold) !important;
     color: var(--navy) !important;
   }
 
@@ -196,7 +120,7 @@
     bottom: 0;
     left: 6%;
     width: 1px;
-    background: linear-gradient(180deg, transparent, rgba(255,255,255,0.15) 30%, rgba(255,255,255,0.15) 70%, transparent);
+    background: linear-gradient(180deg, transparent, rgba(184,146,42,0.4) 30%, rgba(184,146,42,0.4) 70%, transparent);
   }
 
   .hero-content {
@@ -213,7 +137,7 @@
     font-weight: 600;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--white);
+    color: var(--gold-light);
     margin-bottom: 32px;
   }
 
@@ -224,17 +148,18 @@
   }
 
   h1 {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: clamp(40px, 5vw, 74px);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(44px, 5.5vw, 80px);
     font-weight: 400;
-    line-height: 1.08;
+    line-height: 1.06;
     color: var(--white);
     margin-bottom: 32px;
     letter-spacing: -0.01em;
   }
 
   h1 em {
-    color: var(--white);
+    font-style: italic;
+    color: var(--gold-light);
   }
 
   .hero-body {
@@ -258,8 +183,8 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: var(--navy);
-    color: var(--white);
+    background: var(--gold);
+    color: var(--navy);
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.12em;
@@ -270,7 +195,7 @@
     border: none;
     cursor: pointer;
   }
-  .btn-primary:hover { background: #333333; }
+  .btn-primary:hover { background: var(--gold-light); }
 
   .btn-outline {
     display: inline-flex;
@@ -308,10 +233,10 @@
   }
 
   .hero-stat-num {
-    font-family: Georgia, 'Times New Roman', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 32px;
-    font-weight: 400;
-    color: var(--white);
+    font-weight: 600;
+    color: var(--gold-light);
     line-height: 1;
     margin-bottom: 6px;
   }
@@ -339,7 +264,7 @@
     font-weight: 600;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--white);
+    color: var(--gold);
     margin-bottom: 20px;
     display: flex;
     align-items: center;
@@ -351,12 +276,12 @@
     display: block;
     width: 32px;
     height: 1px;
-    background: #000000;
+    background: var(--gold);
   }
 
   h2 {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: clamp(28px, 3.2vw, 46px);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(30px, 3.5vw, 50px);
     font-weight: 400;
     line-height: 1.12;
     color: var(--navy);
@@ -365,7 +290,8 @@
   }
 
   h2 em {
-    color: var(--white);
+    font-style: italic;
+    color: var(--gold);
   }
 
   .section-lead {
@@ -394,14 +320,15 @@
     display: flex;
     gap: 28px;
     padding: 32px 0;
-    border-bottom: 1px solid #000000;
+    border-bottom: 1px solid var(--border);
   }
-  .step:first-child { padding-top: 0; border-top: 1px solid #000000; }
+  .step:first-child { padding-top: 0; border-top: 1px solid var(--border); }
 
   .step-num {
-    font-family: Georgia, 'Times New Roman', serif;
+    font-family: 'Libre Baskerville', serif;
     font-size: 11px;
-    color: var(--text-dim);
+    font-style: italic;
+    color: var(--gold);
     min-width: 24px;
     padding-top: 3px;
   }
@@ -424,7 +351,7 @@
   /* INTELLIGENCE CARD */
   .intel-card {
     border: 1px solid var(--border);
-    background: var(--white);
+    background: var(--off-white);
   }
 
   .intel-card-header {
@@ -448,7 +375,7 @@
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--white);
+    color: var(--gold-light);
     border: 1px solid var(--gold);
     padding: 4px 12px;
   }
@@ -463,13 +390,13 @@
     gap: 16px;
     padding-bottom: 24px;
     margin-bottom: 20px;
-    border-bottom: 1px solid #000000;
+    border-bottom: 1px solid var(--border);
   }
 
   .intel-score-num {
-    font-family: Georgia, 'Times New Roman', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 64px;
-    font-weight: 400;
+    font-weight: 600;
     color: var(--navy);
     line-height: 1;
   }
@@ -487,7 +414,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 0;
-    border-bottom: 1px solid #000000;
+    border-bottom: 1px solid var(--border);
     font-size: 13px;
   }
   .intel-row:last-child { border-bottom: none; }
@@ -503,7 +430,7 @@
     color: var(--navy);
   }
   .intel-row-value.positive { color: #1A6B3A; }
-  .intel-row-value.gold { color: var(--white); }
+  .intel-row-value.gold { color: var(--gold); }
 
   .intel-tags {
     display: flex;
@@ -511,7 +438,7 @@
     flex-wrap: wrap;
     margin-top: 20px;
     padding-top: 20px;
-    border-top: 1px solid #000000;
+    border-top: 1px solid var(--border);
   }
 
   .intel-tag {
@@ -521,7 +448,7 @@
     text-transform: uppercase;
     color: var(--navy);
     background: var(--white);
-    border: 1px solid #000000;
+    border: 1px solid var(--border);
     padding: 5px 12px;
   }
 
@@ -531,22 +458,22 @@
     padding: 100px 6%;
   }
 
-  .phases-section .section-eyebrow { color: var(--white); }
-  .phases-section .section-eyebrow::before { background: var(--white); }
+  .phases-section .section-eyebrow { color: var(--gold-light); }
+  .phases-section .section-eyebrow::before { background: var(--gold-light); }
   .phases-section h2 { color: var(--white); }
-  .phases-section h2 em { color: var(--white); }
+  .phases-section h2 em { color: var(--gold-light); }
   .phases-section .section-lead { color: rgba(255,255,255,0.45); }
 
   .phases-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 0;
-    border-top: 1px solid rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.1);
   }
 
   .phase-card {
     padding: 36px 28px;
-    border-right: 1px solid rgba(255,255,255,0.12);
+    border-right: 1px solid rgba(255,255,255,0.1);
     position: relative;
   }
   .phase-card:last-child { border-right: none; }
@@ -558,16 +485,17 @@
     left: 0;
     right: 0;
     height: 2px;
-    background: var(--white);
+    background: var(--gold);
     opacity: 0;
     transition: opacity 0.2s;
   }
   .phase-card:hover::before { opacity: 1; }
 
   .phase-num {
-    font-family: Georgia, 'Times New Roman', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 11px;
-    color: rgba(255,255,255,0.4);
+    font-style: italic;
+    color: var(--gold);
     margin-bottom: 8px;
     display: block;
   }
@@ -583,7 +511,7 @@
   }
 
   .phase-title {
-    font-family: Georgia, 'Times New Roman', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 18px;
     font-weight: 400;
     color: var(--white);
@@ -617,7 +545,7 @@
 
   .phase-features li::before {
     content: '—';
-    color: var(--white);
+    color: var(--gold);
     opacity: 0.6;
     flex-shrink: 0;
   }
@@ -626,29 +554,30 @@
   .audience-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
     margin-top: 64px;
-    border-top: 1px solid #000000;
   }
 
   .audience-card {
     background: var(--white);
-    padding: 44px 0;
-    border-bottom: 1px solid #000000;
+    padding: 44px 40px;
+    transition: background 0.2s;
   }
-  .audience-card:nth-child(odd) { padding-right: 60px; border-right: 1px solid #000000; }
-  .audience-card:nth-child(even) { padding-left: 60px; }
+  .audience-card:hover { background: var(--off-white); }
 
   .audience-num {
-    font-family: Georgia, 'Times New Roman', serif;
+    font-family: 'Libre Baskerville', serif;
     font-size: 11px;
-    color: var(--text-dim);
+    font-style: italic;
+    color: var(--gold);
     margin-bottom: 20px;
     display: block;
   }
 
   .audience-title {
-    font-family: Georgia, 'Times New Roman', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 22px;
     font-weight: 400;
     color: var(--navy);
@@ -665,7 +594,7 @@
 
   /* THESIS */
   .thesis-section {
-    background: var(--white);
+    background: var(--off-white);
     padding: 100px 6%;
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
@@ -681,23 +610,21 @@
   .thesis-stats {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
     margin-top: 48px;
-    border-top: 1px solid #000000;
   }
 
   .thesis-stat {
     background: var(--white);
-    padding: 40px 0 40px 0;
-    border-bottom: 1px solid #000000;
+    padding: 32px 28px;
   }
-  .thesis-stat:first-child { padding-right: 40px; border-right: 1px solid #000000; }
-  .thesis-stat:last-child { padding-left: 40px; }
 
   .thesis-stat-num {
-    font-family: Georgia, 'Times New Roman', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 42px;
-    font-weight: 400;
+    font-weight: 600;
     color: var(--navy);
     line-height: 1;
     margin-bottom: 8px;
@@ -714,18 +641,18 @@
     display: flex;
     flex-direction: column;
     gap: 0;
-    border-top: 1px solid #000000;
+    border: 1px solid var(--border);
   }
 
   .thesis-point {
     padding: 28px 32px;
-    border-bottom: 1px solid #000000;
+    border-bottom: 1px solid var(--border);
     border-left: 3px solid transparent;
     transition: border-left-color 0.2s, background 0.2s;
   }
   .thesis-point:last-child { border-bottom: none; }
   .thesis-point:hover {
-    border-left-color: var(--white);
+    border-left-color: var(--gold);
     background: var(--white);
   }
 
@@ -761,7 +688,7 @@
     transform: translate(-50%, -50%);
     width: 600px;
     height: 300px;
-    background: transparent;
+    background: radial-gradient(ellipse, rgba(184,146,42,0.08) 0%, transparent 70%);
     pointer-events: none;
   }
 
@@ -770,7 +697,7 @@
     margin-bottom: 16px;
   }
 
-  .demo-section h2 em { color: var(--white); }
+  .demo-section h2 em { color: var(--gold-light); }
 
   .demo-section .section-lead {
     color: rgba(255,255,255,0.45);
@@ -779,9 +706,9 @@
 
   .demo-section .section-eyebrow {
     justify-content: center;
-    color: var(--white);
+    color: var(--gold-light);
   }
-  .demo-section .section-eyebrow::before { background: var(--white); }
+  .demo-section .section-eyebrow::before { background: var(--gold-light); }
 
   .demo-ctas {
     display: flex;
@@ -819,7 +746,7 @@
   }
 
   .modal-header-title {
-    font-family: Georgia, 'Times New Roman', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 20px;
     color: var(--white);
     font-weight: 400;
@@ -857,7 +784,7 @@
   }
 
   .mockup-screen {
-    background: var(--white);
+    background: var(--off-white);
     border: 1px solid var(--border);
     padding: 16px;
   }
@@ -867,7 +794,7 @@
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--white);
+    color: var(--gold);
     margin-bottom: 12px;
     padding-bottom: 8px;
     border-bottom: 1px solid var(--border);
@@ -879,7 +806,7 @@
     margin-bottom: 6px;
   }
   .mockup-bar.navy { background: rgba(10,22,40,0.15); width: 70%; }
-  .mockup-bar.gold { background: rgba(255,255,255,0.2); width: 55%; }
+  .mockup-bar.gold { background: rgba(184,146,42,0.25); width: 55%; }
   .mockup-bar.short { width: 45%; }
   .mockup-bar.long { width: 85%; }
 
@@ -900,16 +827,16 @@
   }
 
   .footer-brand .footer-logo {
-    font-family: Georgia, 'Times New Roman', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 22px;
-    font-weight: 400;
+    font-weight: 600;
     color: var(--white);
     text-decoration: none;
     display: block;
     margin-bottom: 14px;
   }
 
-  .footer-brand .footer-logo span { color: var(--white); }
+  .footer-brand .footer-logo span { color: var(--gold-light); }
 
   .footer-tagline {
     font-size: 12px;
@@ -947,290 +874,14 @@
     letter-spacing: 0.04em;
   }
 
-  /* CONTACT FORM SECTION */
-  .contact-section {
-    background: var(--navy);
-    padding: 100px 6%;
-  }
-
-  .contact-section .section-eyebrow {
-    color: rgba(255,255,255,0.5);
-  }
-  .contact-section .section-eyebrow::before {
-    background: rgba(255,255,255,0.3);
-  }
-
-  .contact-section h2 {
-    color: var(--white);
-    margin-bottom: 12px;
-  }
-
-  .contact-section .section-lead {
-    color: rgba(255,255,255,0.45);
-    margin-bottom: 48px;
-  }
-
-  .contact-inner {
-    display: grid;
-    grid-template-columns: 1fr 1.6fr;
-    gap: 80px;
-    align-items: start;
-  }
-
-  .contact-info-block {
-    padding-top: 8px;
-  }
-
-  .contact-info-item {
-    padding: 20px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-  }
-  .contact-info-item:first-child { border-top: 1px solid rgba(255,255,255,0.1); }
-
-  .contact-info-label {
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.3);
-    margin-bottom: 6px;
-  }
-
-  .contact-info-value {
-    font-size: 14px;
-    color: rgba(255,255,255,0.7);
-  }
-
-  .contact-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-
-  .contact-form .full-width {
-    grid-column: 1 / -1;
-  }
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .form-group label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.45);
-  }
-
-  .form-group label .req {
-    color: var(--white);
-    margin-left: 2px;
-  }
-
-  .form-group input,
-  .form-group select {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.15);
-    color: var(--white);
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    font-weight: 300;
-    padding: 13px 16px;
-    outline: none;
-    transition: border-color 0.2s;
-    appearance: none;
-    -webkit-appearance: none;
-    width: 100%;
-  }
-
-  .form-group input::placeholder { color: rgba(255,255,255,0.25); }
-
-  .form-group input:focus,
-  .form-group select:focus {
-    border-color: rgba(255,255,255,0.5);
-  }
-
-  .form-group select option {
-    background: #1a1a1a;
-    color: var(--white);
-  }
-
-  .select-wrapper {
-    position: relative;
-  }
-
-  .select-wrapper::after {
-    content: '↓';
-    position: absolute;
-    right: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: rgba(255,255,255,0.3);
-    font-size: 12px;
-    pointer-events: none;
-  }
-
-  .form-checkbox {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    grid-column: 1 / -1;
-    margin-top: 4px;
-  }
-
-  .form-checkbox input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    min-width: 16px;
-    margin-top: 2px;
-    accent-color: var(--white);
-    cursor: pointer;
-    padding: 0;
-    border: 1px solid rgba(255,255,255,0.3);
-    background: transparent;
-  }
-
-  .form-checkbox label {
-    font-size: 12px;
-    font-weight: 300;
-    color: rgba(255,255,255,0.4);
-    line-height: 1.6;
-    letter-spacing: 0;
-    text-transform: none;
-    cursor: pointer;
-  }
-
-  .form-submit {
-    grid-column: 1 / -1;
-    margin-top: 8px;
-  }
-
-  .form-submit button {
-    background: var(--white);
-    color: var(--navy);
-    border: none;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 16px 40px;
-    cursor: pointer;
-    transition: background 0.2s, color 0.2s;
-  }
-  .form-submit button:hover {
-    background: rgba(255,255,255,0.85);
-  }
-
-  .form-success {
-    display: none;
-    grid-column: 1 / -1;
-    padding: 20px;
-    border: 1px solid rgba(255,255,255,0.2);
-    color: rgba(255,255,255,0.8);
-    font-size: 14px;
-    text-align: center;
-    letter-spacing: 0.02em;
-  }
-
-  /* TEAM SECTION */
-  .team-section {
-    padding: 100px 6%;
-    background: var(--white);
-    border-top: 1px solid var(--border);
-  }
-
-  .team-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-    border-top: 1px solid #000000;
-    margin-top: 64px;
-  }
-
-  .team-card {
-    padding: 44px 36px;
-    border-right: 1px solid #000000;
-  }
-  .team-card:last-child { border-right: none; }
-
-  .team-role {
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--text-dim);
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .team-role-badge {
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--navy);
-    border: 1px solid #000000;
-    padding: 3px 8px;
-  }
-
-  .team-name {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 24px;
-    font-weight: 400;
-    color: var(--navy);
-    margin-bottom: 8px;
-    line-height: 1.2;
-  }
-
-  .team-title {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-dim);
-    margin-bottom: 28px;
-    padding-bottom: 28px;
-    border-bottom: 1px solid #000000;
-  }
-
-  .team-bio {
-    font-size: 13px;
-    font-weight: 400;
-    color: var(--text-muted);
-    line-height: 1.75;
-  }
-
-  .team-bio p { margin-bottom: 14px; }
-  .team-bio p:last-child { margin-bottom: 0; }
-
   /* RESPONSIVE */
   @media (max-width: 960px) {
     .how-inner, .thesis-inner { grid-template-columns: 1fr; gap: 48px; }
     .phases-grid { grid-template-columns: 1fr 1fr; }
     .audience-grid { grid-template-columns: 1fr; }
-    .team-grid { grid-template-columns: 1fr; }
-    .team-card { border-right: none; border-bottom: 1px solid var(--border); }
-    .team-card:last-child { border-bottom: none; }
     .hero-stats { display: none; }
     .footer-top { grid-template-columns: 1fr 1fr; }
-    .contact-inner { grid-template-columns: 1fr; gap: 48px; }
-  }
-
-  @media (max-width: 600px) {
-    .phases-grid { grid-template-columns: 1fr; }
-    .thesis-stats { grid-template-columns: 1fr; }
-    .mockup-screens { grid-template-columns: 1fr; }
-    .footer-top { grid-template-columns: 1fr; }
-    .hero-content { padding-left: 24px; }
-    .demo-ctas { flex-direction: column; align-items: center; }
-    .contact-form { grid-template-columns: 1fr; }
-    .form-checkbox, .form-submit { grid-column: 1; }
+    nav .nav-links { display: none; }
   }
 
   @media (max-width: 600px) {
@@ -1245,30 +896,16 @@
 </head>
 <body>
 
-<!-- NAV OVERLAY -->
-<div class="nav-overlay" id="navOverlay">
-  <ul class="nav-overlay-links">
-    <li><a href="#how-it-works" onclick="closeNav()">Platform</a></li>
-    <li><a href="#roadmap" onclick="closeNav()">Roadmap</a></li>
-    <li><a href="#who-we-serve" onclick="closeNav()">Investors</a></li>
-    <li><a href="#thesis" onclick="closeNav()">Thesis</a></li>
-    <li><a href="#team" onclick="closeNav()">Our People</a></li>
-    <li><a href="#demo" onclick="closeNav()">Request Access</a></li>
-  </ul>
-  <div class="nav-overlay-sub">Contact</div>
-  <div class="nav-overlay-contact">
-    <a href="mailto:hello@sticklerproperties.com">hello@sticklerproperties.com</a>
-  </div>
-</div>
-
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">Stickler</a>
-  <button class="hamburger" id="hamburger" onclick="toggleNav()" aria-label="Menu">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
+  <a href="#" class="nav-logo">Stickler<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#how-it-works">Platform</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#who-we-serve">Investors</a></li>
+    <li><a href="#thesis">Thesis</a></li>
+    <li><a href="#demo" class="nav-cta">Request access</a></li>
+  </ul>
 </nav>
 
 <!-- HERO -->
@@ -1292,8 +929,12 @@
       <div class="hero-stat-label">Off-market TAM</div>
     </div>
     <div class="hero-stat">
-      <div class="hero-stat-num">0</div>
-      <div class="hero-stat-label">Dominant players</div>
+      <div class="hero-stat-num">7 yr</div>
+      <div class="hero-stat-label">Build horizon</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">4</div>
+      <div class="hero-stat-label">Phases</div>
     </div>
   </div>
 </section>
@@ -1384,10 +1025,12 @@
 <section id="roadmap" class="phases-section">
   <div class="section-eyebrow">Product roadmap</div>
   <h2>Marketplace to <em>operating system</em></h2>
-  <p class="section-lead">Each capability layer creates the preconditions for the next — compounding data, network effects, and revenue at every stage.</p>
+  <p class="section-lead">A four-phase, seven-year build sequence. Each phase creates the preconditions for the next — compounding data, network effects, and revenue at every layer.</p>
 
   <div class="phases-grid">
     <div class="phase-card">
+      <span class="phase-num">Phase i.</span>
+      <span class="phase-tag">0 – 12 months</span>
       <div class="phase-title">Marketplace Foundation</div>
       <p class="phase-body">Build the irreducible core: connected marketplace where motivated sellers and qualified cash buyers transact with confidence, faster than any traditional channel.</p>
       <ul class="phase-features">
@@ -1399,6 +1042,8 @@
     </div>
 
     <div class="phase-card">
+      <span class="phase-num">Phase ii.</span>
+      <span class="phase-tag">12 – 24 months</span>
       <div class="phase-title">Network Effects</div>
       <p class="phase-body">Scale liquidity until the flywheel is self-sustaining. More participants create better matches — and better matches attract more participants.</p>
       <ul class="phase-features">
@@ -1410,6 +1055,8 @@
     </div>
 
     <div class="phase-card">
+      <span class="phase-num">Phase iii.</span>
+      <span class="phase-tag">24 – 48 months</span>
       <div class="phase-title">Financial Infrastructure</div>
       <p class="phase-body">Integrate lending, title, settlement, and insurance into the transaction workflow. The move that transforms marketplace into platform — and platform into infrastructure.</p>
       <ul class="phase-features">
@@ -1421,6 +1068,8 @@
     </div>
 
     <div class="phase-card">
+      <span class="phase-num">Phase iv.</span>
+      <span class="phase-tag">4 – 7 years</span>
       <div class="phase-title">Real Estate OS</div>
       <p class="phase-body">Become the operating system for the entire off-market residential ecosystem — the layer every agent, investor, lender, and institution depends on to operate.</p>
       <ul class="phase-features">
@@ -1477,6 +1126,14 @@
           <div class="thesis-stat-label">Annual off-market transaction volume in the US</div>
         </div>
         <div class="thesis-stat">
+          <div class="thesis-stat-num">7 yr</div>
+          <div class="thesis-stat-label">From launch to full operating system</div>
+        </div>
+        <div class="thesis-stat">
+          <div class="thesis-stat-num">4</div>
+          <div class="thesis-stat-label">Compounding build phases</div>
+        </div>
+        <div class="thesis-stat">
           <div class="thesis-stat-num">0</div>
           <div class="thesis-stat-label">Dominant platform players today</div>
         </div>
@@ -1504,147 +1161,22 @@
   </div>
 </section>
 
-<!-- TEAM -->
-<section id="team" class="team-section">
-  <div class="section-eyebrow">Our people</div>
-  <h2>The team behind Stickler</h2>
-  <p class="section-lead">Operators, builders, and relationship makers — each bringing firsthand experience from the field.</p>
-
-  <div class="team-grid">
-
-    <div class="team-card">
-      <div class="team-role">
-        Founder & CEO
-        <span class="team-role-badge">Full Time</span>
-      </div>
-      <div class="team-name">Isaac W. Stickler</div>
-      <div class="team-title">Founder & Chief Executive Officer</div>
-      <div class="team-bio">
-        <p>Isaac W. Stickler is the driving force behind Stickler Properties — setting the company's vision, leading strategy, and overseeing execution across all business units. His background spans sales and marketing leadership, with a proven ability to build and manage high-performance teams in competitive environments.</p>
-        <p>With over 100 completed real estate wholesale transactions, Isaac brings firsthand operational expertise to every layer of the business. He understands the mechanics of deal flow, the nuances of market timing, and the discipline required to scale a wholesale operation with consistency and precision.</p>
-        <p>As CEO, Isaac is responsible for driving expansion into new markets, cultivating investor relationships, and ensuring the company's culture of excellence is reflected in every hire, every deal, and every partnership.</p>
-      </div>
-    </div>
-
-    <div class="team-card">
-      <div class="team-role">
-        VP of Partnerships
-        <span class="team-role-badge">Full Time</span>
-      </div>
-      <div class="team-name">Nathalie Truong</div>
-      <div class="team-title">VP of Partnerships</div>
-      <div class="team-bio">
-        <p>Nathalie Truong serves as VP of Partnerships and is a core full-time member of the Stickler Properties executive team. She is the architect of the company's external relationship strategy — forging alliances with third-party wholesale firms, traditional brokerages, and industry power players that expand the company's market reach and deal pipeline.</p>
-        <p>Nathalie's work sits at the intersection of business development and relationship management. She identifies high-value partnership opportunities, structures collaboration frameworks, and ensures that every strategic alliance is built for long-term durability.</p>
-        <p>As the company scales into multiple metro markets, Nathalie's partnerships function becomes increasingly critical — serving as a force multiplier that accelerates deal flow and strengthens Stickler Properties' reputation as a preferred institutional buyer and seller in each market it enters.</p>
-      </div>
-    </div>
-
-    <div class="team-card">
-      <div class="team-role">
-        VP of Operations & Sales
-        <span class="team-role-badge">Full Time</span>
-      </div>
-      <div class="team-name">Ralph Beberniss</div>
-      <div class="team-title">VP of Operations & Sales</div>
-      <div class="team-bio">
-        <p>Ralph Beberniss is an accomplished real estate entrepreneur and sales leader with a proven track record of execution and growth. He has completed more than 200 wholesale real estate transactions, bringing deep expertise across deal sourcing, acquisition, negotiation, and disposition.</p>
-        <p>In addition to his real estate background, Ralph built and led a high-performing sales organization of more than 150 associates, where he developed scalable systems, training programs, and performance-driven processes that supported consistent growth.</p>
-        <p>His ability to combine operational discipline with sales leadership has helped him create lasting value across multiple real estate markets.</p>
-      </div>
-    </div>
-
+<!-- DEMO CTA -->
+<section id="demo" class="demo-section">
+  <div class="section-eyebrow">Get early access</div>
+  <h2>Request access to the <em>platform</em></h2>
+  <p class="section-lead">See the full deal flow — from seller intake and AI scoring to buyer matching and close.</p>
+  <div class="demo-ctas">
+    <button class="btn-primary" onclick="openDemo()">View platform demo</button>
+    <a href="mailto:hello@sticklerproperties.com" class="btn-outline">Contact the team</a>
   </div>
 </section>
-
-
-<!-- CONTACT -->
-<section id="demo" class="contact-section">
-  <div class="section-eyebrow">Get in touch</div>
-  <h2>Stay up to date</h2>
-  <p class="section-lead">Request access to the platform or connect with the Stickler team directly.</p>
-
-  <div class="contact-inner">
-    <div class="contact-info-block">
-      <div class="contact-info-item">
-        <div class="contact-info-label">Email</div>
-        <div class="contact-info-value">isaac@sticklerproperties.com</div>
-      </div>
-      <div class="contact-info-item">
-        <div class="contact-info-label">Platform</div>
-        <div class="contact-info-value">sticklerproperties.com</div>
-      </div>
-      <div class="contact-info-item">
-        <div class="contact-info-label">Based in</div>
-        <div class="contact-info-value">United States</div>
-      </div>
-    </div>
-
-    <form class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleFormSubmit(event)">
-      <input type="hidden" name="form-name" value="contact">
-      <input type="hidden" name="bot-field" style="display:none">
-
-      <div class="form-group">
-        <label>First Name <span class="req">*</span></label>
-        <input type="text" name="first_name" placeholder="First name" required>
-      </div>
-
-      <div class="form-group">
-        <label>Last Name <span class="req">*</span></label>
-        <input type="text" name="last_name" placeholder="Last name" required>
-      </div>
-
-      <div class="form-group full-width">
-        <label>Email Address <span class="req">*</span></label>
-        <input type="email" name="email" placeholder="your@email.com" required>
-      </div>
-
-      <div class="form-group">
-        <label>Company <span class="req">*</span></label>
-        <input type="text" name="company" placeholder="Company name" required>
-      </div>
-
-      <div class="form-group">
-        <label>Job Title <span class="req">*</span></label>
-        <input type="text" name="job_title" placeholder="Your role" required>
-      </div>
-
-      <div class="form-group full-width">
-        <label>Country <span class="req">*</span></label>
-        <div class="select-wrapper">
-          <select name="country" required>
-            <option value="" disabled selected>Select country</option>
-            <option>United States</option>
-            <option>Canada</option>
-            <option>United Kingdom</option>
-            <option>Australia</option>
-            <option>Other</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="form-checkbox">
-        <input type="checkbox" id="consent" name="consent" required>
-        <label for="consent">By submitting this request, you consent to receive email from Stickler Properties regarding platform updates and investment opportunities.</label>
-      </div>
-
-      <div class="form-submit">
-        <button type="submit">Submit</button>
-      </div>
-
-      <div class="form-success" id="formSuccess">
-        Thank you — your information has been received. The Stickler team will be in touch shortly.
-      </div>
-    </form>
-  </div>
-</section>
-
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-top">
     <div class="footer-brand">
-      <a href="#" class="footer-logo">Stickler</a>
+      <a href="#" class="footer-logo">Stickler<span>.</span></a>
       <p class="footer-tagline">From marketplace foundation to full real estate operating system.</p>
     </div>
     <div class="footer-nav-col">
@@ -1716,36 +1248,6 @@
 </div>
 
 <script>
-  // Hamburger nav
-  function toggleNav() {
-    const overlay = document.getElementById('navOverlay');
-    const btn = document.getElementById('hamburger');
-    const isOpen = overlay.classList.toggle('open');
-    btn.classList.toggle('open', isOpen);
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-  }
-  function closeNav() {
-    document.getElementById('navOverlay').classList.remove('open');
-    document.getElementById('hamburger').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  // Contact form — Netlify handles storage & email, we just show success state
-  async function handleFormSubmit(e) {
-    e.preventDefault();
-    const form = e.target;
-    const data = new FormData(form);
-    try {
-      await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(data).toString() });
-      form.querySelectorAll('input, select, button').forEach(el => el.style.display = 'none');
-      document.getElementById('formSuccess').style.display = 'block';
-    } catch(err) {
-      alert('Something went wrong. Please email isaac@sticklerproperties.com directly.');
-    }
-  }
-
-  // Demo modal
   function openDemo() {
     document.getElementById('demoModal').classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -1758,7 +1260,7 @@
     if (e.target === document.getElementById('demoModal')) closeDemo();
   }
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') { closeDemo(); closeNav(); }
+    if (e.key === 'Escape') closeDemo();
   });
 </script>
 </body>
