@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Team — Stickler Properties</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #000000;
+    --white: #FFFFFF;
+    --text: #000000;
+    --border: #000000;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--white);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV — identical to index.html */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    height: 72px;
+    background: #000000;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+  }
+
+  .nav-logo {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #FFFFFF;
+    background: #000000;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    padding: 7px 16px;
+    border: 1px solid #FFFFFF;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: #FFFFFF; }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .nav-btn {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 10px 28px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+  }
+
+  .nav-btn-outline {
+    background: transparent;
+    color: #FFFFFF;
+    border: 1px solid rgba(255,255,255,0.5);
+  }
+  .nav-btn-outline:hover { border-color: #FFFFFF; }
+
+  .nav-btn-solid {
+    background: #FFFFFF;
+    color: #000000;
+  }
+  .nav-btn-solid:hover { background: rgba(255,255,255,0.88); }
+
+  /* PAGE HERO */
+  .page-hero {
+    background: #000000;
+    padding: 140px 6% 80px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .page-hero-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 20px;
+  }
+
+  .page-hero h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 400;
+    color: #FFFFFF;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    max-width: 700px;
+    margin-bottom: 24px;
+  }
+
+  .page-hero-sub {
+    font-size: 16px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    max-width: 520px;
+    line-height: 1.75;
+  }
+
+  /* TEAM SECTION */
+  .team-section {
+    padding: 0;
+  }
+
+  /* Each team member row */
+  .team-member {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    border-bottom: 1px solid #000000;
+  }
+
+  .team-member:first-child {
+    border-top: 1px solid #000000;
+  }
+
+  .team-member-left {
+    padding: 64px 48px 64px 6%;
+    border-right: 1px solid #000000;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .team-member-role {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #000000;
+    opacity: 0.4;
+    margin-bottom: 16px;
+  }
+
+  .team-member-name {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: #000000;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  .team-member-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #000000;
+    opacity: 0.5;
+    line-height: 1.5;
+  }
+
+  .team-member-right {
+    padding: 64px 6% 64px 64px;
+  }
+
+  .team-member-bio {
+    font-size: 15px;
+    font-weight: 300;
+    color: #000000;
+    line-height: 1.8;
+  }
+
+  .team-member-bio p {
+    margin-bottom: 20px;
+  }
+  .team-member-bio p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* CTA STRIP */
+  .team-cta {
+    background: #000000;
+    padding: 80px 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .team-cta-text h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(24px, 3vw, 38px);
+    font-weight: 400;
+    color: #FFFFFF;
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+
+  .team-cta-text p {
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.65;
+    max-width: 420px;
+  }
+
+  .team-cta-btns {
+    display: flex;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .btn-solid {
+    display: inline-flex;
+    align-items: center;
+    background: #FFFFFF;
+    color: #000000;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    text-decoration: none;
+    transition: background 0.2s;
+    border: 1px solid #FFFFFF;
+  }
+  .btn-solid:hover { background: rgba(255,255,255,0.88); }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    background: transparent;
+    color: #FFFFFF;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.4);
+    transition: border-color 0.2s;
+  }
+  .btn-ghost:hover { border-color: #FFFFFF; }
+
+  /* FOOTER — identical to index.html */
+  footer {
+    background: #000000;
+    padding: 64px 6% 40px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 60px;
+    padding-bottom: 60px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .footer-logo {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: #FFFFFF;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 14px;
+  }
+
+  .footer-tagline {
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.7;
+  }
+
+  .footer-nav-col h4 {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 20px;
+  }
+
+  .footer-nav-col a {
+    display: block;
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .footer-nav-col a:hover { color: #FFFFFF; }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.04em;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .team-member { grid-template-columns: 1fr; }
+    .team-member-left {
+      padding: 48px 6% 32px;
+      border-right: none;
+      border-bottom: 1px solid #000000;
+    }
+    .team-member-right { padding: 32px 6% 48px; }
+    .team-cta { flex-direction: column; align-items: flex-start; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+  }
+
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .nav-left { gap: 0; }
+    .nav-right .nav-btn-outline { display: none; }
+    .footer-top { grid-template-columns: 1fr; }
+    .team-cta-btns { flex-direction: column; width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <a href="index.html" class="nav-logo">Stickler</a>
+    <ul class="nav-links">
+      <li><a href="index.html#demo">Buy</a></li>
+      <li><a href="index.html#demo">Sell</a></li>
+      <li><a href="team.html">About Us</a></li>
+    </ul>
+  </div>
+  <div class="nav-right">
+    <a href="index.html#demo" class="nav-btn nav-btn-outline">Sell</a>
+    <a href="index.html#demo" class="nav-btn nav-btn-solid">Buy</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <p class="page-hero-label">About us</p>
+  <h1>The team behind Stickler</h1>
+  <p class="page-hero-sub">Operators, builders, and relationship makers — each bringing firsthand experience from the field of off-market real estate.</p>
+</div>
+
+<!-- TEAM -->
+<section class="team-section">
+
+  <!-- Isaac -->
+  <div class="team-member">
+    <div class="team-member-left">
+      <div class="team-member-role">Founder & CEO</div>
+      <div class="team-member-name">Isaac W. Stickler</div>
+      <div class="team-member-title">Founder &amp; Chief Executive Officer</div>
+    </div>
+    <div class="team-member-right">
+      <div class="team-member-bio">
+        <p>Isaac W. Stickler is the driving force behind Stickler Properties — setting the company's vision, leading strategy, and overseeing execution across all business units. His background spans sales and marketing leadership, with a proven ability to build and manage high-performance teams in competitive environments.</p>
+        <p>With over 100 completed real estate wholesale transactions, Isaac brings firsthand operational expertise to every layer of the business. He understands the mechanics of deal flow, the nuances of market timing, and the discipline required to scale a wholesale operation with consistency and precision.</p>
+        <p>As CEO, Isaac is responsible for driving expansion into new markets, cultivating investor relationships, and ensuring the company's culture of excellence is reflected in every hire, every deal, and every partnership. His leadership philosophy centers on empowering talented people, leveraging technology, and maintaining the execution standards that turn vision into results.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nathalie -->
+  <div class="team-member">
+    <div class="team-member-left">
+      <div class="team-member-role">VP of Partnerships</div>
+      <div class="team-member-name">Nathalie Truong</div>
+      <div class="team-member-title">VP of Partnerships</div>
+    </div>
+    <div class="team-member-right">
+      <div class="team-member-bio">
+        <p>Nathalie Truong serves as VP of Partnerships and is a core full-time member of the Stickler Properties executive team. She is the architect of the company's external relationship strategy — forging alliances with third-party wholesale real estate firms, traditional brokerages, and industry power players that expand the company's market reach and deal pipeline.</p>
+        <p>Nathalie's work sits at the intersection of business development and relationship management. She identifies high-value partnership opportunities, structures collaboration frameworks, and ensures that every strategic alliance is mutually beneficial and built for long-term durability. Her ability to navigate both the wholesale and traditional brokerage worlds gives Stickler Properties a unique competitive advantage in sourcing and distributing inventory.</p>
+        <p>As the company scales into multiple metro markets, Nathalie's partnerships function becomes increasingly critical — serving as a force multiplier that accelerates deal flow and strengthens Stickler Properties' reputation as a preferred institutional buyer and seller in each market it enters.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ralph -->
+  <div class="team-member">
+    <div class="team-member-left">
+      <div class="team-member-role">VP of Operations & Sales</div>
+      <div class="team-member-name">Ralph Beberniss</div>
+      <div class="team-member-title">VP of Operations &amp; Sales</div>
+    </div>
+    <div class="team-member-right">
+      <div class="team-member-bio">
+        <p>Ralph Beberniss is an accomplished real estate entrepreneur and sales leader with a proven track record of execution and growth. He has completed more than 200 wholesale real estate transactions, bringing deep expertise across deal sourcing, acquisition, negotiation, and disposition. His hands-on experience in the field gives him a practical, results-driven perspective on every stage of the transaction process.</p>
+        <p>In addition to his real estate background, Ralph built and led a high-performing sales organization of more than 150 associates, where he developed scalable systems, training programs, and performance-driven processes that supported consistent growth. His ability to combine operational discipline with sales leadership has helped him create lasting value across multiple real estate markets.</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- CTA STRIP -->
+<div class="team-cta">
+  <div class="team-cta-text">
+    <h2>Ready to work with us?</h2>
+    <p>Access exclusive off-market properties or connect with our team to list your property for a fast, hassle-free cash offer.</p>
+  </div>
+  <div class="team-cta-btns">
+    <a href="index.html#demo" class="btn-solid">Buy</a>
+    <a href="index.html#demo" class="btn-ghost">Sell</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">Stickler</a>
+      <p class="footer-tagline">A marketplace built for sellers and real estate investors.</p>
+    </div>
+    <div class="footer-nav-col">
+      <h4>Marketplace</h4>
+      <a href="index.html#demo">Buy</a>
+      <a href="index.html#demo">Sell</a>
+    </div>
+    <div class="footer-nav-col">
+      <h4>Company</h4>
+      <a href="team.html">About Us</a>
+      <a href="index.html#demo">Contact</a>
+    </div>
+    <div class="footer-nav-col">
+      <h4>Legal</h4>
+      <a href="#">Privacy policy</a>
+      <a href="#">Terms of use</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Stickler Properties. All rights reserved.</span>
+    <span>sticklerproperties.com</span>
+  </div>
+</footer>
+
+</body>
+</html>
