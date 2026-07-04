@@ -112,17 +112,18 @@
   }
 
   .nav-btn-outline {
+    background: #FFFFFF;
+    color: #000000;
+    border: 1px solid #FFFFFF;
+  }
+  .nav-btn-outline:hover { background: rgba(255,255,255,0.88); }
+
+  .nav-btn-solid {
     background: transparent;
     color: #FFFFFF;
     border: 1px solid rgba(255,255,255,0.5);
   }
-  .nav-btn-outline:hover { border-color: #FFFFFF; }
-
-  .nav-btn-solid {
-    background: #FFFFFF;
-    color: #000000;
-  }
-  .nav-btn-solid:hover { background: rgba(255,255,255,0.88); }
+  .nav-btn-solid:hover { border-color: #FFFFFF; }
 
   @media (max-width: 768px) {
     .nav-links { display: none; }
@@ -276,24 +277,6 @@
   .btn-primary {
     display: inline-flex;
     align-items: center;
-    background: #FFFFFF;
-    color: #000000;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 15px 36px;
-    text-decoration: none;
-    transition: background 0.2s;
-    border: none;
-    cursor: pointer;
-  }
-  .btn-primary:hover { background: rgba(255,255,255,0.88); }
-
-  .btn-outline {
-    display: inline-flex;
-    align-items: center;
     background: transparent;
     color: #FFFFFF;
     font-family: Arial, Helvetica, sans-serif;
@@ -303,11 +286,29 @@
     text-transform: uppercase;
     padding: 15px 36px;
     text-decoration: none;
+    transition: all 0.2s;
     border: 1px solid rgba(255,255,255,0.5);
+    cursor: pointer;
+  }
+  .btn-primary:hover { border-color: #FFFFFF; }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    background: #FFFFFF;
+    color: #000000;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 15px 36px;
+    text-decoration: none;
+    border: 1px solid #FFFFFF;
     transition: all 0.2s;
     cursor: pointer;
   }
-  .btn-outline:hover { border-color: #FFFFFF; }
+  .btn-outline:hover { background: rgba(255,255,255,0.88); }
     cursor: pointer;
   }
   .btn-outline:hover {
@@ -1003,8 +1004,8 @@
   .btn-who {
     display: inline-flex;
     align-items: center;
-    background: #000000;
-    color: #FFFFFF;
+    background: #FFFFFF;
+    color: #000000;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
     font-weight: 700;
@@ -1015,13 +1016,13 @@
     transition: background 0.2s;
     border: 1px solid #000000;
   }
-  .btn-who:hover { background: #333333; }
+  .btn-who:hover { background: #f0f0f0; }
 
   .btn-who-outline {
-    background: #FFFFFF;
-    color: #000000;
+    background: #000000;
+    color: #FFFFFF;
   }
-  .btn-who-outline:hover { background: #f0f0f0; }
+  .btn-who-outline:hover { background: #333333; }
 
   /* HOW IT WORKS */
   .hiw-section {
@@ -1674,12 +1675,12 @@
   </div>
 
   <div class="hiw-tabs">
-    <button class="hiw-tab" onclick="switchTab('sell')">Sellers</button>
-    <button class="hiw-tab active" onclick="switchTab('buy')">Buyers</button>
+    <button class="hiw-tab active" onclick="switchTab('sell')">Sellers</button>
+    <button class="hiw-tab" onclick="switchTab('buy')">Buyers</button>
   </div>
 
   <!-- BUY PANEL -->
-  <div class="hiw-panel" id="panel-buy">
+  <div class="hiw-panel hidden" id="panel-buy">
     <div class="hiw-steps">
       <div class="hiw-step" onmouseenter="activateStep(this)" onmouseleave="deactivateStep(this)">
         <div class="hiw-step-left">
@@ -1717,7 +1718,7 @@
   </div>
 
   <!-- SELL PANEL -->
-  <div class="hiw-panel hidden" id="panel-sell">
+  <div class="hiw-panel" id="panel-sell">
     <div class="hiw-steps">
       <div class="hiw-step" onmouseenter="activateStep(this)" onmouseleave="deactivateStep(this)">
         <div class="hiw-step-left">
@@ -1760,18 +1761,14 @@
   <div class="footer-top">
     <div class="footer-brand">
       <a href="#" class="footer-logo">Stickler</a>
-      <p class="footer-tagline">From marketplace foundation to full real estate operating system.</p>
     </div>
     <div class="footer-nav-col">
       <h4>Platform</h4>
       <a href="#how-it-works">How it works</a>
-      <a href="#roadmap">Roadmap</a>
-      <a href="#who-we-serve">Investors</a>
     </div>
     <div class="footer-nav-col">
       <h4>Company</h4>
       <a href="#thesis">About</a>
-      <a href="#demo">Request access</a>
       <a href="mailto:hello@sticklerproperties.com">Contact</a>
     </div>
     <div class="footer-nav-col">
