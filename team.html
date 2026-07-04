@@ -167,6 +167,17 @@
     justify-content: flex-start;
   }
 
+  .team-photo {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    border: 1px solid #000000;
+    margin-bottom: 28px;
+    flex-shrink: 0;
+  }
+
   .team-member-role {
     font-size: 9px;
     font-weight: 700;
@@ -423,6 +434,11 @@
       border-right: none;
       border-bottom: 1px solid #000000;
     }
+    .team-photo {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 20px;
+    }
     .team-member-right { padding: 32px 6% 48px; }
     .team-cta { flex-direction: column; align-items: flex-start; }
     .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
@@ -478,6 +494,7 @@
   <!-- Isaac -->
   <div class="team-member">
     <div class="team-member-left">
+      <img src="isaac.jpg" alt="Isaac W. Stickler" class="team-photo">
       <div class="team-member-role">Founder & CEO</div>
       <div class="team-member-name">Isaac W. Stickler</div>
       <div class="team-member-title">Founder &amp; Chief Executive Officer</div>
@@ -494,6 +511,7 @@
   <!-- Nathalie -->
   <div class="team-member">
     <div class="team-member-left">
+      <img src="nathalie.jpg" alt="Nathalie Truong" class="team-photo">
       <div class="team-member-role">VP of Partnerships</div>
       <div class="team-member-name">Nathalie Truong</div>
       <div class="team-member-title">VP of Partnerships</div>
