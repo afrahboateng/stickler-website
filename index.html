@@ -236,14 +236,23 @@
     min-height: calc(100vh - 72px);
     overflow: hidden;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFFFFF;
+    padding: 60px 40px;
   }
 
   .hero-right img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: auto;
+    height: 75%;
+    max-height: 600px;
+    max-width: 100%;
+    object-fit: contain;
     display: block;
-    filter: brightness(0.75);
+    filter: none;
+    position: relative;
+    z-index: 1;
   }
 
   h1 {
@@ -1565,8 +1574,20 @@
     .hamburger { display: flex; }
     .nav-right { display: none; }
     .nav-links { display: none; }
+    nav {
+      display: grid;
+      grid-template-columns: 40px 1fr 40px;
+      align-items: center;
+    }
+    .hamburger { grid-column: 1; grid-row: 1; }
+    .nav-left { grid-column: 2; justify-content: center; gap: 0; }
     .hero { grid-template-columns: 1fr; }
-    .hero-right { display: none; }
+    .hero-right {
+      min-height: 360px;
+      height: 360px;
+      padding: 40px 20px;
+    }
+    .hero-right img { height: 100%; max-height: 280px; }
     .help-inner { grid-template-columns: 1fr; }
     .help-image { min-height: 300px; }
     .who-cards { grid-template-columns: 1fr; }
@@ -1588,45 +1609,43 @@
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <ul class="mobile-menu-links">
-    <li><a href="#demo" onclick="closeMobileMenu()">Buy</a></li>
-    <li><a href="#demo" onclick="closeMobileMenu()">Sell</a></li>
+    <li><a href="buy.html" onclick="closeMobileMenu()">Buy</a></li>
+    <li><a href="sell.html" onclick="closeMobileMenu()">Sell</a></li>
     <li><a href="team.html" onclick="closeMobileMenu()">About Us</a></li>
   </ul>
 </div>
 
 <!-- NAV -->
 <nav>
+  <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
   <div class="nav-left">
-    <a href="#" class="nav-logo">Stickler</a>
+    <a href="index.html" class="nav-logo">Stickler</a>
     <ul class="nav-links">
-      <li><a href="#demo">Buy</a></li>
-      <li><a href="#demo">Sell</a></li>
+      <li><a href="buy.html">Buy</a></li>
+      <li><a href="sell.html">Sell</a></li>
       <li><a href="team.html">About Us</a></li>
     </ul>
   </div>
   <div class="nav-right">
-    <a href="#demo" class="nav-btn nav-btn-outline">Sell</a>
-    <a href="#demo" class="nav-btn nav-btn-solid">Buy</a>
+    <a href="sell.html" class="nav-btn nav-btn-outline">Sell</a>
+    <a href="buy.html" class="nav-btn nav-btn-solid">Buy</a>
   </div>
-  <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()" aria-label="Menu">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
 </nav>
 
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-left">
-    <h1>A Marketplace Built for Sellers and Real Estate Investors</h1>
+    <h1>A Marketplace Built for Sellers & Real Estate Investors</h1>
     <p class="hero-body">Stickler marketplace connects motivated sellers with local real estate investors. Stickler is the ecosystem for off-market distressed single-family real estate.</p>
     <div class="hero-ctas">
       <a href="#demo" class="btn-outline">Sell</a>
-      <a href="#demo" class="btn-primary">Buy</a>
+      <a href="buy.html" class="btn-primary">Buy</a>
     </div>
   </div>
   <div class="hero-right">
-    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=900&auto=format&fit=crop&q=80" alt="Property">
+    <img src="IMG_6580.jpeg" alt="Stickler property map">
   </div>
 </section>
 
@@ -1635,7 +1654,7 @@
   <div class="who-intro">
     <p class="who-label">Our customer</p>
     <h2 class="who-title">Who We Work With</h2>
-    <p class="who-desc">We connect real estate investors with exclusive opportunities, and provide a trusted, reliable buyer for sellers in need of a fast, hassle-free sale.</p>
+    <p class="who-desc">Our marketplace connects property sellers with trusted local investors through AI-powered underwriting and intelligent deal matching.</p>
   </div>
 
   <div class="who-cards">
@@ -1661,7 +1680,7 @@
         </div>
       </div>
       <div class="who-card-footer">
-        <a href="#demo" class="btn-who">Buy</a>
+        <a href="buy.html" class="btn-who">Buy</a>
       </div>
     </div>
   </div>
@@ -1713,7 +1732,7 @@
       </div>
     </div>
     <div class="hiw-cta">
-      <a href="#demo" class="btn-who">Buy</a>
+      <a href="buy.html" class="btn-who">Buy</a>
     </div>
   </div>
 
