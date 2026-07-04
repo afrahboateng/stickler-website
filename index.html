@@ -27,6 +27,7 @@
     --radius-lg: 0px;
   }
 
+  html, body { overflow-x: hidden; }
   html { scroll-behavior: smooth; }
 
   body {
@@ -111,18 +112,17 @@
   }
 
   .nav-btn-outline {
-    background: #FFFFFF;
-    color: #000000;
-    border: 1px solid #FFFFFF;
-  }
-  .nav-btn-outline:hover { background: rgba(255,255,255,0.88); }
-
-  .nav-btn-solid {
     background: transparent;
     color: #FFFFFF;
-    border: 1px solid #FFFFFF;
+    border: 1px solid rgba(255,255,255,0.5);
   }
-  .nav-btn-solid:hover { background: rgba(255,255,255,0.1); }
+  .nav-btn-outline:hover { border-color: #FFFFFF; }
+
+  .nav-btn-solid {
+    background: #FFFFFF;
+    color: #000000;
+  }
+  .nav-btn-solid:hover { background: rgba(255,255,255,0.88); }
 
   @media (max-width: 768px) {
     .nav-links { display: none; }
@@ -276,24 +276,6 @@
   .btn-primary {
     display: inline-flex;
     align-items: center;
-    background: transparent;
-    color: #FFFFFF;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 15px 36px;
-    text-decoration: none;
-    transition: background 0.2s;
-    border: 1px solid #FFFFFF;
-    cursor: pointer;
-  }
-  .btn-primary:hover { background: rgba(255,255,255,0.1); }
-
-  .btn-outline {
-    display: inline-flex;
-    align-items: center;
     background: #FFFFFF;
     color: #000000;
     font-family: Arial, Helvetica, sans-serif;
@@ -303,11 +285,29 @@
     text-transform: uppercase;
     padding: 15px 36px;
     text-decoration: none;
-    border: 1px solid #FFFFFF;
+    transition: background 0.2s;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary:hover { background: rgba(255,255,255,0.88); }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    background: transparent;
+    color: #FFFFFF;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 15px 36px;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.5);
     transition: all 0.2s;
     cursor: pointer;
   }
-  .btn-outline:hover { background: rgba(255,255,255,0.88); }
+  .btn-outline:hover { border-color: #FFFFFF; }
     cursor: pointer;
   }
   .btn-outline:hover {
@@ -905,70 +905,6 @@
   .mockup-bar.short { width: 45%; }
   .mockup-bar.long { width: 85%; }
 
-  /* HOW WE HELP */
-  .help-section {
-    background: #FFFFFF;
-    padding: 0;
-  }
-
-  .help-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    min-height: 600px;
-  }
-
-  .help-image {
-    overflow: hidden;
-  }
-
-  .help-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .help-content {
-    padding: 80px 6% 80px 7%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .help-content h2 {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: clamp(28px, 3vw, 42px);
-    font-weight: 400;
-    color: #000000;
-    margin-bottom: 24px;
-    line-height: 1.15;
-  }
-
-  .help-body {
-    font-size: 16px;
-    font-weight: 300;
-    color: #000000;
-    line-height: 1.75;
-    margin-bottom: 40px;
-    max-width: 480px;
-  }
-
-  .btn-help {
-    display: inline-flex;
-    align-items: center;
-    background: #000000;
-    color: #FFFFFF;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 15px 36px;
-    text-decoration: none;
-    transition: background 0.2s;
-    align-self: flex-start;
-  }
-  .btn-help:hover { background: #333333; }
 
   /* WHO WE WORK WITH */
   .who-section {
@@ -1067,8 +1003,8 @@
   .btn-who {
     display: inline-flex;
     align-items: center;
-    background: #FFFFFF;
-    color: #000000;
+    background: #000000;
+    color: #FFFFFF;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
     font-weight: 700;
@@ -1079,13 +1015,13 @@
     transition: background 0.2s;
     border: 1px solid #000000;
   }
-  .btn-who:hover { background: #f0f0f0; }
+  .btn-who:hover { background: #333333; }
 
-  .btn-who-sell {
-    background: #000000;
-    color: #FFFFFF;
+  .btn-who-outline {
+    background: #FFFFFF;
+    color: #000000;
   }
-  .btn-who-sell:hover { background: #333333; }
+  .btn-who-outline:hover { background: #f0f0f0; }
 
   /* HOW IT WORKS */
   .hiw-section {
@@ -1555,21 +1491,107 @@
   .team-bio p:last-child { margin-bottom: 0; }
 
   /* RESPONSIVE */
+
+
+  /* HAMBURGER NAV (mobile only) */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    z-index: 300;
+    flex-shrink: 0;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: #FFFFFF;
+    transition: all 0.25s ease;
+    transform-origin: center;
+  }
+
+  .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #000000;
+    z-index: 200;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 8%;
+  }
+
+  .mobile-menu.open { display: flex; }
+
+  .mobile-menu-links {
+    list-style: none;
+    width: 100%;
+  }
+
+  .mobile-menu-links li {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .mobile-menu-links li:first-child {
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .mobile-menu-links a {
+    display: block;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    padding: 24px 0;
+    transition: color 0.2s;
+  }
+  .mobile-menu-links a:hover { color: #FFFFFF; }
+
   @media (max-width: 768px) {
+    .hamburger { display: flex; }
+    .nav-right { display: none; }
+    .nav-links { display: none; }
     .hero { grid-template-columns: 1fr; }
     .hero-right { display: none; }
     .help-inner { grid-template-columns: 1fr; }
     .help-image { min-height: 300px; }
+    .who-cards { grid-template-columns: 1fr; }
+    .who-card:first-child { border-right: none; border-bottom: 1px solid #000000; }
     .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .hiw-panel { max-width: 100%; }
+    .hiw-cta { padding-left: 68px; }
   }
 
   @media (max-width: 480px) {
     .footer-top { grid-template-columns: 1fr; }
-    .nav-right .nav-btn-solid { display: none; }
+    .who-intro { padding: 0 4%; }
   }
+
 </style>
 </head>
 <body>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <ul class="mobile-menu-links">
+    <li><a href="#demo" onclick="closeMobileMenu()">Buy</a></li>
+    <li><a href="#demo" onclick="closeMobileMenu()">Sell</a></li>
+    <li><a href="team.html" onclick="closeMobileMenu()">About Us</a></li>
+  </ul>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -1585,6 +1607,11 @@
     <a href="#demo" class="nav-btn nav-btn-outline">Sell</a>
     <a href="#demo" class="nav-btn nav-btn-solid">Buy</a>
   </div>
+  <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 </nav>
 
 <!-- HERO -->
@@ -1599,21 +1626,6 @@
   </div>
   <div class="hero-right">
     <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=900&auto=format&fit=crop&q=80" alt="Property">
-  </div>
-</section>
-
-<!-- HOW WE HELP -->
-<section id="how-we-help" class="help-section">
-  <div class="help-inner">
-    <div class="help-image">
-      <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&auto=format&fit=crop&q=80" alt="Real estate investment">
-    </div>
-    <div class="help-content">
-      <div class="section-eyebrow">How we help you</div>
-      <h2>How We Help You</h2>
-      <p class="help-body">Access exclusive off-market properties — including single-family homes, small multifamily projects, and land ready for your investment strategy. Stickler's marketplace simplifies your search and delivers the insights you need to fuel your business growth at every step.</p>
-      <a href="team.html" class="btn-help">Learn More About Us</a>
-    </div>
   </div>
 </section>
 
@@ -1635,7 +1647,7 @@
         </div>
       </div>
       <div class="who-card-footer">
-        <a href="#demo" class="btn-who btn-who-sell">Sell</a>
+        <a href="#demo" class="btn-who btn-who-outline">Sell</a>
       </div>
     </div>
 
@@ -1662,12 +1674,12 @@
   </div>
 
   <div class="hiw-tabs">
-    <button class="hiw-tab active" onclick="switchTab('sell')">Sellers</button>
-    <button class="hiw-tab" onclick="switchTab('buy')">Buyers</button>
+    <button class="hiw-tab" onclick="switchTab('sell')">Sellers</button>
+    <button class="hiw-tab active" onclick="switchTab('buy')">Buyers</button>
   </div>
 
   <!-- BUY PANEL -->
-  <div class="hiw-panel hidden" id="panel-buy">
+  <div class="hiw-panel" id="panel-buy">
     <div class="hiw-steps">
       <div class="hiw-step" onmouseenter="activateStep(this)" onmouseleave="deactivateStep(this)">
         <div class="hiw-step-left">
@@ -1705,7 +1717,7 @@
   </div>
 
   <!-- SELL PANEL -->
-  <div class="hiw-panel" id="panel-sell">
+  <div class="hiw-panel hidden" id="panel-sell">
     <div class="hiw-steps">
       <div class="hiw-step" onmouseenter="activateStep(this)" onmouseleave="deactivateStep(this)">
         <div class="hiw-step-left">
@@ -1738,7 +1750,7 @@
       </div>
     </div>
     <div class="hiw-cta">
-      <a href="#demo" class="btn-who btn-who-sell">Sell</a>
+      <a href="#demo" class="btn-who btn-who-outline">Sell</a>
     </div>
   </div>
 </section>
@@ -1819,6 +1831,19 @@
 </div>
 
 <script>
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const btn = document.getElementById('hamburgerBtn');
+    const isOpen = menu.classList.toggle('open');
+    btn.classList.toggle('open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  }
+  function closeMobileMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.getElementById('hamburgerBtn').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
   function switchTab(tab) {
     document.querySelectorAll('.hiw-tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.hiw-panel').forEach(p => p.classList.add('hidden'));
@@ -1868,7 +1893,7 @@
     if (e.target === document.getElementById('demoModal')) closeDemo();
   }
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') { closeDemo(); closeNav(); }
+    if (e.key === 'Escape') { closeDemo(); closeMobileMenu(); }
   });
 </script>
 </body>
