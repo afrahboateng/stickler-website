@@ -1086,6 +1086,140 @@
   }
   .btn-who-outline:hover { background: #f0f0f0; }
 
+  /* HOW IT WORKS */
+  .hiw-section {
+    background: #FFFFFF;
+    padding: 100px 6%;
+    border-top: 1px solid #000000;
+  }
+
+  .hiw-intro {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .hiw-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    border: 1px solid #000000;
+    width: fit-content;
+    margin: 0 auto 64px;
+  }
+
+  .hiw-tab {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 12px 48px;
+    background: #FFFFFF;
+    color: #000000;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .hiw-tab:first-child {
+    border-right: 1px solid #000000;
+  }
+
+  .hiw-tab.active {
+    background: #000000;
+    color: #FFFFFF;
+  }
+
+  .hiw-tab:hover:not(.active) {
+    background: #f0f0f0;
+  }
+
+  .hiw-panel {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .hiw-panel.hidden {
+    display: none;
+  }
+
+  .hiw-steps {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 48px;
+  }
+
+  .hiw-step {
+    display: flex;
+    gap: 28px;
+    cursor: default;
+  }
+
+  .hiw-step-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .hiw-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #000000;
+    background: #FFFFFF;
+    color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 15px;
+    font-weight: 400;
+    flex-shrink: 0;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .hiw-step:hover .hiw-circle {
+    background: #000000;
+    color: #FFFFFF;
+  }
+
+  .hiw-line {
+    width: 2px;
+    flex: 1;
+    min-height: 40px;
+    background: #000000;
+    margin: 6px 0;
+  }
+
+  .hiw-step-content {
+    padding-bottom: 40px;
+    padding-top: 8px;
+  }
+
+  .hiw-step.last .hiw-step-content {
+    padding-bottom: 0;
+  }
+
+  .hiw-step-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #000000;
+    margin-bottom: 10px;
+  }
+
+  .hiw-step-desc {
+    font-size: 14px;
+    font-weight: 300;
+    color: #000000;
+    line-height: 1.75;
+  }
+
+  .hiw-cta {
+    padding-left: 68px;
+  }
+
   /* FOOTER */
   footer {
     background: var(--navy);
@@ -1531,6 +1665,95 @@
   </div>
 </section>
 
+<!-- HOW IT WORKS -->
+<section id="how-it-works" class="hiw-section">
+  <div class="hiw-intro">
+    <p class="who-label">Getting started</p>
+    <h2 class="who-title">How It Works</h2>
+  </div>
+
+  <div class="hiw-tabs">
+    <button class="hiw-tab active" onclick="switchTab('buy')">Buy</button>
+    <button class="hiw-tab" onclick="switchTab('sell')">Sell</button>
+  </div>
+
+  <!-- BUY PANEL -->
+  <div class="hiw-panel" id="panel-buy">
+    <div class="hiw-steps">
+      <div class="hiw-step" onmouseenter="activateStep(this)" onmouseleave="deactivateStep(this)">
+        <div class="hiw-step-left">
+          <div class="hiw-circle">1</div>
+          <div class="hiw-line"></div>
+        </div>
+        <div class="hiw-step-content">
+          <div class="hiw-step-title">Request Access</div>
+          <div class="hiw-step-desc">Start by requesting access, and a licensed local Stickler agent will reach out to learn about your investment goals and discuss opportunities in your market. This verification process ensures our investor-only marketplace maintains its integrity and that you're ready to act on the best deals as they become available.</div>
+        </div>
+      </div>
+      <div class="hiw-step" onmouseenter="activateStep(this)" onmouseleave="deactivateStep(this)">
+        <div class="hiw-step-left">
+          <div class="hiw-circle">2</div>
+          <div class="hiw-line"></div>
+        </div>
+        <div class="hiw-step-content">
+          <div class="hiw-step-title">Find an Opportunity</div>
+          <div class="hiw-step-desc">Gain access to our marketplace, where you can explore deals that meet your needs and receive alerts for new opportunities.</div>
+        </div>
+      </div>
+      <div class="hiw-step last" onmouseenter="activateStep(this)" onmouseleave="deactivateStep(this)">
+        <div class="hiw-step-left">
+          <div class="hiw-circle">3</div>
+        </div>
+        <div class="hiw-step-content">
+          <div class="hiw-step-title">Close with Confidence</div>
+          <div class="hiw-step-desc">Work with a Stickler agent throughout the transaction process, from making an offer to executing contracts and closing on your next investment.</div>
+        </div>
+      </div>
+    </div>
+    <div class="hiw-cta">
+      <a href="#demo" class="btn-who">Buy</a>
+    </div>
+  </div>
+
+  <!-- SELL PANEL -->
+  <div class="hiw-panel hidden" id="panel-sell">
+    <div class="hiw-steps">
+      <div class="hiw-step" onmouseenter="activateStep(this)" onmouseleave="deactivateStep(this)">
+        <div class="hiw-step-left">
+          <div class="hiw-circle">1</div>
+          <div class="hiw-line"></div>
+        </div>
+        <div class="hiw-step-content">
+          <div class="hiw-step-title">Submit Your Property</div>
+          <div class="hiw-step-desc">Whether you're a licensed agent, wholesaler, or homeowner, submit your property if it needs work — anything from cosmetic updates to a potential tear-down — for a no-obligation cash offer.</div>
+        </div>
+      </div>
+      <div class="hiw-step" onmouseenter="activateStep(this)" onmouseleave="deactivateStep(this)">
+        <div class="hiw-step-left">
+          <div class="hiw-circle">2</div>
+          <div class="hiw-line"></div>
+        </div>
+        <div class="hiw-step-content">
+          <div class="hiw-step-title">Receive a Cash Offer</div>
+          <div class="hiw-step-desc">A Stickler agent from your market will connect with you to explain our process and view the property in person or virtually. We'll answer any questions, provide an as-is cash offer, handle everything on the buyer's side, and close in as little as 7 days.</div>
+        </div>
+      </div>
+      <div class="hiw-step last" onmouseenter="activateStep(this)" onmouseleave="deactivateStep(this)">
+        <div class="hiw-step-left">
+          <div class="hiw-circle">3</div>
+        </div>
+        <div class="hiw-step-content">
+          <div class="hiw-step-title">Close on Your Terms</div>
+          <div class="hiw-step-desc">Once you accept the offer, the agent guides you through the contracts, ensuring a smooth process with a close date that fits your schedule.</div>
+        </div>
+      </div>
+    </div>
+    <div class="hiw-cta">
+      <a href="#demo" class="btn-who btn-who-outline">Sell</a>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-top">
@@ -1607,6 +1830,13 @@
 </div>
 
 <script>
+  function switchTab(tab) {
+    document.querySelectorAll('.hiw-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.hiw-panel').forEach(p => p.classList.add('hidden'));
+    document.querySelector(`.hiw-tab[onclick="switchTab('${tab}')"]`).classList.add('active');
+    document.getElementById('panel-' + tab).classList.remove('hidden');
+  }
+
   // Hamburger nav
   function toggleNav() {
     const overlay = document.getElementById('navOverlay');
