@@ -12,6 +12,11 @@
     --white: #FFFFFF;
     --text: #000000;
     --border: #000000;
+
+    /* TWEAK THESE to adjust the team photo section width/spacing */
+    --team-side-margin: 6%;   /* empty space on left/right of the whole photo grid — matches hero's 6% by default */
+    --team-gutter: 40px;      /* horizontal space between each person's column */
+    --team-card-padding-y: 48px; /* space above/below content inside each card */
   }
 
   html { scroll-behavior: smooth; }
@@ -143,85 +148,180 @@
     line-height: 1.75;
   }
 
-  /* TEAM SECTION */
+  /* TEAM GRID */
   .team-section {
-    padding: 0;
-  }
-
-  /* Each team member row */
-  .team-member {
-    display: grid;
-    grid-template-columns: 320px 1fr;
-    border-bottom: 1px solid #000000;
-  }
-
-  .team-member:first-child {
+    padding: 0 var(--team-side-margin);
     border-top: 1px solid #000000;
   }
 
-  .team-member-left {
-    padding: 64px 48px 64px 6%;
-    border-right: 1px solid #000000;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: var(--team-gutter);
   }
 
-  .team-photo {
-    width: 140px;
-    height: 140px;
+  .team-card {
+    width: 100%;
+    padding: var(--team-card-padding-y) 0;
+    border-right: none;
+    border-bottom: 1px solid #000000;
+    border-top: none;
+    border-left: none;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    color: inherit;
+    transition: background 0.2s;
+  }
+
+  .team-card:hover,
+  .team-card:focus-visible {
+    background: rgba(0,0,0,0.03);
+  }
+
+  .team-card.is-active {
+    background: rgba(0,0,0,0.05);
+  }
+
+  .team-card-photo {
+    width: 100%;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
     object-position: center top;
     display: block;
     border: 1px solid #000000;
-    margin-bottom: 28px;
-    flex-shrink: 0;
+    margin-bottom: 24px;
   }
 
-  .team-member-role {
+  .team-card-placeholder {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border: 1px dashed rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    background: rgba(0,0,0,0.02);
+  }
+
+  .team-card-placeholder span {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.35);
+  }
+
+  .team-card-role {
     font-size: 9px;
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: #000000;
     opacity: 0.4;
-    margin-bottom: 16px;
-  }
-
-  .team-member-name {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 28px;
-    font-weight: 400;
-    color: #000000;
-    line-height: 1.15;
     margin-bottom: 12px;
   }
 
-  .team-member-title {
+  .team-card-name {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: #000000;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  .team-card-title {
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: #000000;
     opacity: 0.5;
     line-height: 1.5;
   }
 
-  .team-member-right {
-    padding: 64px 6% 64px 64px;
+  /* DETAIL DRAWER — slides in from the right on click */
+  .team-detail-overlay {
+    position: fixed;
+    inset: 72px 0 0 0;
+    background: rgba(0,0,0,0.35);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    z-index: 150;
   }
 
-  .team-member-bio {
+  .team-detail-overlay.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .team-detail-panel {
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: 62%;
+    background: #FFFFFF;
+    border-left: 1px solid #000000;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    padding: 64px 6%;
+  }
+
+  .team-detail-overlay.is-open .team-detail-panel {
+    transform: translateX(0);
+  }
+
+  .team-detail-close {
+    position: absolute;
+    top: 28px;
+    right: 6%;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: 1px solid #000000;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .team-detail-close:hover { background: #000000; color: #FFFFFF; }
+
+  .team-detail-content { display: none; }
+  .team-detail-content.is-active { display: block; }
+
+  .team-detail-name {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(26px, 3vw, 36px);
+    font-weight: 400;
+    color: #000000;
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+
+  .team-detail-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #000000;
+    opacity: 0.5;
+    margin-bottom: 36px;
+  }
+
+  .team-detail-bio {
     font-size: 15px;
     font-weight: 300;
     color: #000000;
     line-height: 1.8;
   }
 
-  .team-member-bio p {
+  .team-detail-bio p {
     margin-bottom: 20px;
   }
-  .team-member-bio p:last-child {
+  .team-detail-bio p:last-child {
     margin-bottom: 0;
   }
 
@@ -428,18 +528,10 @@
     }
     .nav-left { justify-content: center; grid-column: 2; }
     .hamburger { grid-column: 1; grid-row: 1; }
-    .team-member { grid-template-columns: 1fr; }
-    .team-member-left {
-      padding: 48px 6% 32px;
-      border-right: none;
-      border-bottom: 1px solid #000000;
-    }
-    .team-photo {
-      width: 120px;
-      height: 120px;
-      margin-bottom: 20px;
-    }
-    .team-member-right { padding: 32px 6% 48px; }
+    .team-section { padding: 0 6%; }
+    .team-grid { grid-template-columns: 1fr; }
+    .team-detail-overlay { inset: 0; }
+    .team-detail-panel { width: 100%; padding: 56px 6%; }
     .team-cta { flex-direction: column; align-items: flex-start; }
     .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
   }
@@ -476,8 +568,8 @@
     </ul>
   </div>
   <div class="nav-right">
-    <a href="sell.html" class="nav-btn nav-btn-outline">Sell</a>
-    <a href="buy.html" class="nav-btn nav-btn-solid">Buy</a>
+    <a href="sell.html" class="nav-btn nav-btn-solid">Sell</a>
+    <a href="buy.html" class="nav-btn nav-btn-outline">Buy</a>
   </div>
 </nav>
 
@@ -490,57 +582,68 @@
 
 <!-- TEAM -->
 <section class="team-section">
+  <div class="team-grid">
 
-  <!-- Isaac -->
-  <div class="team-member">
-    <div class="team-member-left">
-      <img src="isaac.jpg" alt="Isaac W. Stickler" class="team-photo">
-      <div class="team-member-role">Founder & CEO</div>
-      <div class="team-member-name">Isaac W. Stickler</div>
-      <div class="team-member-title">Founder &amp; Chief Executive Officer</div>
-    </div>
-    <div class="team-member-right">
-      <div class="team-member-bio">
+    <!-- Isaac -->
+    <button class="team-card" id="card-isaac" onclick="openTeamMember('isaac')">
+      <img src="isaac.jpg" alt="Isaac W. Stickler" class="team-card-photo">
+      <div class="team-card-name">Isaac W. Stickler</div>
+      <div class="team-card-title">Founder &amp; Chief Executive Officer</div>
+    </button>
+
+    <!-- Nathalie -->
+    <button class="team-card" id="card-nathalie" onclick="openTeamMember('nathalie')">
+      <img src="nathalie.jpg" alt="Nathalie Truong" class="team-card-photo">
+      <div class="team-card-name">Nathalie Truong</div>
+      <div class="team-card-title">VP of Partnerships</div>
+    </button>
+
+    <!-- Ralph -->
+    <button class="team-card" id="card-ralph" onclick="openTeamMember('ralph')">
+      <div class="team-card-placeholder"><span>Coming soon</span></div>
+      <div class="team-card-name">Ralph Beberniss</div>
+      <div class="team-card-title">VP of Operations &amp; Sales</div>
+    </button>
+
+  </div>
+</section>
+
+<!-- TEAM DETAIL DRAWER -->
+<div class="team-detail-overlay" id="teamDetailOverlay" onclick="if(event.target===this) closeTeamMember()">
+  <div class="team-detail-panel">
+    <button class="team-detail-close" onclick="closeTeamMember()" aria-label="Close">&times;</button>
+
+    <div class="team-detail-content" id="detail-isaac">
+      <div class="team-detail-name">Isaac W. Stickler</div>
+      <div class="team-detail-title">Founder &amp; Chief Executive Officer</div>
+      <div class="team-detail-bio">
         <p>Isaac W. Stickler is the driving force behind Stickler Properties — setting the company's vision, leading strategy, and overseeing execution across all business units. His background spans sales and marketing leadership, with a proven ability to build and manage high-performance teams in competitive environments.</p>
         <p>With over 100 completed real estate wholesale transactions, Isaac brings firsthand operational expertise to every layer of the business. He understands the mechanics of deal flow, the nuances of market timing, and the discipline required to scale a wholesale operation with consistency and precision.</p>
         <p>As CEO, Isaac is responsible for driving expansion into new markets, cultivating investor relationships, and ensuring the company's culture of excellence is reflected in every hire, every deal, and every partnership. His leadership philosophy centers on empowering talented people, leveraging technology, and maintaining the execution standards that turn vision into results.</p>
       </div>
     </div>
-  </div>
 
-  <!-- Nathalie -->
-  <div class="team-member">
-    <div class="team-member-left">
-      <img src="nathalie.jpg" alt="Nathalie Truong" class="team-photo">
-      <div class="team-member-role">VP of Partnerships</div>
-      <div class="team-member-name">Nathalie Truong</div>
-      <div class="team-member-title">VP of Partnerships</div>
-    </div>
-    <div class="team-member-right">
-      <div class="team-member-bio">
+    <div class="team-detail-content" id="detail-nathalie">
+      <div class="team-detail-name">Nathalie Truong</div>
+      <div class="team-detail-title">VP of Partnerships</div>
+      <div class="team-detail-bio">
         <p>Nathalie Truong serves as VP of Partnerships and is a core full-time member of the Stickler Properties executive team. She is the architect of the company's external relationship strategy — forging alliances with third-party wholesale real estate firms, traditional brokerages, and industry power players that expand the company's market reach and deal pipeline.</p>
         <p>Nathalie's work sits at the intersection of business development and relationship management. She identifies high-value partnership opportunities, structures collaboration frameworks, and ensures that every strategic alliance is mutually beneficial and built for long-term durability. Her ability to navigate both the wholesale and traditional brokerage worlds gives Stickler Properties a unique competitive advantage in sourcing and distributing inventory.</p>
         <p>As the company scales into multiple metro markets, Nathalie's partnerships function becomes increasingly critical — serving as a force multiplier that accelerates deal flow and strengthens Stickler Properties' reputation as a preferred institutional buyer and seller in each market it enters.</p>
       </div>
     </div>
-  </div>
 
-  <!-- Ralph -->
-  <div class="team-member">
-    <div class="team-member-left">
-      <div class="team-member-role">VP of Operations & Sales</div>
-      <div class="team-member-name">Ralph Beberniss</div>
-      <div class="team-member-title">VP of Operations &amp; Sales</div>
-    </div>
-    <div class="team-member-right">
-      <div class="team-member-bio">
+    <div class="team-detail-content" id="detail-ralph">
+      <div class="team-detail-name">Ralph Beberniss</div>
+      <div class="team-detail-title">VP of Operations &amp; Sales</div>
+      <div class="team-detail-bio">
         <p>Ralph Beberniss is an accomplished real estate entrepreneur and sales leader with a proven track record of execution and growth. He has completed more than 200 wholesale real estate transactions, bringing deep expertise across deal sourcing, acquisition, negotiation, and disposition. His hands-on experience in the field gives him a practical, results-driven perspective on every stage of the transaction process.</p>
         <p>In addition to his real estate background, Ralph built and led a high-performing sales organization of more than 150 associates, where he developed scalable systems, training programs, and performance-driven processes that supported consistent growth. His ability to combine operational discipline with sales leadership has helped him create lasting value across multiple real estate markets.</p>
       </div>
     </div>
-  </div>
 
-</section>
+  </div>
+</div>
 
 <!-- CTA STRIP -->
 <div class="team-cta">
@@ -549,8 +652,8 @@
     <p>A team you can trust to help you sell your property for cash or purchase an investment property. </p>
   </div>
   <div class="team-cta-btns">
-    <a href="index.html#demo" class="btn-ghost">Sell</a>
-    <a href="index.html#demo" class="btn-solid">Buy</a>
+    <a href="sell.html" class="btn-solid">Sell</a>
+    <a href="buy.html" class="btn-ghost">Buy</a>
   </div>
 </div>
 
@@ -563,13 +666,12 @@
     </div>
     <div class="footer-nav-col">
       <h4>Marketplace</h4>
-      <a href="index.html#demo">Buy</a>
-      <a href="index.html#demo">Sell</a>
+      <a href="buy.html">Buy</a>
+      <a href="sell.html">Sell</a>
     </div>
     <div class="footer-nav-col">
       <h4>Company</h4>
       <a href="team.html">About Us</a>
-      <a href="index.html#demo">Contact</a>
     </div>
     <div class="footer-nav-col">
       <h4>Legal</h4>
@@ -597,6 +699,23 @@
     document.body.style.overflow = '';
   }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileMenu(); });
+
+  function openTeamMember(id) {
+    document.querySelectorAll('.team-card').forEach(el => el.classList.remove('is-active'));
+    document.querySelectorAll('.team-detail-content').forEach(el => el.classList.remove('is-active'));
+    document.getElementById('card-' + id).classList.add('is-active');
+    document.getElementById('detail-' + id).classList.add('is-active');
+    document.getElementById('teamDetailOverlay').classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeTeamMember() {
+    document.getElementById('teamDetailOverlay').classList.remove('is-open');
+    document.querySelectorAll('.team-card').forEach(el => el.classList.remove('is-active'));
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeTeamMember(); });
 </script>
 </body>
 </html>
