@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Our Team — Stickler Properties</title>
+
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -152,6 +159,7 @@
   .team-section {
     padding: 0 var(--team-side-margin);
     border-top: 1px solid #000000;
+    border-bottom: 1px solid #000000;
   }
 
   .team-grid {
@@ -163,10 +171,7 @@
   .team-card {
     width: 100%;
     padding: var(--team-card-padding-y) 0;
-    border-right: none;
-    border-bottom: 1px solid #000000;
-    border-top: none;
-    border-left: none;
+    border: none;
     background: none;
     cursor: pointer;
     text-align: left;
@@ -528,8 +533,10 @@
     }
     .nav-left { justify-content: center; grid-column: 2; }
     .hamburger { grid-column: 1; grid-row: 1; }
-    .team-section { padding: 0 6%; }
+    .team-section { padding: 0 6%; border-bottom: none; }
     .team-grid { grid-template-columns: 1fr; }
+    .team-card { border-bottom: 1px solid #000000; }
+    .team-card:last-child { border-bottom: none; }
     .team-detail-overlay { inset: 0; }
     .team-detail-panel { width: 100%; padding: 56px 6%; }
     .team-cta { flex-direction: column; align-items: flex-start; }
@@ -591,20 +598,19 @@
       <div class="team-card-title">Founder &amp; Chief Executive Officer</div>
     </button>
 
-    <!-- Nathalie -->
-    <button class="team-card" id="card-nathalie" onclick="openTeamMember('nathalie')">
-      <img src="nathalie.jpg" alt="Nathalie Truong" class="team-card-photo">
-      <div class="team-card-name">Nathalie Truong</div>
-      <div class="team-card-title">VP of Partnerships</div>
-    </button>
-
     <!-- Ralph -->
     <button class="team-card" id="card-ralph" onclick="openTeamMember('ralph')">
       <div class="team-card-placeholder"><span>Coming soon</span></div>
       <div class="team-card-name">Ralph Beberniss</div>
-      <div class="team-card-title">VP of Operations &amp; Sales</div>
+      <div class="team-card-title">executive vice president of operations &amp; Sales</div>
     </button>
 
+    <!-- Nathalie -->
+    <button class="team-card" id="card-nathalie" onclick="openTeamMember('nathalie')">
+      <img src="nathalie.jpg" alt="Nathalie Truong" class="team-card-photo">
+      <div class="team-card-name">Nathalie Truong</div>
+      <div class="team-card-title">Executive Vice President of Partnerships</div>
+    </button>
   </div>
 </section>
 
@@ -626,20 +632,22 @@
 
     <div class="team-detail-content" id="detail-nathalie">
       <div class="team-detail-name">Nathalie Truong</div>
-      <div class="team-detail-title">VP of Partnerships</div>
+      <div class="team-detail-title">Executive Vice President of Partnerships</div>
       <div class="team-detail-bio">
-        <p>Nathalie Truong serves as VP of Partnerships and is a core full-time member of the Stickler Properties executive team. She is the architect of the company's external relationship strategy — forging alliances with third-party wholesale real estate firms, traditional brokerages, and industry power players that expand the company's market reach and deal pipeline.</p>
-        <p>Nathalie's work sits at the intersection of business development and relationship management. She identifies high-value partnership opportunities, structures collaboration frameworks, and ensures that every strategic alliance is mutually beneficial and built for long-term durability. Her ability to navigate both the wholesale and traditional brokerage worlds gives Stickler Properties a unique competitive advantage in sourcing and distributing inventory.</p>
-        <p>As the company scales into multiple metro markets, Nathalie's partnerships function becomes increasingly critical — serving as a force multiplier that accelerates deal flow and strengthens Stickler Properties' reputation as a preferred institutional buyer and seller in each market it enters.</p>
+        <p>Nathalie Truong is the executive Vice President of Partnerships. Her role combines business development and relationship management. </p>
+        <p>Mrs. Truong pinpoints high-value partnership opportunities, designs collaboration frameworks, and ensures each alliance is mutually beneficial and sustainable over the long term. Mrs. Truong's skill in navigating and maintaining relationships is vital. </p>
+        <p>As the firms expands into multiple metro markets, her partnerships role becomes even more important acting as a force multiplier that boosts deal flow and enhances Stickler Properties' reputation through these alliances. </p>
       </div>
     </div>
 
     <div class="team-detail-content" id="detail-ralph">
       <div class="team-detail-name">Ralph Beberniss</div>
-      <div class="team-detail-title">VP of Operations &amp; Sales</div>
+      <div class="team-detail-title">executive vice president of operations &amp; Sales</div>
       <div class="team-detail-bio">
-        <p>Ralph Beberniss is an accomplished real estate entrepreneur and sales leader with a proven track record of execution and growth. He has completed more than 200 wholesale real estate transactions, bringing deep expertise across deal sourcing, acquisition, negotiation, and disposition. His hands-on experience in the field gives him a practical, results-driven perspective on every stage of the transaction process.</p>
-        <p>In addition to his real estate background, Ralph built and led a high-performing sales organization of more than 150 associates, where he developed scalable systems, training programs, and performance-driven processes that supported consistent growth. His ability to combine operational discipline with sales leadership has helped him create lasting value across multiple real estate markets.</p>
+        <p>Ralph Beberniss is executive vice president of operations Mr. Beberniss entrepreneur and sales leader with a proven track record of execution and growth. He has completed more than 200+  distressed  real estate transactions, bringing deep expertise across deal sourcing, acquisition, negotiation, and disposition. </p>
+        <p>Mr. Beberniss hands-on experience in the field gives him a practical, results-driven perspective on every stage of the transaction process. </p>
+        <p>Mr. Beberniss built and led a high-performing sales organization of more than 150 associates, where he developed scalable systems, training programs, and performance-driven processes that supported consistent growth. His ability to combine operational discipline with sales leadership has helped him create lasting value across multiple real estate markets.
+</p>
       </div>
     </div>
 
