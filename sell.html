@@ -280,6 +280,15 @@
   .step-panel { display: none; }
   .step-panel.active { display: block; }
 
+  .reassurance-note {
+    font-size: 12px;
+    font-weight: 300;
+    color: #777777;
+    line-height: 1.6;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #EEEEEE;
+  }
 
   .select-wrapper {
     position: relative;
@@ -295,76 +304,6 @@
     pointer-events: none;
   }
   .form-group select option { background: #FFFFFF; color: #000000; }
-
-  /* SELLER TYPE CARDS */
-  .seller-options {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 28px;
-  }
-
-  .seller-option {
-    border: 1px solid #DDDDDD;
-    padding: 18px 20px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    transition: border-color 0.15s, background 0.15s;
-    user-select: none;
-  }
-
-  .seller-option:hover { border-color: #000000; }
-
-  .seller-option.selected {
-    border-color: #000000;
-    background: #000000;
-    color: #FFFFFF;
-  }
-
-  .seller-option-radio {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    border: 1.5px solid #AAAAAA;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s;
-  }
-
-  .seller-option.selected .seller-option-radio {
-    border-color: #FFFFFF;
-    background: #FFFFFF;
-  }
-
-  .seller-option.selected .seller-option-radio::after {
-    content: '';
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #000000;
-    display: block;
-  }
-
-  .seller-option-label {
-    font-size: 15px;
-    font-weight: 500;
-    color: #000000;
-  }
-
-  .seller-option.selected .seller-option-label { color: #FFFFFF; }
-
-  .seller-option-desc {
-    font-size: 12px;
-    font-weight: 300;
-    color: #888888;
-    margin-top: 2px;
-  }
-
-  .seller-option.selected .seller-option-desc { color: rgba(255,255,255,0.6); }
 
   /* FORM ELEMENTS */
   .form-group {
@@ -463,30 +402,62 @@
   }
   .btn-back:hover { color: #000000; }
 
-  /* SUCCESS */
-  .success-card {
+  /* OFFER REVEAL */
+  .offer-card {
     display: none;
     width: 100%;
     max-width: 520px;
     border: 1px solid #000000;
     text-align: center;
-    padding: 56px 36px;
   }
 
-  .success-card h2 {
+  .offer-card-header {
+    background: #000000;
+    padding: 28px 36px;
+  }
+
+  .offer-card-header h2 {
     font-family: Georgia, 'Times New Roman', serif;
-    font-size: 28px;
+    font-size: 22px;
+    font-weight: 400;
+    color: #FFFFFF;
+  }
+
+  .offer-card-body {
+    padding: 48px 36px;
+  }
+
+  .offer-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #888888;
+    margin-bottom: 12px;
+  }
+
+  .offer-range {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 40px;
     font-weight: 400;
     color: #000000;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
+    line-height: 1.15;
   }
 
-  .success-card p {
-    font-size: 15px;
-    font-weight: 300;
+  .offer-address {
+    font-size: 14px;
     color: #555555;
-    line-height: 1.7;
     margin-bottom: 32px;
+  }
+
+  .offer-disclaimer {
+    font-size: 11px;
+    font-weight: 300;
+    color: #999999;
+    line-height: 1.6;
+    max-width: 380px;
+    margin: 0 auto 32px;
   }
 
   .btn-home {
@@ -537,6 +508,7 @@
     .step-label { display: none; }
     .form-card-body { padding: 24px 20px; }
     .form-card-header { padding: 20px; }
+    .offer-range { font-size: 30px; }
   }
 </style>
 </head>
@@ -577,96 +549,133 @@
   <div class="progress-bar" id="progressBar">
     <div class="progress-step active" id="prog-1">
       <div class="step-circle">1</div>
-      <span class="step-label">About You</span>
+      <span class="step-label">Address</span>
     </div>
     <div class="progress-step" id="prog-2">
       <div class="step-circle">2</div>
-      <span class="step-label">Contact</span>
+      <span class="step-label">Property</span>
     </div>
     <div class="progress-step" id="prog-3">
       <div class="step-circle">3</div>
-      <span class="step-label">Property</span>
+      <span class="step-label">Contact</span>
     </div>
   </div>
 
   <!-- Form card -->
   <div class="form-card" id="formCard">
 
-    <!-- STEP 1: Describe yourself -->
+    <!-- STEP 1: Property Address -->
     <div class="step-panel active" id="step-1">
       <div class="form-card-header">
-        <h1>Describe Yourself</h1>
-        <p>Please select which option best describes you as a seller.</p>
+        <h1>See What Your Home Could Be Worth</h1>
+        <p>Enter your property address to get a preliminary cash offer estimate — no account required.</p>
       </div>
       <div class="form-card-body">
         <div class="form-group">
-          <label>I am a <span class="req">*</span></label>
-          <div class="select-wrapper">
-            <select id="sellerTypeSelect">
-              <option value="" disabled selected>Select an option</option>
-              <option value="Homeowner">Homeowner</option>
-              <option value="Agent">Agent</option>
-              <option value="Wholesaler">Wholesaler</option>
-            </select>
-          </div>
+          <label>Property Address <span class="req">*</span></label>
+          <input type="text" id="propertyAddress" placeholder="123 Main St, City, State, ZIP">
         </div>
         <button class="btn-continue" onclick="goToStep(2)">Continue</button>
+        <div class="reassurance-note">
+          Your estimate is based on your home's location, size, and condition — not a database lookup of your specific address's value. We'll ask a few quick questions on the next steps to make the estimate as accurate as possible.
+        </div>
       </div>
     </div>
 
-    <!-- STEP 2: Contact info -->
+    <!-- STEP 2: Property details -->
     <div class="step-panel" id="step-2">
       <div class="form-card-header">
-        <h1>Contact Information</h1>
-        <p>Please fill out your contact details below.</p>
+        <h1>Tell Us About the Property</h1>
+        <p>These details help us calculate a more accurate offer estimate.</p>
       </div>
       <div class="form-card-body">
         <div class="form-row">
           <div class="form-group">
-            <label>First Name <span class="req">*</span></label>
-            <input type="text" id="firstName" placeholder="First name">
+            <label>Bedrooms <span class="req">*</span></label>
+            <div class="select-wrapper">
+              <select id="bedsSelect">
+                <option value="" disabled selected>Select</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5+</option>
+              </select>
+            </div>
           </div>
           <div class="form-group">
-            <label>Last Name <span class="req">*</span></label>
-            <input type="text" id="lastName" placeholder="Last name">
+            <label>Bathrooms <span class="req">*</span></label>
+            <div class="select-wrapper">
+              <select id="bathsSelect">
+                <option value="" disabled selected>Select</option>
+                <option value="1">1</option>
+                <option value="1.5">1.5</option>
+                <option value="2">2</option>
+                <option value="2.5">2.5</option>
+                <option value="3">3+</option>
+              </select>
+            </div>
           </div>
         </div>
         <div class="form-group">
-          <label>Email Address <span class="req">*</span></label>
-          <input type="email" id="emailInput" placeholder="your@email.com">
+          <label>Approximate Square Footage <span class="req">*</span></label>
+          <input type="number" id="sqftInput" placeholder="e.g. 1800" min="200" max="20000">
         </div>
         <div class="form-group">
-          <label>Phone Number <span class="req">*</span></label>
-          <input type="tel" id="phoneInput" placeholder="(555) 000-0000">
-          <span class="error-msg" id="phoneError">Please enter a valid US phone number.</span>
+          <label>Overall Condition <span class="req">*</span></label>
+          <div class="select-wrapper">
+            <select id="conditionSelect">
+              <option value="" disabled selected>Select</option>
+              <option value="Excellent">Excellent — move-in ready</option>
+              <option value="Good">Good — minor cosmetic updates needed</option>
+              <option value="Fair">Fair — needs some repairs</option>
+              <option value="Needs Work">Needs Work — major repairs needed</option>
+            </select>
+          </div>
         </div>
         <button class="btn-continue" onclick="goToStep(3)">Continue</button>
         <button type="button" class="btn-back" onclick="goToStep(1)">← Back</button>
       </div>
     </div>
 
-    <!-- STEP 3: Property address -->
+    <!-- STEP 3: Contact info -->
     <div class="step-panel" id="step-3">
       <div class="form-card-header">
-        <h1>Property Address</h1>
-        <p>Please provide the address of the property you'd like to sell.</p>
+        <h1>Almost There</h1>
+        <p>Where should we send your offer estimate?</p>
       </div>
       <div class="form-card-body">
         <form name="sell-inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleSubmit(event)">
           <input type="hidden" name="form-name" value="sell-inquiry">
           <input type="hidden" name="bot-field" style="display:none">
-          <input type="hidden" name="seller_type" id="hiddenSellerType">
-          <input type="hidden" name="first_name" id="hiddenFirstName">
-          <input type="hidden" name="last_name" id="hiddenLastName">
-          <input type="hidden" name="email" id="hiddenEmail">
-          <input type="hidden" name="phone" id="hiddenPhone">
+          <input type="hidden" name="property_address" id="hiddenAddress">
+          <input type="hidden" name="bedrooms" id="hiddenBeds">
+          <input type="hidden" name="bathrooms" id="hiddenBaths">
+          <input type="hidden" name="square_footage" id="hiddenSqft">
+          <input type="hidden" name="condition" id="hiddenCondition">
+          <input type="hidden" name="estimated_offer" id="hiddenOffer">
 
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name <span class="req">*</span></label>
+              <input type="text" name="first_name" id="firstName" placeholder="First name">
+            </div>
+            <div class="form-group">
+              <label>Last Name <span class="req">*</span></label>
+              <input type="text" name="last_name" id="lastName" placeholder="Last name">
+            </div>
+          </div>
           <div class="form-group">
-            <label>Property Address <span class="req">*</span></label>
-            <input type="text" name="property_address" placeholder="123 Main St, City, State, ZIP" required>
+            <label>Email Address <span class="req">*</span></label>
+            <input type="email" name="email" id="emailInput" placeholder="your@email.com">
+          </div>
+          <div class="form-group">
+            <label>Phone Number <span class="req">*</span></label>
+            <input type="tel" name="phone" id="phoneInput" placeholder="(555) 000-0000">
+            <span class="error-msg" id="phoneError">Please enter a valid US phone number.</span>
           </div>
 
-          <button type="submit" class="btn-continue">Submit</button>
+          <button type="submit" class="btn-continue">See My Offer Estimate</button>
           <button type="button" class="btn-back" onclick="goToStep(2)">← Back</button>
         </form>
       </div>
@@ -674,11 +683,18 @@
 
   </div>
 
-  <!-- Success -->
-  <div class="success-card" id="successCard">
-    <h2>We'll be in touch.</h2>
-    <p>Thank you for submitting your property. A member of the Stickler team will reach out shortly with a no-obligation cash offer.</p>
-    <a href="index.html" class="btn-home">Back to Home</a>
+  <!-- Offer reveal -->
+  <div class="offer-card" id="offerCard">
+    <div class="offer-card-header">
+      <h2>Your Offer Estimate Is Ready</h2>
+    </div>
+    <div class="offer-card-body">
+      <div class="offer-label">Estimated Cash Offer</div>
+      <div class="offer-range" id="offerRange">$0 – $0</div>
+      <div class="offer-address" id="offerAddress"></div>
+      <div class="offer-disclaimer">This is a preliminary estimate based on the details you provided, not a formal appraisal. A Stickler team member will follow up to confirm your final offer after a quick property review.</div>
+      <a href="index.html" class="btn-home">Back to Home</a>
+    </div>
   </div>
 
 </main>
@@ -715,33 +731,53 @@
     return d.length === 10 || (d.length === 11 && d[0] === '1');
   }
 
+  // ── Offer estimate calculation ─────────────────────────────────────────────
+  // Pricing is based on general region + the property details the user enters
+  // (bedrooms, bathrooms, sqft, condition) — not a lookup of this specific
+  // address's actual value.
+  function estimateOffer(address, beds, baths, sqft, condition) {
+    const a = address.toLowerCase();
+    let pricePerSqft = 145; // general Georgia default
+
+    if (a.includes('sandy springs')) pricePerSqft = 235;
+    else if (a.includes('decatur')) pricePerSqft = 175;
+    else if (a.includes('marietta')) pricePerSqft = 150;
+    else if (a.includes('martinez') || a.includes('evans')) pricePerSqft = 160;
+    else if (a.includes('atlanta')) pricePerSqft = 185;
+    else if (a.includes('augusta')) pricePerSqft = 130;
+
+    let marketValue = pricePerSqft * sqft;
+    marketValue += Math.max(0, beds - 3) * 4000;
+    marketValue += Math.max(0, baths - 2) * 3000;
+
+    const conditionMultiplier = { "Excellent": 1.05, "Good": 1.0, "Fair": 0.9, "Needs Work": 0.75 };
+    marketValue *= (conditionMultiplier[condition] || 1.0);
+
+    // Off-market cash offers typically come in below full market value.
+    const cashOffer = marketValue * 0.85;
+
+    const low = Math.round((cashOffer * 0.95) / 1000) * 1000;
+    const high = Math.round((cashOffer * 1.05) / 1000) * 1000;
+    return { low, high };
+  }
+
+  function formatCurrency(n) {
+    return '$' + n.toLocaleString('en-US');
+  }
+
   // ── Step navigation ───────────────────────────────────────────────────────
   function goToStep(n) {
-    // Validate current step before advancing
     if (n > currentStep) {
       if (currentStep === 1) {
-        if (!document.getElementById('sellerTypeSelect').value) {
-          alert('Please select an option to continue.'); return;
-        }
+        const addr = document.getElementById('propertyAddress').value.trim();
+        if (!addr) { alert('Please enter a property address to continue.'); return; }
       }
       if (currentStep === 2) {
-        const fn = document.getElementById('firstName').value.trim();
-        const ln = document.getElementById('lastName').value.trim();
-        const em = document.getElementById('emailInput').value.trim();
-        const ph = document.getElementById('phoneInput').value.trim();
-        if (!fn || !ln || !em || !ph) { alert('Please fill out all fields.'); return; }
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { alert('Please enter a valid email address.'); return; }
-        if (!validatePhone(ph)) {
-          document.getElementById('phoneInput').classList.add('error');
-          document.getElementById('phoneError').classList.add('visible');
-          return;
-        }
-        // Store contact info into hidden fields on step 3 form
-        document.getElementById('hiddenSellerType').value = document.getElementById('sellerTypeSelect').value;
-        document.getElementById('hiddenFirstName').value = fn;
-        document.getElementById('hiddenLastName').value = ln;
-        document.getElementById('hiddenEmail').value = em;
-        document.getElementById('hiddenPhone').value = ph;
+        const beds = document.getElementById('bedsSelect').value;
+        const baths = document.getElementById('bathsSelect').value;
+        const sqft = document.getElementById('sqftInput').value;
+        const condition = document.getElementById('conditionSelect').value;
+        if (!beds || !baths || !sqft || !condition) { alert('Please fill out all fields to continue.'); return; }
       }
     }
 
@@ -760,6 +796,37 @@
   async function handleSubmit(e) {
     e.preventDefault();
     const form = e.target;
+
+    const fn = document.getElementById('firstName').value.trim();
+    const ln = document.getElementById('lastName').value.trim();
+    const em = document.getElementById('emailInput').value.trim();
+    const ph = document.getElementById('phoneInput').value.trim();
+
+    if (!fn || !ln || !em || !ph) { alert('Please fill out all fields.'); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { alert('Please enter a valid email address.'); return; }
+    if (!validatePhone(ph)) {
+      document.getElementById('phoneInput').classList.add('error');
+      document.getElementById('phoneError').classList.add('visible');
+      return;
+    }
+
+    const address = document.getElementById('propertyAddress').value.trim();
+    const beds = parseFloat(document.getElementById('bedsSelect').value);
+    const baths = parseFloat(document.getElementById('bathsSelect').value);
+    const sqft = parseFloat(document.getElementById('sqftInput').value);
+    const condition = document.getElementById('conditionSelect').value;
+
+    const offer = estimateOffer(address, beds, baths, sqft, condition);
+
+    // Fill hidden fields so the full submission (including the computed
+    // offer) lands in the Netlify form lead.
+    document.getElementById('hiddenAddress').value = address;
+    document.getElementById('hiddenBeds').value = beds;
+    document.getElementById('hiddenBaths').value = baths;
+    document.getElementById('hiddenSqft').value = sqft;
+    document.getElementById('hiddenCondition').value = condition;
+    document.getElementById('hiddenOffer').value = formatCurrency(offer.low) + ' - ' + formatCurrency(offer.high);
+
     const data = new FormData(form);
     try {
       await fetch('/', {
@@ -767,12 +834,18 @@
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams(data).toString()
       });
-      document.getElementById('formCard').style.display = 'none';
-      document.getElementById('progressBar').style.display = 'none';
-      document.getElementById('successCard').style.display = 'block';
-    } catch(err) {
-      alert('Something went wrong. Please email isaac@sticklerproperties.com directly.');
+    } catch (err) {
+      // Even if the lead submission fails, still show the estimate —
+      // don't block the user-facing experience on a network hiccup.
     }
+
+    document.getElementById('offerRange').textContent = formatCurrency(offer.low) + ' – ' + formatCurrency(offer.high);
+    document.getElementById('offerAddress').textContent = address;
+
+    document.getElementById('formCard').style.display = 'none';
+    document.getElementById('progressBar').style.display = 'none';
+    document.getElementById('offerCard').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   // ── Mobile menu ───────────────────────────────────────────────────────────
