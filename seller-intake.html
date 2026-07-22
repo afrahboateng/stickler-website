@@ -180,32 +180,138 @@
   .intake-success h1 { font-size: 32px; font-weight: 800; margin-bottom: 16px; }
   .intake-success p { font-size: 16px; color: #555555; max-width: 480px; margin: 0 auto; line-height: 1.6; }
 
-  .gate-loading { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 100px 0; text-align: center; }
+  /* GATE SCREEN — full-bleed split layout, breaks out of the normal page flow */
+  #intake-step-17.active {
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    background: #FFFFFF;
+    display: flex;
+  }
+
+  .gate-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: #FFFFFF;
+  }
   .gate-spinner { width: 36px; height: 36px; border: 3px solid #EEEEEE; border-top-color: #000000; border-radius: 50%; animation: gate-spin 0.8s linear infinite; margin-bottom: 20px; }
   @keyframes gate-spin { to { transform: rotate(360deg); } }
   .gate-loading p { font-size: 14px; color: #888888; }
 
-  .gate-content { display: none; }
-  .gate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
-  .gate-photo { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 16px; }
-  .gate-trust-badge {
-    font-size: 12px;
+  .gate-content {
+    display: none;
+    position: absolute;
+    inset: 0;
+  }
+  .gate-content.visible { display: flex; }
+
+  .gate-image-col {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+  .gate-image-col img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .gate-image-overlay-top {
+    position: absolute;
+    top: 32px;
+    left: 32px;
+    right: 32px;
+  }
+  .gate-image-overlay-top span {
+    background: rgba(0,0,0,0.55);
+    color: #FFFFFF;
+    font-size: 14px;
     font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: #555555;
-    margin-bottom: 10px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    display: inline-block;
+  }
+  .gate-image-overlay-bottom {
+    position: absolute;
+    bottom: 28px;
+    left: 32px;
+    right: 32px;
+    color: #FFFFFF;
+  }
+  .gate-badge-line {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  }
+  .gate-stars {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
+    margin-top: 10px;
   }
-  .gate-trust-badge::before { content: '✓'; color: #000000; font-weight: 900; }
-  .gate-title { font-size: 30px; font-weight: 800; margin: 20px 0 8px; }
-  .gate-subtitle { font-size: 14px; color: #888888; margin-bottom: 24px; }
-  .gate-divider { display: flex; align-items: center; gap: 12px; margin: 20px 0; color: #AAAAAA; font-size: 12px; text-transform: uppercase; }
+  .gate-stars-icons { display: flex; gap: 2px; }
+  .half-star-wrap { position: relative; width: 16px; height: 16px; }
+  .half-star-wrap svg:last-child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    clip-path: inset(0 50% 0 0);
+  }
+  .gate-stars-text {
+    font-size: 12px;
+    font-weight: 600;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  }
+
+  .gate-form-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 8%;
+    position: relative;
+  }
+  .gate-title { font-size: 32px; font-weight: 800; margin-bottom: 8px; }
+  .gate-subtitle { font-size: 14px; color: #888888; margin-bottom: 28px; }
+
+  .btn-google {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #FFFFFF;
+    color: #000000;
+    border: 1px solid #DDDDDD;
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .btn-google:hover { background: #F7F7F7; }
+
+  .gate-divider { display: flex; align-items: center; gap: 12px; margin: 22px 0; color: #AAAAAA; font-size: 12px; text-transform: uppercase; }
   .gate-divider::before, .gate-divider::after { content: ''; flex: 1; height: 1px; background: #EEEEEE; }
   .gate-terms { font-size: 11px; color: #999999; margin-top: 16px; line-height: 1.5; }
   .gate-terms a { color: #555555; }
+
+  .gate-copyright {
+    position: absolute;
+    bottom: 24px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 11px;
+    color: #AAAAAA;
+  }
 
   .btn-continue {
     width: 100%;
@@ -230,8 +336,8 @@
     .intake-hero { position: static; max-width: 100%; }
     .intake-hero h1 { font-size: 28px; }
     .intake-questions { max-width: 100%; }
-    .gate-grid { grid-template-columns: 1fr; }
-    .gate-photo { display: none; }
+    .gate-image-col { display: none; }
+    .gate-form-col { padding: 0 6%; }
   }
 
   .bottom-bar { flex-shrink: 0; border-top: 1px solid #EEEEEE; }
@@ -416,23 +522,44 @@
         <p>Preparing your offer...</p>
       </div>
       <div class="gate-content" id="gateContent">
-        <div class="gate-grid">
-          <img class="gate-photo" src="https://images.unsplash.com/photo-1709787627975-9cb37bbeca60?fm=jpg&q=60&w=800&auto=format&fit=crop" alt="Family in front of their home">
-          <div>
-            <div class="gate-trust-badge">Trusted by 200,000+ homeowners</div>
-            <div class="gate-trust-badge">All cash offer</div>
-            <div class="gate-trust-badge">No repairs or staging</div>
-            <div class="gate-trust-badge">Choose your close date</div>
-            <div class="gate-trust-badge">4.4 on Reviews.io</div>
-            <div class="gate-title">See your offer</div>
-            <div class="gate-subtitle">No commitment to sell. Your info stays private.</div>
-            <div class="gate-divider">or</div>
-            <div class="text-input-wrapper" style="margin-bottom: 14px;">
-              <input type="email" id="gateEmailInput" placeholder="Email">
-            </div>
-            <button class="btn-continue" onclick="submitIntake()">Continue</button>
-            <div class="gate-terms">By pressing "Continue," I agree to Stickler's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</div>
+        <div class="gate-image-col">
+          <img src="https://images.unsplash.com/photo-1705363134717-0210c88d2689?fm=jpg&q=60&w=1200&auto=format&fit=crop" alt="Family with their dog at home">
+          <div class="gate-image-overlay-top">
+            <span>Trusted by 200,000+ homeowners</span>
           </div>
+          <div class="gate-image-overlay-bottom">
+            <div class="gate-badge-line">All cash offer</div>
+            <div class="gate-badge-line">No repairs or staging</div>
+            <div class="gate-badge-line">Choose your close date</div>
+            <div class="gate-stars">
+              <div class="gate-stars-icons">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.416 3.967 1.48-8.279-6.064-5.828 8.332-1.151z"></path></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.416 3.967 1.48-8.279-6.064-5.828 8.332-1.151z"></path></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.416 3.967 1.48-8.279-6.064-5.828 8.332-1.151z"></path></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.416 3.967 1.48-8.279-6.064-5.828 8.332-1.151z"></path></svg>
+                <span class="half-star-wrap">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="rgba(255,255,255,0.35)"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.416 3.967 1.48-8.279-6.064-5.828 8.332-1.151z"></path></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.416 3.967 1.48-8.279-6.064-5.828 8.332-1.151z"></path></svg>
+                </span>
+              </div>
+              <span class="gate-stars-text">4.4 on Reviews.io</span>
+            </div>
+          </div>
+        </div>
+        <div class="gate-form-col">
+          <div class="gate-title">See your offer</div>
+          <div class="gate-subtitle">No commitment to sell. Your info stays private.</div>
+          <button class="btn-google" onclick="">
+            <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.15-4.07 1.15-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z"/><path fill="#FBBC05" d="M5.27 14.28A7.2 7.2 0 0 1 4.88 12c0-.79.14-1.56.39-2.28V6.63H1.29A11.98 11.98 0 0 0 0 12c0 1.93.46 3.76 1.29 5.37z"/><path fill="#EA4335" d="M12 4.77c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.94 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.63l3.98 3.09C6.22 6.88 8.87 4.77 12 4.77z"/></svg>
+            Continue with Google
+          </button>
+          <div class="gate-divider">or</div>
+          <div class="text-input-wrapper" style="margin-bottom: 14px;">
+            <input type="email" id="gateEmailInput" placeholder="Email">
+          </div>
+          <button class="btn-continue" onclick="submitIntake()">Continue with Email</button>
+          <div class="gate-terms">By pressing "Continue," I agree to Stickler's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</div>
+          <div class="gate-copyright">© 2026 Stickler Properties. All rights reserved.</div>
         </div>
       </div>
     </div>
@@ -608,10 +735,10 @@
 
   function startGateLoading() {
     document.getElementById('gateLoading').style.display = 'flex';
-    document.getElementById('gateContent').style.display = 'none';
+    document.getElementById('gateContent').classList.remove('visible');
     setTimeout(function() {
       document.getElementById('gateLoading').style.display = 'none';
-      document.getElementById('gateContent').style.display = 'block';
+      document.getElementById('gateContent').classList.add('visible');
     }, 1300);
   }
 
@@ -681,11 +808,17 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams(data).toString()
-    }).catch(function() { /* still show success even if lead submission hiccups */ });
+    }).catch(function() { /* proceed to the offer page even if lead submission hiccups */ });
 
-    document.getElementById('intake-step-17').classList.remove('active');
-    document.getElementById('intakeSuccess').style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    var offerParams = new URLSearchParams({
+      address: address,
+      bedrooms: answers.bedrooms || '',
+      bathrooms: answers.fullBathrooms || '',
+      partialBathrooms: answers.partialBathrooms || '',
+      sqft: answers.sqft || '',
+      yearBuilt: answers.yearBuilt || ''
+    });
+    window.location.href = 'offer.html?' + offerParams.toString();
   }
 
   updateBottomBar();

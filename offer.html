@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Offer — Stickler Properties</title>
+
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { height: 100%; }
+
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #FFFFFF;
+    color: #000000;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    height: 72px;
+    border-bottom: 1px solid #EEEEEE;
+    flex-shrink: 0;
+  }
+
+  .nav-logo {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #FFFFFF;
+    background: #000000;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    padding: 7px 16px;
+    border: 1px solid #000000;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+  }
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: #000000;
+    transition: all 0.25s ease;
+    transform-origin: center;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #000000;
+    z-index: 200;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 8%;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu-links { list-style: none; width: 100%; }
+  .mobile-menu-links li { border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .mobile-menu-links li:first-child { border-top: 1px solid rgba(255,255,255,0.1); }
+  .mobile-menu-links a {
+    display: block;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    padding: 22px 0;
+    transition: color 0.2s;
+  }
+  .mobile-menu-links a:hover { color: #FFFFFF; }
+  .mobile-menu-note { color: rgba(255,255,255,0.35); font-size: 12px; margin-top: 20px; }
+
+  .page-main {
+    flex: 1;
+    padding: 48px 6% 80px;
+    max-width: 720px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .offer-heading h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: #000000;
+    margin-bottom: 8px;
+  }
+  .offer-heading p { font-size: 15px; color: #666666; margin-bottom: 32px; }
+
+  .property-card { border: 1px solid #000000; border-radius: 14px; padding: 24px; margin-bottom: 28px; }
+  .property-address { font-size: 17px; font-weight: 700; color: #000000; margin-bottom: 20px; }
+  .property-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .property-stat { text-align: center; }
+  .property-stat svg { color: #000000; opacity: 0.6; margin-bottom: 6px; }
+  .property-stat-value { font-size: 15px; font-weight: 700; color: #000000; }
+  .property-stat-label { font-size: 10px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: #999999; margin-top: 2px; }
+
+  .value-section { text-align: center; padding: 8px 0 32px; border-bottom: 1px solid #EEEEEE; margin-bottom: 32px; }
+  .value-label { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #999999; margin-bottom: 8px; }
+  .value-amount { font-family: Georgia, 'Times New Roman', serif; font-size: 44px; font-weight: 400; color: #000000; margin-bottom: 6px; }
+  .value-caption { font-size: 13px; color: #999999; }
+
+  .timeline { margin-bottom: 32px; }
+  .timeline-item { display: flex; align-items: center; gap: 16px; padding: 14px 0; position: relative; }
+  .timeline-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 19px;
+    top: 100%;
+    height: 14px;
+    width: 1.5px;
+    background: #DDDDDD;
+  }
+  .timeline-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: #F2F2F0; color: #999999; }
+  .timeline-item.active .timeline-icon { background: #E8F0FE; color: #1A73E8; }
+  .timeline-label { font-size: 15px; font-weight: 700; color: #000000; }
+  .timeline-item.active .timeline-label { color: #1A73E8; }
+
+  .timeline-note { text-align: center; margin-bottom: 40px; }
+  .timeline-note-title { font-size: 16px; font-weight: 700; color: #000000; margin-bottom: 6px; }
+  .timeline-note-sub { font-size: 13px; color: #888888; max-width: 440px; margin: 0 auto; line-height: 1.6; }
+
+  .assessment-intro { font-size: 14px; color: #666666; text-align: center; margin-bottom: 24px; line-height: 1.6; }
+  .assessment-card { border: 1px solid #DDDDDD; border-radius: 14px; padding: 24px; margin-bottom: 16px; }
+  .assessment-card-title { font-size: 17px; font-weight: 700; color: #000000; margin-bottom: 6px; }
+  .assessment-card-sub { font-size: 13px; color: #888888; line-height: 1.5; margin-bottom: 18px; }
+  .btn-assessment {
+    display: inline-block;
+    background: #000000;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 13px 28px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .btn-assessment:hover { background: #333333; }
+
+  .schedule-panel { display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid #EEEEEE; }
+  .schedule-panel.open { display: block; }
+  .schedule-panel-label { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #999999; margin-bottom: 12px; }
+  .schedule-dates { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+  .schedule-date { border: 1px solid #DDDDDD; border-radius: 10px; padding: 12px 6px; text-align: center; font-size: 12px; font-weight: 600; color: #000000; cursor: pointer; }
+  .schedule-date.selected { background: #000000; color: #FFFFFF; border-color: #000000; }
+  .schedule-confirmed { display: none; font-size: 13px; color: #1A9A4A; font-weight: 600; }
+  .schedule-confirmed.visible { display: block; }
+
+  @media (max-width: 600px) {
+    .property-stats { grid-template-columns: repeat(2, 1fr); row-gap: 20px; }
+    .value-amount { font-size: 34px; }
+    .schedule-dates { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="mobile-menu" id="mobileMenu">
+  <ul class="mobile-menu-links">
+    <li><a href="#" onclick="closeMobileMenu(); return false;">My Account</a></li>
+    <li><a href="#" onclick="closeMobileMenu(); return false;">Contact Support</a></li>
+    <li><a href="#" onclick="closeMobileMenu(); return false;">Log Out</a></li>
+  </ul>
+  <div class="mobile-menu-note">Menu contents not finalized yet</div>
+</div>
+
+<nav>
+  <a href="index.html" class="nav-logo">Stickler</a>
+  <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<main class="page-main">
+
+  <div class="offer-heading">
+    <h1>Your Offer Estimate Is Ready</h1>
+    <p>Complete your home assessment to confirm it.</p>
+  </div>
+
+  <div class="property-card">
+    <div class="property-address" id="propertyAddress">Your Home</div>
+    <div class="property-stats">
+      <div class="property-stat">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4v16"></path><path d="M2 8h18a2 2 0 0 1 2 2v10"></path><path d="M2 17h20"></path><path d="M6 8v9"></path></svg>
+        <div class="property-stat-value" id="statBedrooms">—</div>
+        <div class="property-stat-label">Bedrooms</div>
+      </div>
+      <div class="property-stat">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6L6.5 3.5a2.121 2.121 0 0 0-3 3L6 9"></path><path d="M6 9H4a2 2 0 0 0-2 2v3h18"></path><path d="M2 16h18v1a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z"></path><line x1="8" y1="21" x2="8" y2="19.5"></line><line x1="16" y1="21" x2="16" y2="19.5"></line></svg>
+        <div class="property-stat-value" id="statBathrooms">—</div>
+        <div class="property-stat-label">Bathrooms</div>
+      </div>
+      <div class="property-stat">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h7v7H3z"></path><path d="M14 14h7v7h-7z"></path><path d="M10 6.5h4"></path><path d="M6.5 10v4"></path></svg>
+        <div class="property-stat-value" id="statSqft">—</div>
+        <div class="property-stat-label">Sq Ft</div>
+      </div>
+      <div class="property-stat">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        <div class="property-stat-value" id="statYearBuilt">—</div>
+        <div class="property-stat-label">Year Built</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="value-section">
+    <div class="value-label">Estimated Home Value</div>
+    <div class="value-amount" id="estimatedValue">$—</div>
+    <div class="value-caption">Confirmed after your assessment</div>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      <div class="timeline-label">Preliminary Offer</div>
+    </div>
+    <div class="timeline-item active">
+      <div class="timeline-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="10" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+      </div>
+      <div class="timeline-label">Walkthrough</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+      </div>
+      <div class="timeline-label">Underwriting</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
+      </div>
+      <div class="timeline-label">Final Offer</div>
+    </div>
+  </div>
+
+  <div class="timeline-note">
+    <div class="timeline-note-title">Finish your walkthrough assessment to finalize an offer.</div>
+    <div class="timeline-note-sub">Finalize an offer in as little as 24 hours when you complete an assessment. Do it yourself with the Stickler Key app or schedule an agent to scan your home for you.</div>
+  </div>
+
+  <div class="assessment-card">
+    <div class="assessment-card-title">Take Photos Yourself</div>
+    <div class="assessment-card-sub">Use the Stickler app to walk through your home and capture a few photos — takes about 15 minutes. (This feature will live inside the main Stickler app.)</div>
+    <a href="https://stickler-app.netlify.app/stickler-app/splash.html" class="btn-assessment">Get the App</a>
+  </div>
+
+  <div class="assessment-card">
+    <div class="assessment-card-title">Schedule an Expert Visit</div>
+    <div class="assessment-card-sub">We'll send a trained professional to your home to handle everything — you just show up.</div>
+    <button class="btn-assessment" onclick="toggleSchedule()">Schedule Now</button>
+
+    <div class="schedule-panel" id="schedulePanel">
+      <div class="schedule-panel-label">Select a date</div>
+      <div class="schedule-dates" id="scheduleDates"></div>
+      <div class="schedule-confirmed" id="scheduleConfirmed"></div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  var params = new URLSearchParams(window.location.search);
+
+  // If opened directly (e.g. testing in Live Server) with no data in the
+  // URL, fall back to placeholder values instead of redirecting away —
+  // makes it easy to preview this page on its own.
+  var address = params.get('address') || 'N/A';
+
+  document.getElementById('propertyAddress').textContent = address;
+  document.getElementById('statBedrooms').textContent = params.get('bedrooms') || 'N/A';
+
+  var fullBaths = parseFloat(params.get('bathrooms') || '0');
+  var partialBaths = parseFloat(params.get('partialBathrooms') || '0');
+  var totalBaths = fullBaths + (partialBaths * 0.5);
+  document.getElementById('statBathrooms').textContent = totalBaths || 'N/A';
+
+  var sqft = params.get('sqft');
+  document.getElementById('statSqft').textContent = sqft ? parseInt(sqft).toLocaleString() : 'N/A';
+  document.getElementById('statYearBuilt').textContent = params.get('yearBuilt') || 'N/A';
+
+  function estimateValue(addr, sqftVal, beds, baths) {
+    var a = (addr || '').toLowerCase();
+    var pricePerSqft = 145;
+    if (a.indexOf('sandy springs') !== -1) pricePerSqft = 235;
+    else if (a.indexOf('decatur') !== -1) pricePerSqft = 175;
+    else if (a.indexOf('marietta') !== -1) pricePerSqft = 150;
+    else if (a.indexOf('martinez') !== -1 || a.indexOf('evans') !== -1) pricePerSqft = 160;
+    else if (a.indexOf('atlanta') !== -1) pricePerSqft = 185;
+    else if (a.indexOf('augusta') !== -1) pricePerSqft = 130;
+
+    var value = pricePerSqft * (sqftVal || 1500);
+    value += Math.max(0, (beds || 3) - 3) * 4000;
+    value += Math.max(0, (baths || 2) - 2) * 3000;
+
+    return Math.round((value * 1.08) / 1000) * 1000;
+  }
+
+  var estimate = estimateValue(address, parseInt(sqft), parseInt(params.get('bedrooms')), totalBaths);
+  document.getElementById('estimatedValue').textContent = '$' + estimate.toLocaleString();
+
+  function toggleSchedule() {
+    var panel = document.getElementById('schedulePanel');
+    panel.classList.toggle('open');
+    if (panel.classList.contains('open') && !panel.dataset.populated) {
+      populateDates();
+      panel.dataset.populated = 'true';
+    }
+  }
+
+  function getNextWeekdays(count) {
+    var results = [];
+    var d = new Date();
+    d.setHours(0, 0, 0, 0);
+    while (results.length < count) {
+      d.setDate(d.getDate() + 1);
+      var day = d.getDay();
+      if (day !== 0 && day !== 6) results.push(new Date(d));
+    }
+    return results;
+  }
+
+  function formatScheduleDate(date) {
+    return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+  }
+
+  function populateDates() {
+    var container = document.getElementById('scheduleDates');
+    var dates = getNextWeekdays(6);
+    container.innerHTML = dates.map(function(d, i) {
+      var label = formatScheduleDate(d);
+      return '<div class="schedule-date" data-idx="' + i + '" onclick="selectDate(this, \'' + label + '\')">' + label + '</div>';
+    }).join('');
+  }
+
+  function selectDate(el, label) {
+    document.querySelectorAll('.schedule-date').forEach(function(d) { d.classList.remove('selected'); });
+    el.classList.add('selected');
+    var confirmedEl = document.getElementById('scheduleConfirmed');
+    confirmedEl.textContent = '✓ Requested for ' + label + ' — a Stickler associate will confirm shortly.';
+    confirmedEl.classList.add('visible');
+  }
+
+  function toggleMobileMenu() {
+    var menu = document.getElementById('mobileMenu');
+    var btn = document.getElementById('hamburgerBtn');
+    var isOpen = menu.classList.toggle('open');
+    btn.classList.toggle('open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  }
+  function closeMobileMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.getElementById('hamburgerBtn').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeMobileMenu(); });
+</script>
+
+</body>
+</html>
