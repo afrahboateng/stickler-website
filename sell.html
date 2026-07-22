@@ -193,15 +193,28 @@
     position: relative;
   }
 
+  .progress-step:nth-child(2) {
+    align-items: center;
+  }
+
+  .progress-step:last-child {
+    align-items: flex-end;
+  }
+
   .progress-step:not(:last-child)::after {
     content: '';
     position: absolute;
     left: 30px;
-    right: -10px;
+    right: -50%;
     top: calc(100% - 14px);
     height: 1px;
     background: #DDDDDD;
     z-index: 0;
+  }
+
+  .progress-step:nth-child(2)::after {
+    left: calc(50% + 16px);
+    right: -100%;
   }
 
   .progress-step.done::after,

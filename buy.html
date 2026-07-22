@@ -165,6 +165,107 @@
   }
   .mobile-menu-links a:hover { color: #FFFFFF; }
 
+  /* APP PROMPT MODAL */
+  .app-prompt-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5%;
+  }
+
+  .app-prompt-overlay.hidden { display: none; }
+
+  .app-prompt-card {
+    width: 100%;
+    max-width: 440px;
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    position: relative;
+  }
+
+  .app-prompt-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+
+  .app-prompt-header {
+    background: #000000;
+    padding: 32px 32px 28px;
+    text-align: center;
+  }
+
+  .app-prompt-header h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: #FFFFFF;
+    margin-bottom: 8px;
+  }
+
+  .app-prompt-header p {
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.6;
+  }
+
+  .app-prompt-body {
+    padding: 28px 32px 32px;
+  }
+
+  .app-prompt-open-btn {
+    display: block;
+    width: 100%;
+    background: #000000;
+    color: #FFFFFF;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 16px;
+    border: none;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .app-prompt-open-btn:hover { background: #333333; }
+
+  .app-prompt-continue-btn {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #888888;
+    cursor: pointer;
+    padding: 16px 0 0;
+    text-align: center;
+    transition: color 0.2s;
+  }
+  .app-prompt-continue-btn:hover { color: #000000; }
+
   /* MAIN CONTENT */
   .page-main {
     flex: 1;
@@ -194,15 +295,28 @@
     position: relative;
   }
 
+  .progress-step:nth-child(2) {
+    align-items: center;
+  }
+
+  .progress-step:last-child {
+    align-items: flex-end;
+  }
+
   .progress-step:not(:last-child)::after {
     content: '';
     position: absolute;
     left: 30px;
-    right: -10px;
+    right: -50%;
     top: calc(100% - 14px);
     height: 1px;
     background: #DDDDDD;
     z-index: 0;
+  }
+
+  .progress-step:nth-child(2)::after {
+    left: calc(50% + 16px);
+    right: -100%;
   }
 
   .progress-step.done::after,
@@ -451,6 +565,13 @@
     .nav-right { display: none; }
     .nav-left { gap: 0; }
     .hamburger { display: flex; }
+    nav {
+      display: grid;
+      grid-template-columns: 40px 1fr 40px;
+      align-items: center;
+    }
+    .hamburger { grid-column: 1; grid-row: 1; }
+    .nav-left { grid-column: 2; justify-content: center; }
     .form-row { grid-template-columns: 1fr; }
     .step-label { display: none; }
     .form-card-body { padding: 24px 20px; }
@@ -459,6 +580,23 @@
 </style>
 </head>
 <body>
+
+<!-- APP PROMPT MODAL -->
+<div class="app-prompt-overlay" id="appPromptOverlay">
+  <div class="app-prompt-card">
+    <div class="app-prompt-header">
+      <button class="app-prompt-close" onclick="closeAppPrompt()" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg>
+      </button>
+      <h2>Get the Best Experience</h2>
+      <p>Browse listings, save favorites, and connect with an agent faster in the Stickler app.</p>
+    </div>
+    <div class="app-prompt-body">
+      <a href="https://stickler-app.netlify.app/stickler-app/splash.html" class="app-prompt-open-btn">Open the App</a>
+      <button class="app-prompt-continue-btn" onclick="closeAppPrompt()">Continue on the Website</button>
+    </div>
+  </div>
+</div>
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
@@ -471,6 +609,9 @@
 
 <!-- NAV -->
 <nav>
+  <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
   <div class="nav-left">
     <a href="index.html" class="nav-logo">Stickler</a>
     <ul class="nav-links">
@@ -483,9 +624,6 @@
     <a href="sell.html" class="nav-btn nav-btn-outline">Sell</a>
     <a href="buy.html" class="nav-btn nav-btn-solid">Buy</a>
   </div>
-  <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
 </nav>
 
 <!-- MAIN -->
@@ -611,6 +749,16 @@
 </footer>
 
 <script>
+  // ── App prompt modal ──────────────────────────────────────────────────────
+  function closeAppPrompt() {
+    document.getElementById('appPromptOverlay').classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+  document.body.style.overflow = 'hidden';
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeAppPrompt();
+  });
+
   // ── City database by state ────────────────────────────────────────────────
   const citiesByState = {
     GA: ['Athens','Atlanta','Augusta','Columbus','Macon','Savannah'],
@@ -698,7 +846,6 @@
     document.getElementById('hamburgerBtn').classList.remove('open');
     document.body.style.overflow = '';
   }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileMenu(); });
 </script>
 </body>
 </html>
