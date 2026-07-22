@@ -251,6 +251,12 @@
     max-width: 640px;
     height: auto;
     display: block;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .hero-right a:hover .hero-phone-img {
+    transform: scale(1.02);
+    opacity: 0.92;
   }
 
   h1 {
@@ -1639,7 +1645,9 @@
     </div>
   </div>
   <div class="hero-right">
-    <img src="stickler-phone.png" alt="Stickler app on iPhone" class="hero-phone-img">
+    <a href="https://stickler-app.netlify.app/stickler-app/splash.html" aria-label="Open the Stickler app">
+      <img src="stickler-phone.png" alt="Stickler app on iPhone" class="hero-phone-img">
+    </a>
   </div>
 </section>
 
