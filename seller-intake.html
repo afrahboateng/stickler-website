@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seller Intake — Stickler Properties</title>
+
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { height: 100%; }
+
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #FFFFFF;
+    color: #000000;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 5%;
+    border-bottom: 1px solid #EEEEEE;
+    flex-shrink: 0;
+  }
+  .top-bar-address { font-size: 15px; font-weight: 700; color: #000000; }
+  .top-bar-save { font-size: 14px; font-weight: 700; color: #000000; background: none; border: none; cursor: pointer; }
+
+  .intake-main {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    padding: 80px 8% 60px;
+    gap: 60px;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .intake-hero { flex: 1; max-width: 460px; position: sticky; top: 80px; }
+  .intake-hero h1 { font-size: 40px; font-weight: 800; color: #000000; line-height: 1.15; margin-bottom: 20px; letter-spacing: -0.01em; }
+  .intake-hero p { font-size: 16px; font-weight: 400; color: #555555; line-height: 1.6; }
+
+  .intake-questions { flex: 1; max-width: 620px; }
+  .intake-step { display: none; }
+  .intake-step.active { display: block; }
+
+  .option-card {
+    border: 1px solid #DDDDDD;
+    border-radius: 14px;
+    padding: 22px 26px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+    display: flex;
+    flex-direction: column;
+  }
+  .option-card:hover { border-color: #000000; }
+  .option-card.selected { border: 2px solid #000000; padding: 21px 25px; }
+  .option-card-title { font-size: 16px; font-weight: 700; color: #000000; }
+  .option-card-sub { font-size: 13px; font-weight: 400; color: #888888; margin-top: 4px; }
+
+  .option-card-image {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border: 1px solid #DDDDDD;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .option-card-image:hover { border-color: #000000; }
+  .option-card-image.selected { border: 2px solid #000000; padding: 15px; }
+  .option-card-image-thumb { width: 88px; height: 66px; border-radius: 8px; object-fit: cover; flex-shrink: 0; background: #F2F2F0; }
+
+  .checkbox-option {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: 1px solid #DDDDDD;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .checkbox-option:hover { border-color: #000000; }
+  .checkbox-option.selected { border: 2px solid #000000; background: rgba(0,0,0,0.02); }
+  .checkbox-box { width: 20px; height: 20px; border-radius: 5px; border: 1.5px solid #AAAAAA; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .checkbox-option.selected .checkbox-box { background: #000000; border-color: #000000; }
+  .checkbox-option.selected .checkbox-box::after { content: '✓'; color: #FFFFFF; font-size: 13px; font-weight: 700; }
+  .checkbox-label-title { font-size: 15px; font-weight: 600; color: #000000; }
+  .checkbox-label-sub { font-size: 12px; color: #888888; margin-top: 2px; }
+
+  .field-row { margin-bottom: 32px; }
+  .field-row-label { font-size: 18px; font-weight: 700; color: #000000; margin-bottom: 4px; }
+  .field-row-sub { font-size: 13px; color: #888888; margin-bottom: 12px; }
+
+  .field-select-wrapper { position: relative; }
+  .field-select-wrapper select {
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 12px;
+    padding: 16px 44px 16px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #000000;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    outline: none;
+  }
+  .field-select-wrapper select:focus { border-color: #000000; }
+  .field-select-wrapper::after {
+    content: '';
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid #333333;
+    border-bottom: 2px solid #333333;
+    transform: translateY(-65%) rotate(45deg);
+    pointer-events: none;
+  }
+
+  .text-input-wrapper { position: relative; }
+  .text-input-wrapper input {
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #000000;
+    outline: none;
+  }
+  .text-input-wrapper input:focus { border-color: #000000; }
+  .text-input-wrapper.dollar input { padding-left: 30px; }
+  .text-input-wrapper.dollar::before {
+    content: '$';
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #888888;
+  }
+
+  .review-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid #EEEEEE;
+  }
+  .review-row:last-child { border-bottom: none; }
+  .review-row-label { font-size: 16px; font-weight: 700; color: #000000; }
+  .review-row-sub { font-size: 13px; color: #888888; margin-top: 4px; }
+  .review-row-value { font-size: 16px; font-weight: 500; color: #000000; white-space: nowrap; padding-top: 2px; }
+
+  .intake-success { display: none; text-align: center; padding: 60px 0; }
+  .intake-success h1 { font-size: 32px; font-weight: 800; margin-bottom: 16px; }
+  .intake-success p { font-size: 16px; color: #555555; max-width: 480px; margin: 0 auto; line-height: 1.6; }
+
+  .gate-loading { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 100px 0; text-align: center; }
+  .gate-spinner { width: 36px; height: 36px; border: 3px solid #EEEEEE; border-top-color: #000000; border-radius: 50%; animation: gate-spin 0.8s linear infinite; margin-bottom: 20px; }
+  @keyframes gate-spin { to { transform: rotate(360deg); } }
+  .gate-loading p { font-size: 14px; color: #888888; }
+
+  .gate-content { display: none; }
+  .gate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+  .gate-photo { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 16px; }
+  .gate-trust-badge {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #555555;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .gate-trust-badge::before { content: '✓'; color: #000000; font-weight: 900; }
+  .gate-title { font-size: 30px; font-weight: 800; margin: 20px 0 8px; }
+  .gate-subtitle { font-size: 14px; color: #888888; margin-bottom: 24px; }
+  .gate-divider { display: flex; align-items: center; gap: 12px; margin: 20px 0; color: #AAAAAA; font-size: 12px; text-transform: uppercase; }
+  .gate-divider::before, .gate-divider::after { content: ''; flex: 1; height: 1px; background: #EEEEEE; }
+  .gate-terms { font-size: 11px; color: #999999; margin-top: 16px; line-height: 1.5; }
+  .gate-terms a { color: #555555; }
+
+  .btn-continue {
+    width: 100%;
+    background: #000000;
+    color: #FFFFFF;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-top: 8px;
+    display: block;
+  }
+  .btn-continue:hover { background: #333333; }
+
+  @media (max-width: 900px) {
+    .intake-main { flex-direction: column; padding: 40px 6% 40px; gap: 32px; }
+    .intake-hero { position: static; max-width: 100%; }
+    .intake-hero h1 { font-size: 28px; }
+    .intake-questions { max-width: 100%; }
+    .gate-grid { grid-template-columns: 1fr; }
+    .gate-photo { display: none; }
+  }
+
+  .bottom-bar { flex-shrink: 0; border-top: 1px solid #EEEEEE; }
+  .progress-track { height: 4px; width: 100%; background: #EEEEEE; position: relative; }
+  .progress-fill { height: 100%; background: #000000; width: 6%; transition: width 0.3s ease; }
+  .bottom-nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 8%; }
+  .btn-previous { background: none; border: none; font-size: 14px; font-weight: 700; color: #000000; cursor: pointer; }
+  .btn-previous:disabled { opacity: 0; pointer-events: none; }
+  .btn-next { background: #000000; color: #FFFFFF; border: none; border-radius: 10px; padding: 14px 36px; font-size: 14px; font-weight: 700; cursor: pointer; }
+  .btn-edit { background: none; color: #000000; border: 1px solid #000000; border-radius: 10px; padding: 14px 36px; font-size: 14px; font-weight: 700; cursor: pointer; margin-right: 12px; }
+
+  .trademark-footer { text-align: center; padding: 16px 5% 20px; font-size: 11px; color: #AAAAAA; letter-spacing: 0.03em; }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="top-bar-address" id="topBarAddress">Your Home</div>
+  <button class="top-bar-save" onclick="">Save</button>
+</div>
+
+<main class="intake-main">
+
+  <div class="intake-hero" id="intakeHero">
+    <h1 id="heroTitle">What best describes your home?</h1>
+    <p id="heroSub">This question helps us select comps when preparing your offer.</p>
+  </div>
+
+  <div class="intake-questions">
+
+    <div class="intake-step active" id="intake-step-1">
+      <div class="option-card" data-value="Single-family home" onclick="selectOption(this, 'propertyType')"><div class="option-card-title">Single-family home</div></div>
+      <div class="option-card" data-value="Townhouse or attached single-family home" onclick="selectOption(this, 'propertyType')"><div class="option-card-title">Townhouse or attached single-family home</div></div>
+      <div class="option-card" data-value="Apartment or condo" onclick="selectOption(this, 'propertyType')"><div class="option-card-title">Apartment or condo</div></div>
+      <div class="option-card" data-value="Mobile or manufactured home" onclick="selectOption(this, 'propertyType')"><div class="option-card-title">Mobile or manufactured home</div></div>
+      <div class="option-card" data-value="Multi-family" onclick="selectOption(this, 'propertyType')"><div class="option-card-title">Multi-family</div><div class="option-card-sub">3+ units in a single structure</div></div>
+      <div class="option-card" data-value="Commercial" onclick="selectOption(this, 'propertyType')"><div class="option-card-title">Commercial</div></div>
+      <div class="option-card" data-value="Empty lot" onclick="selectOption(this, 'propertyType')"><div class="option-card-title">Empty lot</div></div>
+    </div>
+
+    <div class="intake-step" id="intake-step-2">
+      <div class="field-row">
+        <div class="field-row-label">Bedrooms</div>
+        <div class="field-row-sub">Must have a door, closet, and window.</div>
+        <div class="field-select-wrapper"><select id="bedroomsSelect"></select></div>
+      </div>
+      <div class="field-row">
+        <div class="field-row-label">Full bathrooms</div>
+        <div class="field-row-sub">Must have a toilet and a shower/tub.</div>
+        <div class="field-select-wrapper"><select id="fullBathsSelect"></select></div>
+      </div>
+      <div class="field-row">
+        <div class="field-row-label">Partial bathrooms</div>
+        <div class="field-row-sub">Must have a toilet and sink.</div>
+        <div class="field-select-wrapper"><select id="partialBathsSelect"></select></div>
+      </div>
+      <div class="field-row">
+        <div class="field-row-label">Square footage (above ground)</div>
+        <div class="field-row-sub">Don't include basements, non-permitted additions, or non-heated square footage.</div>
+        <div class="text-input-wrapper"><input type="number" id="sqftInput" placeholder="e.g. 1800" min="200" max="20000"></div>
+      </div>
+      <div class="field-row">
+        <div class="field-row-label">Floors (above ground)</div>
+        <div class="field-row-sub">Don't include the basement.</div>
+        <div class="field-select-wrapper"><select id="floorsSelect"><option value="" disabled selected>Select...</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div>
+      </div>
+      <div class="field-row">
+        <div class="field-row-label">Basement</div>
+        <div class="field-row-sub">Floors that are completely below ground.</div>
+        <div class="field-select-wrapper"><select id="basementSelect"><option value="" disabled selected>Select...</option><option value="Yes">Yes</option><option value="No">No</option></select></div>
+      </div>
+      <div class="field-row">
+        <div class="field-row-label">Year built</div>
+        <div class="field-select-wrapper"><select id="yearBuiltSelect"></select></div>
+      </div>
+    </div>
+
+    <div class="intake-step" id="intake-step-3">
+      <div class="review-row"><div><div class="review-row-label">Bedrooms</div><div class="review-row-sub">Must have a door, closet, and window.</div></div><div class="review-row-value" id="reviewBedrooms">—</div></div>
+      <div class="review-row"><div><div class="review-row-label">Full bathrooms</div><div class="review-row-sub">Must have a toilet and a shower/tub.</div></div><div class="review-row-value" id="reviewFullBaths">—</div></div>
+      <div class="review-row"><div><div class="review-row-label">Partial bathrooms</div><div class="review-row-sub">Must have a toilet and sink.</div></div><div class="review-row-value" id="reviewPartialBaths">—</div></div>
+      <div class="review-row"><div><div class="review-row-label">Square footage (above ground)</div><div class="review-row-sub">Don't include basements, non-permitted additions, or non-heated square footage.</div></div><div class="review-row-value" id="reviewSqft">—</div></div>
+      <div class="review-row"><div><div class="review-row-label">Floors (above ground)</div><div class="review-row-sub">Don't include the basement.</div></div><div class="review-row-value" id="reviewFloors">—</div></div>
+      <div class="review-row"><div><div class="review-row-label">Basement</div></div><div class="review-row-value" id="reviewBasement">—</div></div>
+      <div class="review-row"><div><div class="review-row-label">Year built</div></div><div class="review-row-value" id="reviewYearBuilt">—</div></div>
+      <div class="review-row"><div><div class="review-row-label">Pool</div></div><div class="review-row-value">No pool</div></div>
+    </div>
+
+    <div class="intake-step" id="intake-step-4">
+      <div class="option-card" data-value="ASAP" onclick="selectOption(this, 'timeline')"><div class="option-card-title">ASAP</div></div>
+      <div class="option-card" data-value="2-4 weeks" onclick="selectOption(this, 'timeline')"><div class="option-card-title">2–4 weeks</div></div>
+      <div class="option-card" data-value="4-6 weeks" onclick="selectOption(this, 'timeline')"><div class="option-card-title">4–6 weeks</div></div>
+      <div class="option-card" data-value="6+ weeks" onclick="selectOption(this, 'timeline')"><div class="option-card-title">6+ weeks</div></div>
+      <div class="option-card" data-value="Just browsing" onclick="selectOption(this, 'timeline')"><div class="option-card-title">Just browsing</div></div>
+    </div>
+
+    <div class="intake-step" id="intake-step-5">
+      <div class="option-card-image" data-value="Fixer Upper" onclick="selectOption(this, 'kitchenCondition')"><img class="option-card-image-thumb" src="https://images.unsplash.com/photo-1733431769311-f33ee6f83d15?fm=jpg&q=60&w=400&auto=format&fit=crop"><div><div class="option-card-title">Fixer Upper</div><div class="option-card-sub">Kitchen needs significant repairs</div></div></div>
+      <div class="option-card-image" data-value="Dated" onclick="selectOption(this, 'kitchenCondition')"><img class="option-card-image-thumb" src="https://images.unsplash.com/photo-1699615823047-700ca5e2bab4?fm=jpg&q=60&w=400&auto=format&fit=crop"><div><div class="option-card-title">Dated</div><div class="option-card-sub">Kitchen hasn't been updated recently</div></div></div>
+      <div class="option-card-image" data-value="Standard" onclick="selectOption(this, 'kitchenCondition')"><img class="option-card-image-thumb" src="https://images.unsplash.com/photo-1529423374493-8b2f78fd2437?fm=jpg&q=60&w=400&auto=format&fit=crop"><div><div class="option-card-title">Standard</div><div class="option-card-sub">Kitchen is updated with common finishes</div></div></div>
+      <div class="option-card-image" data-value="High end" onclick="selectOption(this, 'kitchenCondition')"><img class="option-card-image-thumb" src="https://images.unsplash.com/photo-1617228069096-4638a7ffc906?fm=jpg&q=60&w=400&auto=format&fit=crop"><div><div class="option-card-title">High end</div><div class="option-card-sub">Kitchen has high-quality upgrades</div></div></div>
+      <div class="option-card-image" data-value="Luxury" onclick="selectOption(this, 'kitchenCondition')"><img class="option-card-image-thumb" src="https://images.unsplash.com/photo-1556911220-bff31c812dba?fm=jpg&q=60&w=400&auto=format&fit=crop"><div><div class="option-card-title">Luxury</div><div class="option-card-sub">Kitchen has elegant, top-tier finishes</div></div></div>
+    </div>
+
+    <div class="intake-step" id="intake-step-6">
+      <div class="option-card-image" data-value="Fixer Upper" onclick="selectOption(this, 'bathroomCondition')"><img class="option-card-image-thumb" src="https://images.unsplash.com/photo-1630840450974-7c7ddad8bdfe?fm=jpg&q=60&w=400&auto=format&fit=crop"><div><div class="option-card-title">Fixer Upper</div><div class="option-card-sub">Bathroom needs significant repairs</div></div></div>
+      <div class="option-card-image" data-value="Dated" onclick="selectOption(this, 'bathroomCondition')"><img class="option-card-image-thumb" src="https://images.unsplash.com/photo-1701278301488-b550984729c2?fm=jpg&q=60&w=400&auto=format&fit=crop"><div><div class="option-card-title">Dated</div><div class="option-card-sub">Bathroom hasn't been updated recently</div></div></div>
+      <div class="option-card-image" data-value="Standard" onclick="selectOption(this, 'bathroomCondition')"><img class="option-card-image-thumb" src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?fm=jpg&q=60&w=400&auto=format&fit=crop"><div><div class="option-card-title">Standard</div><div class="option-card-sub">Bathroom is updated with common finishes</div></div></div>
+      <div class="option-card-image" data-value="High end" onclick="selectOption(this, 'bathroomCondition')"><img class="option-card-image-thumb" src="https://images.unsplash.com/photo-1638799869566-b17fa794c4de?fm=jpg&q=60&w=400&auto=format&fit=crop"><div><div class="option-card-title">High end</div><div class="option-card-sub">Bathroom has high-quality upgrades</div></div></div>
+      <div class="option-card-image" data-value="Luxury" onclick="selectOption(this, 'bathroomCondition')"><img class="option-card-image-thumb" src="https://images.unsplash.com/photo-1733426107854-ee00a25d72a7?fm=jpg&q=60&w=400&auto=format&fit=crop"><div><div class="option-card-title">Luxury</div><div class="option-card-sub">Bathroom has elegant, top-tier finishes</div></div></div>
+    </div>
+
+    <div class="intake-step" id="intake-step-7">
+      <div class="option-card-image" data-value="Fixer Upper" onclick="selectOption(this, 'livingRoomCondition')"><img class="option-card-image-thumb" src="https://images.unsplash.com/photo-1601617956235-c97e358d054f?fm=jpg&q=60&w=400&auto=format&fit=crop"><div><div class="option-card-title">Fixer Upper</div><div class="option-card-sub">Living room needs significant repairs</div></div></div>
+      <div class="option-card-image" data-value="Dated" onclick="selectOption(this, 'livingRoomCondition')"><img class="option-card-image-thumb" src="https://images.unsplash.com/photo-1678705387084-9593dc56ade5?fm=jpg&q=60&w=400&auto=format&fit=crop"><div><div class="option-card-title">Dated</div><div class="option-card-sub">Living room hasn't been updated recently</div></div></div>
+      <div class="option-card-image" data-value="Standard" onclick="selectOption(this, 'livingRoomCondition')"><img class="option-card-image-thumb" src="https://images.unsplash.com/photo-1561560823-4780ac69374e?fm=jpg&q=60&w=400&auto=format&fit=crop"><div><div class="option-card-title">Standard</div><div class="option-card-sub">Living room is updated with common finishes</div></div></div>
+      <div class="option-card-image" data-value="High end" onclick="selectOption(this, 'livingRoomCondition')"><img class="option-card-image-thumb" src="https://images.unsplash.com/photo-1747227567987-c1e414b1634d?fm=jpg&q=60&w=400&auto=format&fit=crop"><div><div class="option-card-title">High end</div><div class="option-card-sub">Living room has high-quality upgrades</div></div></div>
+      <div class="option-card-image" data-value="Luxury" onclick="selectOption(this, 'livingRoomCondition')"><img class="option-card-image-thumb" src="https://images.unsplash.com/photo-1640276751820-7a295bee77aa?fm=jpg&q=60&w=400&auto=format&fit=crop"><div><div class="option-card-title">Luxury</div><div class="option-card-sub">Living room has elegant, top-tier finishes</div></div></div>
+    </div>
+
+    <div class="intake-step" id="intake-step-8">
+      <div class="option-card-image" data-value="Fixer Upper" onclick="selectOption(this, 'exteriorCondition')"><img class="option-card-image-thumb" src="https://images.unsplash.com/photo-1583437624797-0e3348843acd?fm=jpg&q=60&w=400&auto=format&fit=crop"><div><div class="option-card-title">Fixer Upper</div><div class="option-card-sub">Exterior needs significant repairs</div></div></div>
+      <div class="option-card-image" data-value="Dated" onclick="selectOption(this, 'exteriorCondition')"><img class="option-card-image-thumb" src="https://images.unsplash.com/photo-1710055531207-83174a3e0c30?fm=jpg&q=60&w=400&auto=format&fit=crop"><div><div class="option-card-title">Dated</div><div class="option-card-sub">Exterior hasn't been updated recently</div></div></div>
+      <div class="option-card-image" data-value="Standard" onclick="selectOption(this, 'exteriorCondition')"><img class="option-card-image-thumb" src="https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?fm=jpg&q=60&w=400&auto=format&fit=crop"><div><div class="option-card-title">Standard</div><div class="option-card-sub">Exterior is updated with common finishes</div></div></div>
+      <div class="option-card-image" data-value="High end" onclick="selectOption(this, 'exteriorCondition')"><img class="option-card-image-thumb" src="https://images.unsplash.com/photo-1628624747186-a941c476b7ef?fm=jpg&q=60&w=400&auto=format&fit=crop"><div><div class="option-card-title">High end</div><div class="option-card-sub">Exterior has high-quality upgrades</div></div></div>
+      <div class="option-card-image" data-value="Luxury" onclick="selectOption(this, 'exteriorCondition')"><img class="option-card-image-thumb" src="https://images.unsplash.com/photo-1680645944941-da9198d7f6aa?fm=jpg&q=60&w=400&auto=format&fit=crop"><div><div class="option-card-title">Luxury</div><div class="option-card-sub">Exterior has elegant, top-tier finishes</div></div></div>
+    </div>
+
+    <div class="intake-step" id="intake-step-9">
+      <div class="option-card" data-value="Yes" onclick="selectOption(this, 'hoa')"><div class="option-card-title">Yes</div></div>
+      <div class="option-card" data-value="No" onclick="selectOption(this, 'hoa')"><div class="option-card-title">No</div></div>
+    </div>
+
+    <div class="intake-step" id="intake-step-10">
+      <div class="option-card" data-value="Age restricted community" onclick="selectOption(this, 'communityType')"><div class="option-card-title">Age restricted community</div></div>
+      <div class="option-card" data-value="Gated community" onclick="selectOption(this, 'communityType')"><div class="option-card-title">Gated community</div></div>
+      <div class="option-card" data-value="None of the above" onclick="selectOption(this, 'communityType')"><div class="option-card-title">None of the above</div></div>
+    </div>
+
+    <div class="intake-step" id="intake-step-11">
+      <div class="option-card" data-value="No, I enter directly into the home from the outside" onclick="selectOption(this, 'sharedEntryway')"><div class="option-card-title">No, I enter directly into the home from the outside</div></div>
+      <div class="option-card" data-value="Yes, I enter through a lobby or past a doorman" onclick="selectOption(this, 'sharedEntryway')"><div class="option-card-title">Yes, I enter through a lobby or past a doorman</div></div>
+    </div>
+
+    <div class="intake-step" id="intake-step-12">
+      <div class="field-row">
+        <div class="text-input-wrapper dollar"><input type="number" id="hoaFeesInput" placeholder="0"></div>
+      </div>
+    </div>
+
+    <div class="intake-step" id="intake-step-13">
+      <div class="checkbox-option" data-value="Leased or financed solar panels" onclick="toggleIssue(this)"><div class="checkbox-box"></div><div><div class="checkbox-label-title">Leased or financed solar panels</div><div class="checkbox-label-sub">You may need to buy out the lease or remove the panels to sell to us</div></div></div>
+      <div class="checkbox-option" data-value="Known foundation issues" onclick="toggleIssue(this)"><div class="checkbox-box"></div><div><div class="checkbox-label-title">Known foundation issues</div><div class="checkbox-label-sub">Excessive cracking, uneven floors</div></div></div>
+      <div class="checkbox-option" data-value="Fire damage" onclick="toggleIssue(this)"><div class="checkbox-box"></div><div><div class="checkbox-label-title">Fire damage</div></div></div>
+      <div class="checkbox-option" data-value="Well water" onclick="toggleIssue(this)"><div class="checkbox-box"></div><div><div class="checkbox-label-title">Well water</div><div class="checkbox-label-sub">You maintain a well to supply water</div></div></div>
+      <div class="checkbox-option" data-value="Septic system" onclick="toggleIssue(this)"><div class="checkbox-box"></div><div><div class="checkbox-label-title">Septic system</div><div class="checkbox-label-sub">Separate from municipal sewage</div></div></div>
+      <div class="checkbox-option" data-value="Mobile or manufactured home" onclick="toggleIssue(this)"><div class="checkbox-box"></div><div><div class="checkbox-label-title">Mobile or manufactured home</div></div></div>
+      <div class="checkbox-option" data-value="Unique ownership structure" onclick="toggleIssue(this)"><div class="checkbox-box"></div><div><div class="checkbox-label-title">Unique ownership structure</div><div class="checkbox-label-sub">Tenants in Common, Co-Ops, etc</div></div></div>
+      <div class="checkbox-option" data-value="Existing active or inactive underground fuel oil tanks" onclick="toggleIssue(this)"><div class="checkbox-box"></div><div><div class="checkbox-label-title">Existing active or inactive underground fuel oil tanks</div></div></div>
+      <div class="checkbox-option" data-value="Cesspool on property" onclick="toggleIssue(this)"><div class="checkbox-box"></div><div><div class="checkbox-label-title">Cesspool on property</div></div></div>
+      <div class="checkbox-option" data-value="None of the above" id="noneOfAboveOption" onclick="toggleIssue(this, true)"><div class="checkbox-box"></div><div><div class="checkbox-label-title">None of the above</div></div></div>
+    </div>
+
+    <div class="intake-step" id="intake-step-14">
+      <div class="option-card" data-value="Yes" onclick="selectOption(this, 'buyingInterest')"><div class="option-card-title">Yes</div></div>
+      <div class="option-card" data-value="No" onclick="selectOption(this, 'buyingInterest')"><div class="option-card-title">No</div></div>
+    </div>
+
+    <div class="intake-step" id="intake-step-15">
+      <div class="option-card" data-value="Yes" onclick="selectOption(this, 'homebuilder')"><div class="option-card-title">Yes</div></div>
+      <div class="option-card" data-value="No" onclick="selectOption(this, 'homebuilder')"><div class="option-card-title">No</div></div>
+    </div>
+
+    <div class="intake-step" id="intake-step-16">
+      <div class="option-card" data-value="Yes" onclick="selectOption(this, 'renovations')"><div class="option-card-title">Yes</div></div>
+      <div class="option-card" data-value="No" onclick="selectOption(this, 'renovations')"><div class="option-card-title">No</div></div>
+    </div>
+
+    <div class="intake-step" id="intake-step-17">
+      <div class="gate-loading" id="gateLoading">
+        <div class="gate-spinner"></div>
+        <p>Preparing your offer...</p>
+      </div>
+      <div class="gate-content" id="gateContent">
+        <div class="gate-grid">
+          <img class="gate-photo" src="https://images.unsplash.com/photo-1709787627975-9cb37bbeca60?fm=jpg&q=60&w=800&auto=format&fit=crop" alt="Family in front of their home">
+          <div>
+            <div class="gate-trust-badge">Trusted by 200,000+ homeowners</div>
+            <div class="gate-trust-badge">All cash offer</div>
+            <div class="gate-trust-badge">No repairs or staging</div>
+            <div class="gate-trust-badge">Choose your close date</div>
+            <div class="gate-trust-badge">4.4 on Reviews.io</div>
+            <div class="gate-title">See your offer</div>
+            <div class="gate-subtitle">No commitment to sell. Your info stays private.</div>
+            <div class="gate-divider">or</div>
+            <div class="text-input-wrapper" style="margin-bottom: 14px;">
+              <input type="email" id="gateEmailInput" placeholder="Email">
+            </div>
+            <button class="btn-continue" onclick="submitIntake()">Continue</button>
+            <div class="gate-terms">By pressing "Continue," I agree to Stickler's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="intake-success" id="intakeSuccess">
+    <h1>Thanks — we're preparing your offer.</h1>
+    <p>A member of the Stickler team is reviewing your details now and will follow up shortly with your cash offer.</p>
+  </div>
+
+</main>
+
+<form name="seller-intake" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="netlifyForm" style="display:none">
+  <input type="hidden" name="form-name" value="seller-intake">
+  <input type="hidden" name="bot-field">
+  <input type="hidden" name="property_address" id="hiddenAddress">
+  <input type="hidden" name="property_type" id="hiddenPropertyType">
+  <input type="hidden" name="bedrooms" id="hiddenBedrooms">
+  <input type="hidden" name="full_bathrooms" id="hiddenFullBaths">
+  <input type="hidden" name="partial_bathrooms" id="hiddenPartialBaths">
+  <input type="hidden" name="sqft" id="hiddenSqft">
+  <input type="hidden" name="floors" id="hiddenFloors">
+  <input type="hidden" name="basement" id="hiddenBasement">
+  <input type="hidden" name="year_built" id="hiddenYearBuilt">
+  <input type="hidden" name="timeline" id="hiddenTimeline">
+  <input type="hidden" name="kitchen_condition" id="hiddenKitchenCondition">
+  <input type="hidden" name="bathroom_condition" id="hiddenBathroomCondition">
+  <input type="hidden" name="living_room_condition" id="hiddenLivingRoomCondition">
+  <input type="hidden" name="exterior_condition" id="hiddenExteriorCondition">
+  <input type="hidden" name="hoa" id="hiddenHoa">
+  <input type="hidden" name="community_type" id="hiddenCommunityType">
+  <input type="hidden" name="shared_entryway" id="hiddenSharedEntryway">
+  <input type="hidden" name="hoa_fees" id="hiddenHoaFees">
+  <input type="hidden" name="issues" id="hiddenIssues">
+  <input type="hidden" name="buying_interest" id="hiddenBuyingInterest">
+  <input type="hidden" name="homebuilder" id="hiddenHomebuilder">
+  <input type="hidden" name="renovations" id="hiddenRenovations">
+  <input type="hidden" name="email" id="hiddenEmail">
+</form>
+
+<div class="bottom-bar" id="bottomBar">
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="bottom-nav">
+    <button class="btn-previous" id="prevBtn" onclick="goToStep(currentStep - 1)" disabled>Previous</button>
+    <div>
+      <button class="btn-edit" id="editBtn" style="display:none" onclick="goToStep(2)">Edit</button>
+      <button class="btn-next" id="nextBtn" onclick="handleNext()">Next</button>
+    </div>
+  </div>
+</div>
+
+<div class="trademark-footer">© 2026 Stickler Properties. All rights reserved.</div>
+
+<script>
+  const TOTAL_STEPS = 17;
+  let currentStep = 1;
+  let issuesSelected = [];
+
+  const answers = {
+    propertyType: null, bedrooms: null, fullBathrooms: null, partialBathrooms: null,
+    sqft: null, floors: null, basement: null, yearBuilt: null, timeline: null,
+    kitchenCondition: null, bathroomCondition: null, livingRoomCondition: null, exteriorCondition: null,
+    hoa: null, communityType: null, sharedEntryway: null, hoaFees: null,
+    buyingInterest: null, homebuilder: null, renovations: null
+  };
+
+  const stepContent = {
+    1: { title: "What best describes your home?", sub: "This question helps us select comps when preparing your offer." },
+    2: { title: "We found it! Mind helping us with these details?", sub: "You'll be able to review the rest of your home next." },
+    3: { title: "Confirm your home details", sub: "This info is available to the public. You can edit these details if you've made any updates to your home." },
+    4: { title: "When do you need to sell your home?", sub: "This won't affect your offer. We're here to help with any timeline." },
+    5: { title: "How would you describe your kitchen?", sub: "For these questions, just select your closest match." },
+    6: { title: "How would you describe your main bathroom?", sub: "For these questions, just select your closest match." },
+    7: { title: "How would you describe your living room?", sub: "For these questions, just select your closest match." },
+    8: { title: "How would you describe your home exterior?", sub: "For these questions, just select your closest match." },
+    9: { title: "Is your home part of a homeowners association?", sub: "This is often called an HOA. It's a group that helps maintain your community for a fee." },
+    10: { title: "Does your home belong to any of these types of communities?", sub: "" },
+    11: { title: "Do you have a shared entryway?", sub: "" },
+    12: { title: "What are your monthly HOA fees?", sub: "(Optional) This helps us better understand your property's monthly expenses." },
+    13: { title: "Do any of these apply to your home?", sub: "Select all that apply. We keep an eye out for these things when we're making an offer." },
+    14: { title: "Are you also interested in buying a home?", sub: "Let us know and we can help you buy any home that's for sale." },
+    15: { title: "Are you working with a homebuilder?", sub: "We can work with them to line up your close dates." },
+    16: { title: "Have you made any renovations?", sub: "Let us know if you've made any major upgrades to the property. You'll be able to add more detail after your initial estimate." },
+    17: { title: "", sub: "" }
+  };
+
+  const params = new URLSearchParams(window.location.search);
+  const address = params.get('address') || 'Your Home';
+  document.getElementById('topBarAddress').textContent = address;
+
+  function populateNumberSelect(id, max) {
+    const select = document.getElementById(id);
+    let html = '<option value="" disabled selected>Select...</option>';
+    for (let i = 0; i <= max; i++) html += '<option value="' + i + '">' + i + (i === max ? '+' : '') + '</option>';
+    select.innerHTML = html;
+  }
+  populateNumberSelect('bedroomsSelect', 12);
+  populateNumberSelect('fullBathsSelect', 10);
+  populateNumberSelect('partialBathsSelect', 10);
+
+  (function populateYearBuilt() {
+    const select = document.getElementById('yearBuiltSelect');
+    let html = '<option value="" disabled selected>Select...</option>';
+    for (let y = 2026; y >= 1875; y--) html += '<option value="' + y + '">' + y + '</option>';
+    select.innerHTML = html;
+  })();
+
+  function selectOption(el, key) {
+    el.parentElement.querySelectorAll('.option-card, .option-card-image').forEach(function(o) { o.classList.remove('selected'); });
+    el.classList.add('selected');
+    answers[key] = el.getAttribute('data-value');
+  }
+
+  function toggleIssue(el, isNone) {
+    var noneEl = document.getElementById('noneOfAboveOption');
+    if (isNone) {
+      document.querySelectorAll('.checkbox-option').forEach(function(o) { o.classList.remove('selected'); });
+      el.classList.add('selected');
+      issuesSelected = ['None of the above'];
+    } else {
+      noneEl.classList.remove('selected');
+      el.classList.toggle('selected');
+      var val = el.getAttribute('data-value');
+      if (el.classList.contains('selected')) {
+        issuesSelected = issuesSelected.filter(function(v) { return v !== 'None of the above'; }).concat(val);
+      } else {
+        issuesSelected = issuesSelected.filter(function(v) { return v !== val; });
+      }
+    }
+  }
+
+  function updateHero() {
+    var c = stepContent[currentStep];
+    document.getElementById('heroTitle').textContent = c.title;
+    document.getElementById('heroSub').textContent = c.sub;
+    document.getElementById('intakeHero').style.display = (currentStep === 17) ? 'none' : 'block';
+  }
+
+  function updateBottomBar() {
+    document.getElementById('progressFill').style.width = (currentStep / TOTAL_STEPS * 100) + '%';
+    document.getElementById('prevBtn').disabled = (currentStep === 1);
+    var isReviewStep = (currentStep === 3);
+    document.getElementById('editBtn').style.display = isReviewStep ? 'inline-block' : 'none';
+    document.getElementById('nextBtn').textContent = isReviewStep ? 'Confirm' : 'Next';
+    document.getElementById('bottomBar').style.display = (currentStep === 17) ? 'none' : 'block';
+  }
+
+  function goToStep(n) {
+    if (n < 1 || n > TOTAL_STEPS) return;
+
+    if (n === 3) {
+      document.getElementById('reviewBedrooms').textContent = answers.bedrooms || '—';
+      document.getElementById('reviewFullBaths').textContent = answers.fullBathrooms || '—';
+      document.getElementById('reviewPartialBaths').textContent = answers.partialBathrooms || '—';
+      document.getElementById('reviewSqft').textContent = answers.sqft ? (parseInt(answers.sqft).toLocaleString() + ' ft²') : '—';
+      document.getElementById('reviewFloors').textContent = answers.floors || '—';
+      document.getElementById('reviewBasement').textContent = answers.basement || '—';
+      document.getElementById('reviewYearBuilt').textContent = answers.yearBuilt || '—';
+    }
+
+    document.getElementById('intake-step-' + currentStep).classList.remove('active');
+    currentStep = n;
+    document.getElementById('intake-step-' + currentStep).classList.add('active');
+
+    updateHero();
+    updateBottomBar();
+
+    if (currentStep === 17) startGateLoading();
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function startGateLoading() {
+    document.getElementById('gateLoading').style.display = 'flex';
+    document.getElementById('gateContent').style.display = 'none';
+    setTimeout(function() {
+      document.getElementById('gateLoading').style.display = 'none';
+      document.getElementById('gateContent').style.display = 'block';
+    }, 1300);
+  }
+
+  function handleNext() {
+    if (currentStep === 1 && !answers.propertyType) { alert('Please select an option to continue.'); return; }
+    if (currentStep === 2) {
+      answers.bedrooms = document.getElementById('bedroomsSelect').value;
+      answers.fullBathrooms = document.getElementById('fullBathsSelect').value;
+      answers.partialBathrooms = document.getElementById('partialBathsSelect').value;
+      answers.sqft = document.getElementById('sqftInput').value;
+      answers.floors = document.getElementById('floorsSelect').value;
+      answers.basement = document.getElementById('basementSelect').value;
+      answers.yearBuilt = document.getElementById('yearBuiltSelect').value;
+      if (!answers.bedrooms || !answers.fullBathrooms || !answers.partialBathrooms || !answers.sqft || !answers.floors || !answers.basement || !answers.yearBuilt) {
+        alert('Please fill out all fields to continue.'); return;
+      }
+    }
+    if (currentStep === 4 && !answers.timeline) { alert('Please select an option to continue.'); return; }
+    if (currentStep === 5 && !answers.kitchenCondition) { alert('Please select an option to continue.'); return; }
+    if (currentStep === 6 && !answers.bathroomCondition) { alert('Please select an option to continue.'); return; }
+    if (currentStep === 7 && !answers.livingRoomCondition) { alert('Please select an option to continue.'); return; }
+    if (currentStep === 8 && !answers.exteriorCondition) { alert('Please select an option to continue.'); return; }
+    if (currentStep === 9 && !answers.hoa) { alert('Please select an option to continue.'); return; }
+    if (currentStep === 10 && !answers.communityType) { alert('Please select an option to continue.'); return; }
+    if (currentStep === 11 && !answers.sharedEntryway) { alert('Please select an option to continue.'); return; }
+    if (currentStep === 12) { answers.hoaFees = document.getElementById('hoaFeesInput').value; }
+    if (currentStep === 14 && !answers.buyingInterest) { alert('Please select an option to continue.'); return; }
+    if (currentStep === 15 && !answers.homebuilder) { alert('Please select an option to continue.'); return; }
+    if (currentStep === 16 && !answers.renovations) { alert('Please select an option to continue.'); return; }
+
+    goToStep(currentStep + 1);
+  }
+
+  function submitIntake() {
+    var email = document.getElementById('gateEmailInput').value.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      alert('Please enter a valid email address.'); return;
+    }
+
+    document.getElementById('hiddenAddress').value = address;
+    document.getElementById('hiddenPropertyType').value = answers.propertyType || '';
+    document.getElementById('hiddenBedrooms').value = answers.bedrooms || '';
+    document.getElementById('hiddenFullBaths').value = answers.fullBathrooms || '';
+    document.getElementById('hiddenPartialBaths').value = answers.partialBathrooms || '';
+    document.getElementById('hiddenSqft').value = answers.sqft || '';
+    document.getElementById('hiddenFloors').value = answers.floors || '';
+    document.getElementById('hiddenBasement').value = answers.basement || '';
+    document.getElementById('hiddenYearBuilt').value = answers.yearBuilt || '';
+    document.getElementById('hiddenTimeline').value = answers.timeline || '';
+    document.getElementById('hiddenKitchenCondition').value = answers.kitchenCondition || '';
+    document.getElementById('hiddenBathroomCondition').value = answers.bathroomCondition || '';
+    document.getElementById('hiddenLivingRoomCondition').value = answers.livingRoomCondition || '';
+    document.getElementById('hiddenExteriorCondition').value = answers.exteriorCondition || '';
+    document.getElementById('hiddenHoa').value = answers.hoa || '';
+    document.getElementById('hiddenCommunityType').value = answers.communityType || '';
+    document.getElementById('hiddenSharedEntryway').value = answers.sharedEntryway || '';
+    document.getElementById('hiddenHoaFees').value = answers.hoaFees || '';
+    document.getElementById('hiddenIssues').value = issuesSelected.join(', ');
+    document.getElementById('hiddenBuyingInterest').value = answers.buyingInterest || '';
+    document.getElementById('hiddenHomebuilder').value = answers.homebuilder || '';
+    document.getElementById('hiddenRenovations').value = answers.renovations || '';
+    document.getElementById('hiddenEmail').value = email;
+
+    var form = document.getElementById('netlifyForm');
+    var data = new FormData(form);
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(data).toString()
+    }).catch(function() { /* still show success even if lead submission hiccups */ });
+
+    document.getElementById('intake-step-17').classList.remove('active');
+    document.getElementById('intakeSuccess').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  updateBottomBar();
+</script>
+
+</body>
+</html>
