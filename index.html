@@ -225,7 +225,7 @@
     min-height: 100vh;
     background: #000000;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1.1fr 1fr;
     align-items: center;
     padding: 72px 0 0 0;
     overflow: hidden;
@@ -236,6 +236,21 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+  }
+
+  .hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 6% 40px 0;
+    height: 100%;
+  }
+
+  .hero-phone-img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    display: block;
   }
 
   h1 {
@@ -1565,6 +1580,8 @@
     .hamburger { grid-column: 1; grid-row: 1; }
     .nav-left { grid-column: 2; justify-content: center; gap: 0; }
     .hero { grid-template-columns: 1fr; }
+    .hero-right { padding: 0 8% 60px; }
+    .hero-phone-img { max-width: 300px; margin: 0 auto; }
     .help-inner { grid-template-columns: 1fr; }
     .help-image { min-height: 300px; }
     .who-cards { grid-template-columns: 1fr; }
@@ -1620,6 +1637,9 @@
       <a href="sell.html" class="btn-outline">Sell</a>
       <a href="buy.html" class="btn-primary">Buy</a>
     </div>
+  </div>
+  <div class="hero-right">
+    <img src="stickler-phone.png" alt="Stickler app on iPhone" class="hero-phone-img">
   </div>
 </section>
 
