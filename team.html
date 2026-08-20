@@ -4,533 +4,107 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Our Team — Stickler Properties</title>
-
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --navy: #000000;
-    --white: #FFFFFF;
-    --text: #000000;
-    --border: #000000;
-
-    /* TWEAK THESE to adjust the team photo section width/spacing */
-    --team-side-margin: 6%;   /* empty space on left/right of the whole photo grid — matches hero's 6% by default */
-    --team-gutter: 40px;      /* horizontal space between each person's column */
-    --team-card-padding-y: 48px; /* space above/below content inside each card */
+    --navy: #000000; --white: #FFFFFF; --text: #000000; --border: #000000;
+    --team-side-margin: 6%; --team-gutter: 40px; --team-card-padding-y: 48px;
   }
-
   html { scroll-behavior: smooth; }
+  body { font-family: Arial, Helvetica, sans-serif; background: var(--white); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
-  body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: var(--white);
-    color: var(--text);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* NAV — identical to index.html */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 5%;
-    height: 72px;
-    background: #000000;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-  }
-
-  .nav-left {
-    display: flex;
-    align-items: center;
-    gap: 48px;
-  }
-
-  .nav-logo {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 14px;
-    font-weight: 400;
-    color: #FFFFFF;
-    background: #000000;
-    text-decoration: none;
-    letter-spacing: 0.1em;
-    padding: 7px 16px;
-    border: 1px solid #FFFFFF;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 36px;
-    list-style: none;
-  }
-
-  .nav-links a {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    color: rgba(255,255,255,0.75);
-    text-decoration: none;
-    letter-spacing: 0.04em;
-    transition: color 0.2s;
-  }
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 5%; height: 72px; background: #000000; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .nav-left { display: flex; align-items: center; gap: 48px; }
+  .nav-logo { font-family: Georgia, 'Times New Roman', serif; font-size: 14px; font-weight: 400; color: #FFFFFF; background: #000000; text-decoration: none; letter-spacing: 0.1em; padding: 7px 16px; border: 1px solid #FFFFFF; text-transform: uppercase; white-space: nowrap; }
+  .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+  .nav-links a { font-family: Arial, Helvetica, sans-serif; font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.75); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
   .nav-links a:hover { color: #FFFFFF; }
-
-  .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .nav-btn {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 10px 28px;
-    text-decoration: none;
-    cursor: pointer;
-    border: none;
-    transition: all 0.2s;
-  }
-
-  .nav-btn-outline {
-    background: transparent;
-    color: #FFFFFF;
-    border: 1px solid rgba(255,255,255,0.5);
-  }
+  .nav-right { display: flex; align-items: center; gap: 12px; }
+  .nav-btn { font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 10px 28px; text-decoration: none; cursor: pointer; border: none; transition: all 0.2s; }
+  .nav-btn-outline { background: transparent; color: #FFFFFF; border: 1px solid rgba(255,255,255,0.5); }
   .nav-btn-outline:hover { border-color: #FFFFFF; }
-
-  .nav-btn-solid {
-    background: #FFFFFF;
-    color: #000000;
-  }
+  .nav-btn-solid { background: #FFFFFF; color: #000000; }
   .nav-btn-solid:hover { background: rgba(255,255,255,0.88); }
 
   /* PAGE HERO */
-  .page-hero {
-    background: #000000;
-    padding: 140px 6% 80px;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-  }
-
-  .page-hero-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.4);
-    margin-bottom: 20px;
-  }
-
-  .page-hero h1 {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: clamp(36px, 5vw, 64px);
-    font-weight: 400;
-    color: #FFFFFF;
-    line-height: 1.08;
-    letter-spacing: -0.01em;
-    max-width: 700px;
-    margin-bottom: 24px;
-  }
-
-  .page-hero-sub {
-    font-size: 16px;
-    font-weight: 300;
-    color: rgba(255,255,255,0.5);
-    max-width: 520px;
-    line-height: 1.75;
-  }
+  .page-hero { background: #000000; padding: 140px 6% 80px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .page-hero-label { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
+  .page-hero h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(36px, 5vw, 64px); font-weight: 400; color: #FFFFFF; line-height: 1.08; letter-spacing: -0.01em; max-width: 700px; margin-bottom: 24px; }
+  .page-hero-sub { font-size: 16px; font-weight: 300; color: rgba(255,255,255,0.5); max-width: 520px; line-height: 1.75; }
 
   /* TEAM GRID */
-  .team-section {
-    padding: 0 var(--team-side-margin);
-    border-top: 1px solid #000000;
-    border-bottom: 1px solid #000000;
-  }
+  .team-section { padding: 0 var(--team-side-margin); border-top: 1px solid #000000; border-bottom: 1px solid #000000; }
+  .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: var(--team-gutter); }
+  .team-card { width: 100%; padding: var(--team-card-padding-y) 0; border: none; background: none; cursor: pointer; text-align: left; font-family: inherit; color: inherit; transition: background 0.2s; }
+  .team-card:hover, .team-card:focus-visible { background: rgba(0,0,0,0.03); }
+  .team-card.is-active { background: rgba(0,0,0,0.05); }
+  .team-card-photo { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; object-position: center top; display: block; border: 1px solid #000000; margin-bottom: 24px; }
+  .team-card-placeholder { width: 100%; aspect-ratio: 1 / 1; border: 1px dashed rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; background: rgba(0,0,0,0.02); }
+  .team-card-placeholder span { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0,0,0,0.35); }
+  .team-card-role { font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #000000; opacity: 0.4; margin-bottom: 12px; }
+  .team-card-name { font-family: Georgia, 'Times New Roman', serif; font-size: 22px; font-weight: 400; color: #000000; line-height: 1.2; margin-bottom: 8px; }
+  .team-card-title { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #000000; opacity: 0.5; line-height: 1.5; }
 
-  .team-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: var(--team-gutter);
-  }
-
-  .team-card {
-    width: 100%;
-    padding: var(--team-card-padding-y) 0;
-    border: none;
-    background: none;
-    cursor: pointer;
-    text-align: left;
-    font-family: inherit;
-    color: inherit;
-    transition: background 0.2s;
-  }
-
-  .team-card:hover,
-  .team-card:focus-visible {
-    background: rgba(0,0,0,0.03);
-  }
-
-  .team-card.is-active {
-    background: rgba(0,0,0,0.05);
-  }
-
-  .team-card-photo {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    object-position: center top;
-    display: block;
-    border: 1px solid #000000;
-    margin-bottom: 24px;
-  }
-
-  .team-card-placeholder {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    border: 1px dashed rgba(0,0,0,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 24px;
-    background: rgba(0,0,0,0.02);
-  }
-
-  .team-card-placeholder span {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(0,0,0,0.35);
-  }
-
-  .team-card-role {
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #000000;
-    opacity: 0.4;
-    margin-bottom: 12px;
-  }
-
-  .team-card-name {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 22px;
-    font-weight: 400;
-    color: #000000;
-    line-height: 1.2;
-    margin-bottom: 8px;
-  }
-
-  .team-card-title {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #000000;
-    opacity: 0.5;
-    line-height: 1.5;
-  }
-
-  /* DETAIL DRAWER — slides in from the right on click */
-  .team-detail-overlay {
-    position: fixed;
-    inset: 72px 0 0 0;
-    background: rgba(0,0,0,0.35);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s ease;
-    z-index: 150;
-  }
-
-  .team-detail-overlay.is-open {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .team-detail-panel {
-    position: absolute;
-    top: 0; right: 0; bottom: 0;
-    width: 62%;
-    background: #FFFFFF;
-    border-left: 1px solid #000000;
-    overflow-y: auto;
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
-    padding: 64px 6%;
-  }
-
-  .team-detail-overlay.is-open .team-detail-panel {
-    transform: translateX(0);
-  }
-
-  .team-detail-close {
-    position: absolute;
-    top: 28px;
-    right: 6%;
-    width: 36px;
-    height: 36px;
-    background: none;
-    border: 1px solid #000000;
-    font-size: 16px;
-    line-height: 1;
-    cursor: pointer;
-    transition: background 0.2s, color 0.2s;
-  }
+  /* DETAIL DRAWER */
+  .team-detail-overlay { position: fixed; inset: 72px 0 0 0; background: rgba(0,0,0,0.35); opacity: 0; pointer-events: none; transition: opacity 0.25s ease; z-index: 150; }
+  .team-detail-overlay.is-open { opacity: 1; pointer-events: auto; }
+  .team-detail-panel { position: absolute; top: 0; right: 0; bottom: 0; width: 62%; background: #FFFFFF; border-left: 1px solid #000000; overflow-y: auto; transform: translateX(100%); transition: transform 0.3s ease; padding: 64px 6%; }
+  .team-detail-overlay.is-open .team-detail-panel { transform: translateX(0); }
+  .team-detail-close { position: absolute; top: 28px; right: 6%; width: 36px; height: 36px; background: none; border: 1px solid #000000; font-size: 16px; line-height: 1; cursor: pointer; transition: background 0.2s, color 0.2s; }
   .team-detail-close:hover { background: #000000; color: #FFFFFF; }
-
   .team-detail-content { display: none; }
   .team-detail-content.is-active { display: block; }
-
-  .team-detail-name {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: clamp(26px, 3vw, 36px);
-    font-weight: 400;
-    color: #000000;
-    line-height: 1.15;
-    margin-bottom: 10px;
-  }
-
-  .team-detail-title {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #000000;
-    opacity: 0.5;
-    margin-bottom: 36px;
-  }
-
-  .team-detail-bio {
-    font-size: 15px;
-    font-weight: 300;
-    color: #000000;
-    line-height: 1.8;
-  }
-
-  .team-detail-bio p {
-    margin-bottom: 20px;
-  }
-  .team-detail-bio p:last-child {
-    margin-bottom: 0;
-  }
+  .team-detail-name { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(26px, 3vw, 36px); font-weight: 400; color: #000000; line-height: 1.15; margin-bottom: 10px; }
+  .team-detail-title { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #000000; opacity: 0.5; margin-bottom: 36px; }
+  .team-detail-bio { font-size: 15px; font-weight: 300; color: #000000; line-height: 1.8; }
+  .team-detail-bio p { margin-bottom: 20px; }
+  .team-detail-bio p:last-child { margin-bottom: 0; }
 
   /* CTA STRIP */
-  .team-cta {
-    background: #000000;
-    padding: 80px 6%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 40px;
-  }
-
-  .team-cta-text h2 {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: clamp(24px, 3vw, 38px);
-    font-weight: 400;
-    color: #FFFFFF;
-    line-height: 1.15;
-    margin-bottom: 10px;
-  }
-
-  .team-cta-text p {
-    font-size: 15px;
-    font-weight: 300;
-    color: rgba(255,255,255,0.45);
-    line-height: 1.65;
-    max-width: 420px;
-  }
-
-  .team-cta-btns {
-    display: flex;
-    gap: 12px;
-    flex-shrink: 0;
-  }
-
-  .btn-solid {
-    display: inline-flex;
-    align-items: center;
-    background: #FFFFFF;
-    color: #000000;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 14px 32px;
-    text-decoration: none;
-    transition: background 0.2s;
-    border: 1px solid #FFFFFF;
-  }
+  .team-cta { background: #000000; padding: 80px 6%; display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+  .team-cta-text h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(24px, 3vw, 38px); font-weight: 400; color: #FFFFFF; line-height: 1.15; margin-bottom: 10px; }
+  .team-cta-text p { font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.45); line-height: 1.65; max-width: 420px; }
+  .team-cta-btns { display: flex; gap: 12px; flex-shrink: 0; }
+  .btn-solid { display: inline-flex; align-items: center; background: #FFFFFF; color: #000000; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px 32px; text-decoration: none; transition: background 0.2s; border: 1px solid #FFFFFF; }
   .btn-solid:hover { background: rgba(255,255,255,0.88); }
-
-  .btn-ghost {
-    display: inline-flex;
-    align-items: center;
-    background: transparent;
-    color: #FFFFFF;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 14px 32px;
-    text-decoration: none;
-    border: 1px solid rgba(255,255,255,0.4);
-    transition: border-color 0.2s;
-  }
+  .btn-ghost { display: inline-flex; align-items: center; background: transparent; color: #FFFFFF; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px 32px; text-decoration: none; border: 1px solid rgba(255,255,255,0.4); transition: border-color 0.2s; }
   .btn-ghost:hover { border-color: #FFFFFF; }
 
-  /* FOOTER — identical to index.html */
-  footer {
-    background: #000000;
-    padding: 64px 6% 40px;
-    border-top: 1px solid rgba(255,255,255,0.06);
-  }
-
-  .footer-top {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 48px;
-    margin-bottom: 60px;
-    padding-bottom: 60px;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-  }
-
-  .footer-logo {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 22px;
-    font-weight: 400;
-    color: #FFFFFF;
-    text-decoration: none;
-    display: block;
-    margin-bottom: 14px;
-  }
-
-  .footer-tagline {
-    font-size: 12px;
-    font-weight: 300;
-    color: rgba(255,255,255,0.35);
-    line-height: 1.7;
-  }
-
-  .footer-nav-col h4 {
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.3);
-    margin-bottom: 20px;
-  }
-
-  .footer-nav-col a {
-    display: block;
-    font-size: 13px;
-    font-weight: 300;
-    color: rgba(255,255,255,0.5);
-    text-decoration: none;
-    margin-bottom: 12px;
-    transition: color 0.2s;
-  }
+  /* FOOTER */
+  footer { background: #000000; padding: 64px 6% 40px; border-top: 1px solid rgba(255,255,255,0.06); }
+  .footer-top { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 60px; padding-bottom: 60px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .footer-logo { font-family: Georgia, 'Times New Roman', serif; font-size: 22px; font-weight: 400; color: #FFFFFF; text-decoration: none; display: block; margin-bottom: 14px; }
+  .footer-tagline { font-size: 12px; font-weight: 300; color: rgba(255,255,255,0.35); line-height: 1.7; }
+  .footer-nav-col h4 { font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
+  .footer-nav-col a { display: block; font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.5); text-decoration: none; margin-bottom: 12px; transition: color 0.2s; }
   .footer-nav-col a:hover { color: #FFFFFF; }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: rgba(255,255,255,0.2); letter-spacing: 0.04em; }
 
-  .footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 11px;
-    color: rgba(255,255,255,0.2);
-    letter-spacing: 0.04em;
-  }
-
-
-
-  /* HAMBURGER + MOBILE MENU */
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    width: 40px;
-    height: 40px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 6px;
-    z-index: 300;
-    flex-shrink: 0;
-  }
-
-  .hamburger span {
-    display: block;
-    width: 22px;
-    height: 1.5px;
-    background: #FFFFFF;
-    transition: all 0.25s ease;
-    transform-origin: center;
-  }
-
+  /* HAMBURGER */
+  .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 40px; height: 40px; background: none; border: none; cursor: pointer; padding: 6px; z-index: 300; flex-shrink: 0; }
+  .hamburger span { display: block; width: 22px; height: 1.5px; background: #FFFFFF; transition: all 0.25s ease; transform-origin: center; }
   .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
   .hamburger.open span:nth-child(2) { opacity: 0; }
   .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-  .mobile-menu {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: #000000;
-    z-index: 200;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 0 8%;
-  }
-
+  .mobile-menu { display: none; position: fixed; inset: 0; background: #000000; z-index: 200; flex-direction: column; justify-content: center; align-items: flex-start; padding: 0 8%; }
   .mobile-menu.open { display: flex; }
-
   .mobile-menu-links { list-style: none; width: 100%; }
-
   .mobile-menu-links li { border-bottom: 1px solid rgba(255,255,255,0.1); }
   .mobile-menu-links li:first-child { border-top: 1px solid rgba(255,255,255,0.1); }
-
-  .mobile-menu-links a {
-    display: block;
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 32px;
-    font-weight: 400;
-    color: rgba(255,255,255,0.8);
-    text-decoration: none;
-    padding: 24px 0;
-    transition: color 0.2s;
-  }
+  .mobile-menu-links a { display: block; font-family: Georgia, 'Times New Roman', serif; font-size: 32px; font-weight: 400; color: rgba(255,255,255,0.8); text-decoration: none; padding: 24px 0; transition: color 0.2s; }
   .mobile-menu-links a:hover { color: #FFFFFF; }
 
   @media (max-width: 768px) {
     .hamburger { display: flex; }
     .nav-right { display: none; }
     .nav-links { display: none; }
-    /* Center logo, hamburger left on mobile */
-    nav {
-      display: grid;
-      grid-template-columns: 40px 1fr 40px;
-      align-items: center;
-    }
+    nav { display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; }
     .nav-left { justify-content: center; grid-column: 2; }
     .hamburger { grid-column: 1; grid-row: 1; }
     .team-section { padding: 0 6%; border-bottom: none; }
@@ -542,12 +116,10 @@
     .team-cta { flex-direction: column; align-items: flex-start; }
     .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
   }
-
   @media (max-width: 600px) {
     .footer-top { grid-template-columns: 1fr; }
     .team-cta-btns { flex-direction: column; width: 100%; }
   }
-
 </style>
 </head>
 <body>
@@ -600,9 +172,9 @@
 
     <!-- Ralph -->
     <button class="team-card" id="card-ralph" onclick="openTeamMember('ralph')">
-      <div class="team-card-placeholder"><span>Coming soon</span></div>
+      <img src="ralph.jpg" alt="Ralph Beberniss" class="team-card-photo" style="object-position: center 75%;">
       <div class="team-card-name">Ralph Beberniss</div>
-      <div class="team-card-title">executive vice president of operations</div>
+      <div class="team-card-title">Executive Vice President of Operations</div>
     </button>
 
     <!-- Nathalie -->
@@ -611,6 +183,7 @@
       <div class="team-card-name">Nathalie Truong</div>
       <div class="team-card-title">Executive Vice President of Strategic Partners</div>
     </button>
+
   </div>
 </section>
 
@@ -623,10 +196,19 @@
       <div class="team-detail-name">Isaac W. Stickler</div>
       <div class="team-detail-title">Founder &amp; Chief Executive Officer</div>
       <div class="team-detail-bio">
-        <p>Isaac W. Stickler is the driving force behind Stickler Properties, setting the firms vision, leading strategy, and overseeing execution across all business units. Mr. Stickler background includes sales and marketing leadership, with a proven ability to build and manage high-performance teams in competitive environments.</p>
-        <p>With over 100+ distressed real estate projects completed, Mr. Stickler brings operational expertise to every aspect of the business.</p>
-        <p>Mr. Stickler understands the mechanics of deal flow, the nuances of market timing, and the discipline needed to grow a real estate firm with consistency and precision.</p>
-        <p>As CEO, Mr. Stickler is responsible for expanding into new markets, cultivating investor relationships, and ensuring the Firms  culture of excellence is reflected in every hire, deal, and partnership. His leadership philosophy focuses on empowering talented people, leveraging relationships, and maintaining high execution standards that turn vision into results.</p>      
+        <p>Isaac W. Stickler is the driving force behind Stickler Properties, setting the firm's vision, leading strategy, and overseeing execution across all business units. Mr. Stickler's background includes sales and marketing leadership, with a proven ability to build and manage high-performance teams in competitive environments.</p>
+        <p>With over 100 distressed real estate projects completed, Mr. Stickler brings operational expertise to every aspect of the business. He understands the mechanics of deal flow, the nuances of market timing, and the discipline needed to grow a real estate firm with consistency and precision.</p>
+        <p>As CEO, Mr. Stickler is responsible for expanding into new markets, cultivating investor relationships, and ensuring the firm's culture of excellence is reflected in every hire, deal, and partnership. His leadership philosophy focuses on empowering talented people, leveraging relationships, and maintaining high execution standards that turn vision into results.</p>
+      </div>
+    </div>
+
+    <div class="team-detail-content" id="detail-ralph">
+      <div class="team-detail-name">Ralph Beberniss</div>
+      <div class="team-detail-title">Executive Vice President of Operations</div>
+      <div class="team-detail-bio">
+        <p>Ralph Beberniss is Executive Vice President of Operations and an accomplished entrepreneur and sales leader with a proven track record of execution and growth. He has completed more than 200 distressed real estate transactions, bringing deep expertise across deal sourcing, acquisition, negotiation, and disposition.</p>
+        <p>Mr. Beberniss's hands-on experience in the field gives him a practical, results-driven perspective on every stage of the transaction process.</p>
+        <p>Mr. Beberniss built and led a high-performing sales organization of more than 150 associates, where he developed scalable systems, training programs, and performance-driven processes that supported consistent growth. His ability to combine operational discipline with sales leadership has helped him create lasting value across multiple real estate markets.</p>
       </div>
     </div>
 
@@ -634,20 +216,9 @@
       <div class="team-detail-name">Nathalie Truong</div>
       <div class="team-detail-title">Executive Vice President of Strategic Partners</div>
       <div class="team-detail-bio">
-        <p>Nathalie Truong is the executive Vice President of Strategic Partners Partnerships. Her role combines business development and relationship management.  </p>
-        <p>Mrs Truong pinpoints high-value partnership opportunities, designs collaboration frameworks, and ensures each alliance is mutually beneficial and sustainable over the long term. Mrs. Truong's skill in navigating and maintaining relationships is vital.</p>
-        <p>As the firms expands into multiple metro markets, her partnerships role becomes even more important acting as a force multiplier that boosts deal flow and enhances Stickler Properties' reputation through these alliances.</p>
-      </div>
-    </div>
-
-    <div class="team-detail-content" id="detail-ralph">
-      <div class="team-detail-name">Ralph Beberniss</div>
-      <div class="team-detail-title">executive vice president of operations</div>
-      <div class="team-detail-bio">
-        <p>Ralph Beberniss is executive vice president of operations Mr. Beberniss entrepreneur and sales leader with a proven track record of execution and growth. He has completed more than 200+  distressed  real estate transactions, bringing deep expertise across deal sourcing, acquisition, negotiation, and disposition.</p>
-        <p>Mr. Beberniss hands-on experience in the field gives him a practical, results-driven perspective on every stage of the transaction process. </p>
-        <p>Mr. Beberniss built and led a high-performing sales organization of more than 150 associates, where he developed scalable systems, training programs, and performance-driven processes that supported consistent growth. His ability to combine operational discipline with sales leadership has helped him create lasting value across multiple real estate markets.
-</p>
+        <p>Nathalie Truong is Executive Vice President of Strategic Partnerships. Her role combines business development and relationship management.</p>
+        <p>Mrs. Truong pinpoints high-value partnership opportunities, designs collaboration frameworks, and ensures each alliance is mutually beneficial and sustainable over the long term. Her skill in navigating and maintaining relationships is vital to the firm's growth strategy.</p>
+        <p>As the firm expands into multiple metro markets, her partnerships role becomes even more important — acting as a force multiplier that boosts deal flow and enhances Stickler Properties' reputation through these alliances.</p>
       </div>
     </div>
 
@@ -658,7 +229,7 @@
 <div class="team-cta">
   <div class="team-cta-text">
     <h2>Ready to work with us?</h2>
-    <p>A team you can trust to help you sell your property for cash or purchase an investment property. </p>
+    <p>A team you can trust to help you sell your property for cash or purchase an investment property.</p>
   </div>
   <div class="team-cta-btns">
     <a href="sell.html" class="btn-solid">Sell</a>
@@ -675,7 +246,7 @@
     </div>
     <div class="footer-nav-col">
       <h4>Platform</h4>
-      <a href="index.html how-it-works">How it works</a>
+      <a href="index.html#how-it-works">How it works</a>
     </div>
     <div class="footer-nav-col">
       <h4>Company</h4>
@@ -706,7 +277,6 @@
     document.getElementById('hamburgerBtn').classList.remove('open');
     document.body.style.overflow = '';
   }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileMenu(); });
 
   function openTeamMember(id) {
     document.querySelectorAll('.team-card').forEach(el => el.classList.remove('is-active'));
@@ -723,7 +293,9 @@
     document.body.style.overflow = '';
   }
 
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeTeamMember(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeTeamMember(); closeMobileMenu(); }
+  });
 </script>
 </body>
 </html>
